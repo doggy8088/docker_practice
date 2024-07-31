@@ -1,21 +1,21 @@
-# Docker Desktop 启用 Kubernetes
+# Docker Desktop 啟用 Kubernetes
 
-使用 Docker Desktop 可以很方便的启用 Kubernetes，由于国内获取不到 `k8s.gcr.io` 镜像，我们必须首先解决这一问题。
+使用 Docker Desktop 可以很方便的啟用 Kubernetes，由於國內獲取不到 `k8s.gcr.io` 映象，我們必須首先解決這一問題。
 
-## 获取 `k8s.gcr.io` 镜像
+## 獲取 `k8s.gcr.io` 映象
 
-由于国内拉取不到 `k8s.gcr.io` 镜像，我们可以使用开源项目 [AliyunContainerService/k8s-for-docker-desktop](https://github.com/AliyunContainerService/k8s-for-docker-desktop) 来获取所需的镜像。
+由於國內拉取不到 `k8s.gcr.io` 映象，我們可以使用開源專案 [AliyunContainerService/k8s-for-docker-desktop](https://github.com/AliyunContainerService/k8s-for-docker-desktop) 來獲取所需的映象。
 
-## 启用 Kubernetes
+## 啟用 Kubernetes
 
-在 Docker Desktop 设置页面，点击 `Kubernetes`，选择 `Enable Kubernetes`，稍等片刻，看到左下方 `Kubernetes` 变为 `running`，Kubernetes 启动成功。
+在 Docker Desktop 設定頁面，點選 `Kubernetes`，選擇 `Enable Kubernetes`，稍等片刻，看到左下方 `Kubernetes` 變為 `running`，Kubernetes 啟動成功。
 
 ![](https://github.com/AliyunContainerService/k8s-for-docker-desktop/raw/master/images/k8s.png)
 
-## 测试
+## 測試
 
 ```bash
 $ kubectl version
 ```
 
-如果正常输出信息，则证明 Kubernetes 成功启动。
+如果正常輸出訊息，則證明 Kubernetes 成功啟動。

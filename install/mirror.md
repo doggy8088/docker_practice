@@ -1,30 +1,30 @@
-# 镜像加速器
+# 映象加速器
 
-国内从 Docker Hub 拉取镜像有时会遇到困难，此时可以配置镜像加速器。国内很多云服务商都提供了国内加速器服务，例如：
+國內從 Docker Hub 拉取映象有時會遇到困難，此時可以設定映象加速器。國內很多雲服務商都提供了國內加速器服務，例如：
 
-* [阿里云加速器(点击管理控制台 -> 登录账号(淘宝账号) -> 左侧镜像工具 -> 镜像加速器 -> 复制加速器地址)](https://cr.console.aliyun.com/cn-hangzhou/instances)
-* [网易云加速器 `https://hub-mirror.c.163.com`](https://www.163yun.com/help/documents/56918246390157312)
-* [百度云加速器 `https://mirror.baidubce.com`](https://cloud.baidu.com/doc/CCE/s/Yjxppt74z#%E4%BD%BF%E7%94%A8dockerhub%E5%8A%A0%E9%80%9F%E5%99%A8)
+* [阿里雲加速器(點選管理控制台 -> 登入賬號(淘寶賬號) -> 左側映象工具 -> 映象加速器 -> 複製加速器地址)](https://cr.console.aliyun.com/cn-hangzhou/instances)
+* [網易雲加速器 `https://hub-mirror.c.163.com`](https://www.163yun.com/help/documents/56918246390157312)
+* [百度雲加速器 `https://mirror.baidubce.com`](https://cloud.baidu.com/doc/CCE/s/Yjxppt74z#%E4%BD%BF%E7%94%A8dockerhub%E5%8A%A0%E9%80%9F%E5%99%A8)
 
-**由于镜像服务可能出现宕机，建议同时配置多个镜像。各个镜像站测试结果请到 [docker-practice/docker-registry-cn-mirror-test](https://github.com/docker-practice/docker-registry-cn-mirror-test/actions) 查看。**
+**由於映象服務可能出現宕機，建議同時設定多個映象。各個映象站測試結果請到 [docker-practice/docker-registry-cn-mirror-test](https://github.com/docker-practice/docker-registry-cn-mirror-test/actions) 檢視。**
 
-> 国内各大云服务商（腾讯云、阿里云、百度云）均提供了 Docker 镜像加速服务，建议根据运行 Docker 的云平台选择对应的镜像加速服务，具体请参考本页最后一小节。
+> 國內各大雲服務商（騰訊雲、阿里雲、百度雲）均提供了 Docker 映象加速服務，建議根據執行 Docker 的雲平台選擇對應的映象加速服務，具體請參考本頁最後一小節。
 
-本节我们以 [网易云](https://www.163yun.com/) 镜像服务 `https://hub-mirror.c.163.com` 为例进行介绍。
+本節我們以 [網易雲](https://www.163yun.com/) 映象服務 `https://hub-mirror.c.163.com` 為例進行介紹。
 
 ## Ubuntu 16.04+、Debian 8+、CentOS 7+
 
-目前主流 Linux 发行版均已使用 [systemd](https://systemd.io/) 进行服务管理，这里介绍如何在使用 systemd 的 Linux 发行版中配置镜像加速器。
+目前主流 Linux 發行版均已使用 [systemd](https://systemd.io/) 進行服務管理，這裡介紹如何在使用 systemd 的 Linux 發行版中設定映象加速器。
 
-请首先执行以下命令，查看是否在 `docker.service` 文件中配置过镜像地址。
+請首先執行以下指令，檢視是否在 `docker.service` 檔案中設定過映象地址。
 
 ```bash
 $ systemctl cat docker | grep '\-\-registry\-mirror'
 ```
 
-如果该命令有输出，那么请执行 `$ systemctl cat docker` 查看 `ExecStart=` 出现的位置，修改对应的文件内容去掉 `--registry-mirror` 参数及其值，并按接下来的步骤进行配置。
+如果該指令有輸出，那麼請執行 `$ systemctl cat docker` 檢視 `ExecStart=` 出現的位置，修改對應的檔案內容去掉 `--registry-mirror` 引數及其值，並按接下來的步驟進行設定。
 
-如果以上命令没有任何输出，那么就可以在 `/etc/docker/daemon.json` 中写入如下内容（如果文件不存在请新建该文件）：
+如果以上指令沒有任何輸出，那麼就可以在 `/etc/docker/daemon.json` 中寫入如下內容（如果檔案不存在請新建該檔案）：
 
 ```json
 {
@@ -35,9 +35,9 @@ $ systemctl cat docker | grep '\-\-registry\-mirror'
 }
 ```
 
-> 注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。
+> 注意，一定要保證該檔案符合 json 規範，否則 Docker 將不能啟動。
 
-之后重新启动服务。
+之後重新啟動服務。
 
 ```bash
 $ sudo systemctl daemon-reload
@@ -46,7 +46,7 @@ $ sudo systemctl restart docker
 
 ## Windows 10
 
-对于使用 `Windows 10` 的用户，在任务栏托盘 Docker 图标内右键菜单选择 `Settings`，打开配置窗口后在左侧导航菜单选择 `Docker Engine`，在右侧像下边一样编辑 json 文件，之后点击 `Apply & Restart` 保存后 Docker 就会重启并应用配置的镜像地址了。
+對於使用 `Windows 10` 的使用者，在工具列托盤 Docker 圖示內右鍵選單選擇 `Settings`，開啟設定視窗後在左側導向選單選擇 `Docker Engine`，在右側像下邊一樣編輯 json 檔案，之後點選 `Apply & Restart` 儲存後 Docker 就會重啟並應用設定的映象地址了。
 
 ```json
 {
@@ -59,7 +59,7 @@ $ sudo systemctl restart docker
 
 ## macOS
 
-对于使用 macOS 的用户，在任务栏点击 Docker Desktop 应用图标 -> `Settings...`，在左侧导航菜单选择 `Docker Engine`，在右侧像下边一样编辑 json 文件。修改完成之后，点击 `Apply & restart` 按钮，Docker 就会重启并应用配置的镜像地址了。
+對於使用 macOS 的使用者，在工具列點選 Docker Desktop 應用圖示 -> `Settings...`，在左側導向選單選擇 `Docker Engine`，在右側像下邊一樣編輯 json 檔案。修改完成之後，點選 `Apply & restart` 按鈕，Docker 就會重啟並應用設定的映象地址了。
 
 ```json
 {
@@ -70,22 +70,22 @@ $ sudo systemctl restart docker
 }
 ```
 
-## 检查加速器是否生效
+## 檢查加速器是否生效
 
-执行 `$ docker info`，如果从结果中看到了如下内容，说明配置成功。
+執行 `$ docker info`，如果從結果中看到瞭如下內容，說明設定成功。
 
 ```bash
 Registry Mirrors:
  https://hub-mirror.c.163.com/
 ```
 
-## `k8s.gcr.io` 镜像
+## `k8s.gcr.io` 映象
 
-可以登录 [阿里云 容器镜像服务](https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu&type=copy) **镜像中心** -> **镜像搜索** 查找。
+可以登入 [阿里雲 容器映象服務](https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu&type=copy) **映象中心** -> **映象搜尋** 查詢。
 
-例如 `k8s.gcr.io/coredns:1.6.7` 镜像可以用 `registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.6.7` 代替。
+例如 `k8s.gcr.io/coredns:1.6.7` 映象可以用 `registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.6.7` 代替。
 
-一般情况下有如下对应关系：
+一般情況下有如下對應關係：
 
 ```bash
 # $ docker pull k8s.gcr.io/xxx
@@ -93,20 +93,20 @@ Registry Mirrors:
 $ docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/xxx
 ```
 
-## 不再提供服务的镜像
+## 不再提供服務的映象
 
-某些镜像不再提供服务，添加无用的镜像加速器，会拖慢镜像拉取速度，你可以从镜像配置列表中删除它们。
+某些映象不再提供服務，新增無用的映象加速器，會拖慢映象拉取速度，你可以從映象設定清單中刪除它們。
 
-* https://dockerhub.azk8s.cn **已转为私有**
+* https://dockerhub.azk8s.cn **已轉為私有**
 * https://reg-mirror.qiniu.com
 * https://registry.docker-cn.com
 
-建议 **watch（页面右上角）** [镜像测试](https://github.com/docker-practice/docker-registry-cn-mirror-test) 这个 GitHub 仓库，我们会在此更新各个镜像地址的状态。
+建議 **watch（頁面右上角）** [映象測試](https://github.com/docker-practice/docker-registry-cn-mirror-test) 這個 GitHub 倉庫，我們會在此更新各個映象地址的狀態。
 
-## 云服务商
+## 雲服務商
 
-某些云服务商提供了 **仅供内部** 访问的镜像服务，当您的 Docker 运行在云平台时可以选择它们。
+某些雲服務商提供了 **僅供內部** 訪問的映象服務，當您的 Docker 執行在雲平台時可以選擇它們。
 
-* [Azure 中国镜像 `https://dockerhub.azk8s.cn`](https://github.com/Azure/container-service-for-azure-china/blob/master/aks/README.md#22-container-registry-proxy)
+* [Azure 中國映象 `https://dockerhub.azk8s.cn`](https://github.com/Azure/container-service-for-azure-china/blob/master/aks/README.md#22-container-registry-proxy)
 
-* [腾讯云 `https://mirror.ccs.tencentyun.com`](https://cloud.tencent.com/act/cps/redirect?redirect=10058&cps_key=3a5255852d5db99dcd5da4c72f05df61)
+* [騰訊雲 `https://mirror.ccs.tencentyun.com`](https://cloud.tencent.com/act/cps/redirect?redirect=10058&cps_key=3a5255852d5db99dcd5da4c72f05df61)
