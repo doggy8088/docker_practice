@@ -1,16 +1,16 @@
 # Busybox
 
-## 简介
+## 簡介
 
-![Busybox - Linux 瑞士军刀](./_images/busybox-logo.png)
+![Busybox - Linux 瑞士軍刀](./_images/busybox-logo.png)
 
-`BusyBox` 是一个集成了一百多个最常用 Linux 命令和工具（如 `cat`、`echo`、`grep`、`mount`、`telnet` 等）的精简工具箱，它只需要几 MB 的大小，很方便进行各种快速验证，被誉为“Linux 系统的瑞士军刀”。
+`BusyBox` 是一個整合了一百多個最常用 Linux 指令和工具（如 `cat`、`echo`、`grep`、`mount`、`telnet` 等）的精簡工具箱，它只需要幾 MB 的大小，很方便進行各種快速驗證，被譽為『Linux 系統的瑞士軍刀』。
 
-`BusyBox` 可运行于多款 `POSIX` 环境的操作系统中，如 `Linux`（包括 `Android`）、`Hurd`、`FreeBSD` 等。
+`BusyBox` 可執行於多款 `POSIX` 環境的作業系統中，如 `Linux`（包括 `Android`）、`Hurd`、`FreeBSD` 等。
 
-## 获取官方镜像
+## 獲取官方映象
 
-可以使用 `docker pull` 指令下载 `busybox:latest` 镜像：
+可以使用 `docker pull` 指令下載 `busybox:latest` 映象：
 
 ```bash
 $ docker pull busybox:latest
@@ -21,7 +21,7 @@ Status: Downloaded newer image for busybox:latest
 docker.io/library/busybox:latest
 ```
 
-下载后，可以看到 `busybox` 镜像只有 **2.433 MB**：
+下載後，可以看到 `busybox` 映象只有 **2.433 MB**：
 
 ```bash
 $ docker image ls
@@ -29,9 +29,9 @@ REPOSITORY                   TAG                 IMAGE ID            CREATED    
 busybox                   latest              e72ac664f4f0        6 weeks ago         2.433 MB
 ```
 
-## 运行 busybox
+## 執行 busybox
 
-启动一个 `busybox` 容器，并在容器中执行 `grep` 命令。
+啟動一個 `busybox` 容器，並在容器中執行 `grep` 指令。
 
 ```bash
 $ docker run -it busybox
@@ -66,7 +66,7 @@ Search for PATTERN in FILEs (or stdin)
         -f FILE Read pattern from file
 ```
 
-查看容器内的挂载信息。
+檢視容器內的掛載訊息。
 
 ```bash
 / # mount
@@ -105,11 +105,11 @@ tmpfs on /proc/sched_debug type tmpfs (rw,nosuid,size=65536k,mode=755)
 tmpfs on /sys/firmware type tmpfs (ro,relatime)
 ```
 
-`busybox` 镜像虽然小巧，但包括了大量常见的 `Linux` 命令，读者可以用它快速熟悉 `Linux` 命令。
+`busybox` 映象雖然小巧，但包括了大量常見的 `Linux` 指令，讀者可以用它快速熟悉 `Linux` 指令。
 
-## 相关资源
+## 相關資源
 
-* `Busybox` 官网：https://busybox.net/
-* `Busybox` 官方仓库：https://git.busybox.net/busybox/
-* `Busybox` 官方镜像：https://hub.docker.com/_/busybox/
-* `Busybox` 官方仓库：https://github.com/docker-library/busybox
+* `Busybox` 官網：https://busybox.net/
+* `Busybox` 官方倉庫：https://git.busybox.net/busybox/
+* `Busybox` 官方映象：https://hub.docker.com/_/busybox/
+* `Busybox` 官方倉庫：https://github.com/docker-library/busybox

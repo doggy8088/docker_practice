@@ -1,20 +1,20 @@
-# 部署服务
+# 部署服務
 
-我们使用 `docker service` 命令来管理 `Swarm` 集群中的服务，该命令只能在管理节点运行。
+我們使用 `docker service` 指令來管理 `Swarm` 叢集中的服務，該指令只能在管理節點執行。
 
-## 新建服务
+## 新建服務
 
-现在我们在上一节创建的 `Swarm` 集群中运行一个名为 `nginx` 服务。
+現在我們在上一節建立的 `Swarm` 叢集中執行一個名為 `nginx` 服務。
 
 ```bash
 $ docker service create --replicas 3 -p 80:80 --name nginx nginx:1.13.7-alpine
 ```
 
-现在我们使用浏览器，输入任意节点 IP ，即可看到 nginx 默认页面。
+現在我們使用瀏覽器，輸入任意節點 IP ，即可看到 nginx 預設頁面。
 
-## 查看服务
+## 檢視服務
 
-使用 `docker service ls` 来查看当前 `Swarm` 集群运行的服务。
+使用 `docker service ls` 來檢視當前 `Swarm` 叢集執行的服務。
 
 ```bash
 $ docker service ls
@@ -22,7 +22,7 @@ ID                  NAME                MODE                REPLICAS            
 kc57xffvhul5        nginx               replicated          3/3                 nginx:1.13.7-alpine   *:80->80/tcp
 ```
 
-使用 `docker service ps` 来查看某个服务的详情。
+使用 `docker service ps` 來檢視某個服務的詳情。
 
 ```bash
 $ docker service ps nginx
@@ -32,7 +32,7 @@ hy9eeivdxlaa        nginx.2             nginx:1.13.7-alpine   swarm1            
 36wmpiv7gmfo        nginx.3             nginx:1.13.7-alpine   swarm3              Running             Running about a minute ago
 ```
 
-使用 `docker service logs` 来查看某个服务的日志。
+使用 `docker service logs` 來檢視某個服務的日誌。
 
 ```bash
 $ docker service logs nginx
@@ -44,25 +44,25 @@ nginx.1.pjfzd39buzlt@swarm2    | 10.255.0.2 - - [25/Nov/2017:02:10:27 +0000] "GE
 nginx.1.pjfzd39buzlt@swarm2    | 2017/11/25 02:10:27 [error] 5#5: *1 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 10.255.0.2, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "192.168.99.101"
 ```
 
-## 服务伸缩
+## 服務伸縮
 
-我们可以使用 `docker service scale` 对一个服务运行的容器数量进行伸缩。
+我們可以使用 `docker service scale` 對一個服務執行的容器數量進行伸縮。
 
-当业务处于高峰期时，我们需要扩展服务运行的容器数量。
+當業務處於高峰期時，我們需要擴充套件服務執行的容器數量。
 
 ```bash
 $ docker service scale nginx=5
 ```
 
-当业务平稳时，我们需要减少服务运行的容器数量。
+當業務平穩時，我們需要減少服務執行的容器數量。
 
 ```bash
 $ docker service scale nginx=2
 ```
 
-## 删除服务
+## 刪除服務
 
-使用 `docker service rm` 来从 `Swarm` 集群移除某个服务。
+使用 `docker service rm` 來從 `Swarm` 叢集移除某個服務。
 
 ```bash
 $ docker service rm nginx

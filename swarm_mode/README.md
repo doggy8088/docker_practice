@@ -1,5 +1,5 @@
 # Swarm mode
 
-Docker 1.12 [Swarm mode](https://docs.docker.com/engine/swarm/) 已经内嵌入 Docker 引擎，成为了 docker 子命令 `docker swarm`。请注意与旧的 `Docker Swarm` 区分开来。
+Docker 1.12 [Swarm mode](https://docs.docker.com/engine/swarm/) 已經內嵌入 Docker 引擎，成為了 docker 子指令 `docker swarm`。請注意與舊的 `Docker Swarm` 區分開來。
 
-`Swarm mode` 内置 kv 存储功能，提供了众多的新特性，比如：具有容错能力的去中心化设计、内置服务发现、负载均衡、路由网格、动态伸缩、滚动更新、安全传输等。使得 Docker 原生的 `Swarm` 集群具备与 Mesos、Kubernetes 竞争的实力。
+`Swarm mode` 內建 kv 儲存功能，提供了眾多的新屬性，比如：具有容錯能力的去中心化設計、內建服務發現、負載均衡、路由網格、動態伸縮、捲動更新、安全傳輸等。使得 Docker 原生的 `Swarm` 叢集具備與 Mesos、Kubernetes 競爭的實力。
