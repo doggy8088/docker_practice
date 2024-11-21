@@ -2,27 +2,27 @@
 
 ## 要求
 
-* 拥有公网 IP、域名 (如果你不满足要求，可以尝试在本地使用 Gogs + Drone)
+* 擁有公網 IP、網域名稱 (如果你不滿足要求，可以嘗試在本地使用 Gogs + Drone)
 
-* 域名 SSL 证书 (目前国内有很多云服务商提供免费证书)
+* 網域名稱 SSL 證書 (目前國內有很多雲服務商提供免費證書)
 
 * 熟悉 `Docker` 以及 `Docker Compose`
 
-* 熟悉 `Git` 基本命令
+* 熟悉 `Git` 基本指令
 
-* 对 `CI/CD` 有一定了解
+* 對 `CI/CD` 有一定瞭解
 
-## 新建 GitHub 应用
+## 新建 GitHub 應用
 
-登录 GitHub，在 https://github.com/settings/applications/new 新建一个应用。
+登入 GitHub，在 https://github.com/settings/applications/new 新建一個應用。
 
 ![](https://docs.drone.io/screenshots/github_application_create.png)
 
-接下来查看这个应用的详情，记录 `Client ID` 和 `Client Secret`，之后配置 Drone 会用到。
+接下來檢視這個應用的詳情，記錄 `Client ID` 和 `Client Secret`，之後設定 Drone 會用到。
 
-## 配置 Drone
+## 設定 Drone
 
-我们通过使用 `Docker Compose` 来启动 `Drone`，编写 `docker-compose.yml` 文件。
+我們透過使用 `Docker Compose` 來啟動 `Drone`，編寫 `docker-compose.yml` 檔案。
 
 ```yaml
 version: '3'
@@ -65,21 +65,21 @@ volumes:
   drone-data:
 ```
 
-新建 `.env` 文件，输入变量及其值
+新建 `.env` 檔案，輸入變數及其值
 
 ```bash
-# 必填 服务器地址，例如 drone.domain.com
+# 必填 伺服器地址，例如 drone.domain.com
 DRONE_SERVER_HOST=
 DRONE_SERVER_PROTO=https
 DRONE_RPC_SECRET=secret
 HOSTNAME=demo
-# 必填 在 GitHub 应用页面查看
+# 必填 在 GitHub 應用頁面檢視
 DRONE_GITHUB_CLIENT_ID=
-# 必填 在 GitHub 应用页面查看
+# 必填 在 GitHub 應用頁面檢視
 DRONE_GITHUB_CLIENT_SECRET=
 ```
 
-### 启动 Drone
+### 啟動 Drone
 
 ```bash
 $ docker-compose up -d
