@@ -1,10 +1,10 @@
-# 在 Swarm 集群中使用 compose 文件
+# 在 Swarm 叢集中使用 compose 檔案
 
-正如之前使用 `docker-compose.yml` 来一次配置、启动多个容器，在 `Swarm` 集群中也可以使用 `compose` 文件 （`docker-compose.yml`） 来配置、启动多个服务。
+正如之前使用 `docker-compose.yml` 來一次設定、啟動多個容器，在 `Swarm` 叢集中也可以使用 `compose` 檔案 （`docker-compose.yml`） 來設定、啟動多個服務。
 
-上一节中，我们使用 `docker service create` 一次只能部署一个服务，使用 `docker-compose.yml` 我们可以一次启动多个关联的服务。
+上一節中，我們使用 `docker service create` 一次只能部署一個服務，使用 `docker-compose.yml` 我們可以一次啟動多個關聯的服務。
 
-我们以在 `Swarm` 集群中部署 `WordPress` 为例进行说明。
+我們以在 `Swarm` 叢集中部署 `WordPress` 為例進行說明。
 
 ```yaml
 version: "3"
@@ -56,25 +56,25 @@ networks:
   overlay:
 ```
 
-在 `Swarm` 集群管理节点新建该文件，其中的 `visualizer` 服务提供一个可视化页面，我们可以从浏览器中很直观的查看集群中各个服务的运行节点。
+在 `Swarm` 叢集管理節點新建該檔案，其中的 `visualizer` 服務提供一個視覺化頁面，我們可以從瀏覽器中很直觀的檢視叢集中各個服務的執行節點。
 
-在 `Swarm` 集群中使用 `docker-compose.yml` 我们用 `docker stack` 命令，下面我们对该命令进行详细讲解。
+在 `Swarm` 叢集中使用 `docker-compose.yml` 我們用 `docker stack` 指令，下面我們對該指令進行詳細講解。
 
-## 部署服务
+## 部署服務
 
-部署服务使用 `docker stack deploy`，其中 `-c` 参数指定 compose 文件名。
+部署服務使用 `docker stack deploy`，其中 `-c` 引數指定 compose 檔案名。
 
 ```bash
 $ docker stack deploy -c docker-compose.yml wordpress
 ```
 
-现在我们打开浏览器输入 `任一节点IP:8080` 即可看到各节点运行状态。如下图所示：
+現在我們開啟瀏覽器輸入 `任一節點IP:8080` 即可看到各節點執行狀態。如下圖所示：
 
 ![](image/wordpress.png)
 
-在浏览器新的标签页输入 `任一节点IP` 即可看到 `WordPress` 安装界面，安装完成之后，输入 `任一节点IP` 即可看到 `WordPress` 页面。
+在瀏覽器新的標籤頁輸入 `任一節點IP` 即可看到 `WordPress` 安裝介面，安裝完成之後，輸入 `任一節點IP` 即可看到 `WordPress` 頁面。
 
-## 查看服务
+## 檢視服務
 
 ```bash
 $ docker stack ls
@@ -82,9 +82,9 @@ NAME                SERVICES
 wordpress           3
 ```
 
-## 移除服务
+## 移除服務
 
-要移除服务，使用 `docker stack down`
+要移除服務，使用 `docker stack down`
 
 ```bash
 $ docker stack down wordpress
@@ -95,4 +95,4 @@ Removing network wordpress_overlay
 Removing network wordpress_default
 ```
 
-该命令不会移除服务所使用的 `数据卷`，如果你想移除数据卷请使用 `docker volume rm`
+該指令不會移除服務所使用的 `資料卷`，如果你想移除資料卷請使用 `docker volume rm`

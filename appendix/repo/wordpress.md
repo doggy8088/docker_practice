@@ -1,25 +1,25 @@
 # [WordPress](https://hub.docker.com/_/wordpress/)
 
-## 基本信息
+## 基本訊息
 
-[WordPress](https://en.wikipedia.org/wiki/WordPress) 是开源的 Blog 和内容管理系统框架，它基于 PHP 和 MySQL。
+[WordPress](https://en.wikipedia.org/wiki/WordPress) 是開源的 Blog 和內容管理系統框架，它基於 PHP 和 MySQL。
 
-该仓库位于 `https://hub.docker.com/_/wordpress/` ，提供了 WordPress 4.x ~ 5.x 版本的镜像。
+該倉庫位於 `https://hub.docker.com/_/wordpress/` ，提供了 WordPress 4.x ~ 5.x 版本的映象。
 
 ## 使用方法
 
-启动容器需要 MySQL 的支持，默认端口为 `80`。
+啟動容器需要 MySQL 的支援，預設連接埠為 `80`。
 
 ```bash
 $ docker run --name some-wordpress --link some-mysql:mysql -d wordpress
 ```
 
-启动 WordPress 容器时可以指定的一些环境变量包括：
+啟動 WordPress 容器時可以指定的一些環境變數包括：
 
-* `WORDPRESS_DB_USER` 缺省为 `root`
-* `WORDPRESS_DB_PASSWORD` 缺省为连接 mysql 容器的环境变量 `MYSQL_ROOT_PASSWORD` 的值
-* `WORDPRESS_DB_NAME` 缺省为 `wordpress`
+* `WORDPRESS_DB_USER` 預設為 `root`
+* `WORDPRESS_DB_PASSWORD` 預設為連線 mysql 容器的環境變數 `MYSQL_ROOT_PASSWORD` 的值
+* `WORDPRESS_DB_NAME` 預設為 `wordpress`
 
 ## Dockerfile
 
-请到 https://github.com/docker-library/docs/tree/master/wordpress 查看。
+請到 https://github.com/docker-library/docs/tree/master/wordpress 檢視。
