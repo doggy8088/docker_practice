@@ -1,22 +1,22 @@
-# 什么是 Docker
+# 什麼是 Docker
 
-**Docker** 最初是 `dotCloud` 公司创始人 [Solomon Hykes](https://github.com/shykes) 在法国期间发起的一个公司内部项目，它是基于 `dotCloud` 公司多年云服务技术的一次革新，并于 [2013 年 3 月以 Apache 2.0 授权协议开源][docker-soft]，主要项目代码在 [GitHub](https://github.com/moby/moby) 上进行维护。`Docker` 项目后来还加入了 Linux 基金会，并成立推动 [开放容器联盟（OCI）](https://opencontainers.org/)。
+**Docker** 最初是 `dotCloud` 公司創始人 [Solomon Hykes](https://github.com/shykes) 在法國期間發起的一個公司內部專案，它是基於 `dotCloud` 公司多年雲服務技術的一次革新，並於 [2013 年 3 月以 Apache 2.0 授權協定開源][docker-soft]，主要專案程式碼在 [GitHub](https://github.com/moby/moby) 上進行維護。`Docker` 專案後來還加入了 Linux 基金會，併成立推動 [開放容器聯盟（OCI）](https://opencontainers.org/)。
 
-**Docker** 自开源后受到广泛的关注和讨论，至今其 [GitHub 项目](https://github.com/moby/moby) 已经超过 5 万 7 千个星标和一万多个 `fork`。甚至由于 `Docker` 项目的火爆，在 `2013` 年底，[dotCloud 公司决定改名为 Docker](https://www.docker.com/blog/dotcloud-is-becoming-docker-inc/)。`Docker` 最初是在 `Ubuntu 12.04` 上开发实现的；`Red Hat` 则从 `RHEL 6.5` 开始对 `Docker` 进行支持；`Google` 也在其 `PaaS` 产品中广泛应用 `Docker`。
+**Docker** 自開源後受到廣泛的關注和討論，至今其 [GitHub 專案](https://github.com/moby/moby) 已經超過 5 萬 7 千個星標和一萬多個 `fork`。甚至由於 `Docker` 專案的火爆，在 `2013` 年底，[dotCloud 公司決定改名為 Docker](https://www.docker.com/blog/dotcloud-is-becoming-docker-inc/)。`Docker` 最初是在 `Ubuntu 12.04` 上開發實現的；`Red Hat` 則從 `RHEL 6.5` 開始對 `Docker` 進行支援；`Google` 也在其 `PaaS` 產品中廣泛應用 `Docker`。
 
-**Docker** 使用 `Google` 公司推出的 [Go 语言](https://golang.google.cn/) 进行开发实现，基于 `Linux` 内核的 [cgroup](https://zh.wikipedia.org/wiki/Cgroups)，[namespace](https://en.wikipedia.org/wiki/Linux_namespaces)，以及 [OverlayFS](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) 类的 [Union FS](https://en.wikipedia.org/wiki/Union_mount) 等技术，对进程进行封装隔离，属于 [操作系统层面的虚拟化技术](https://en.wikipedia.org/wiki/Operating-system-level_virtualization)。由于隔离的进程独立于宿主和其它的隔离的进程，因此也称其为容器。最初实现是基于 [LXC](https://linuxcontainers.org/lxc/introduction/)，从 `0.7` 版本以后开始去除 `LXC`，转而使用自行开发的 [libcontainer](https://github.com/docker/libcontainer)，从 `1.11` 版本开始，则进一步演进为使用 [runC](https://github.com/opencontainers/runc) 和 [containerd](https://github.com/containerd/containerd)。
+**Docker** 使用 `Google` 公司推出的 [Go 語言](https://golang.google.cn/) 進行開發實現，基於 `Linux` 核心的 [cgroup](https://zh.wikipedia.org/wiki/Cgroups)，[namespace](https://en.wikipedia.org/wiki/Linux_namespaces)，以及 [OverlayFS](https://docs.docker.com/storage/storagedriver/overlayfs-driver/) 類別的 [Union FS](https://en.wikipedia.org/wiki/Union_mount) 等技術，對程序進行封裝隔離，屬於 [作業系統層面的虛擬化技術](https://en.wikipedia.org/wiki/Operating-system-level_virtualization)。由於隔離的程序獨立於宿主和其它的隔離的程序，因此也稱其為容器。最初實現是基於 [LXC](https://linuxcontainers.org/lxc/introduction/)，從 `0.7` 版本以後開始去除 `LXC`，轉而使用自行開發的 [libcontainer](https://github.com/docker/libcontainer)，從 `1.11` 版本開始，則進一步演進為使用 [runC](https://github.com/opencontainers/runc) 和 [containerd](https://github.com/containerd/containerd)。
 
-![Docker 架构](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/media/docker-on-linux.png)
+![Docker 架構](https://docs.microsoft.com/en-us/virtualization/windowscontainers/deploy-containers/media/docker-on-linux.png)
 
-> `runc` 是一个 Linux 命令行工具，用于根据 [OCI容器运行时规范](https://github.com/opencontainers/runtime-spec) 创建和运行容器。
+> `runc` 是一個 Linux 指令行工具，用於根據 [OCI容器執行時規範](https://github.com/opencontainers/runtime-spec) 建立和執行容器。
 
-> `containerd` 是一个守护程序，它管理容器生命周期，提供了在一个节点上执行容器和管理镜像的最小功能集。
+> `containerd` 是一個守護程式，它管理容器生命週期，提供了在一個節點上執行容器和管理映象的最小功能集。
 
-**Docker** 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。使得 `Docker` 技术比虚拟机技术更为轻便、快捷。
+**Docker** 在容器的基礎上，進行了進一步的封裝，從檔案系統、網路互聯到程序隔離等等，極大的簡化了容器的建立和維護。使得 `Docker` 技術比虛擬機技術更為輕便、快捷。
 
-下面的图片比较了 **Docker** 和传统虚拟化方式的不同之处。传统虚拟机技术是虚拟出一套硬件后，在其上运行一个完整操作系统，在该系统上再运行所需应用进程；而容器内的应用进程直接运行于宿主的内核，容器内没有自己的内核，而且也没有进行硬件虚拟。因此容器要比传统虚拟机更为轻便。
+下面的圖片比較了 **Docker** 和傳統虛擬化方式的不同之處。傳統虛擬機技術是虛擬出一套硬體後，在其上執行一個完整作業系統，在該系統上再執行所需應用程序；而容器內的應用程序直接執行於宿主的核心，容器內沒有自己的核心，而且也沒有進行硬體虛擬。因此容器要比傳統虛擬機更為輕便。
 
-![传统虚拟化](./_images/virtualization.png)
+![傳統虛擬化](./_images/virtualization.png)
 
 ![Docker](./_images/docker.png)
 

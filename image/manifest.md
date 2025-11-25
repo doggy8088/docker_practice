@@ -1,10 +1,10 @@
-# 构建多种系统架构支持的 Docker 镜像 -- docker manifest 命令详解
+# 建立多種系統架構支援的 Docker 映象 -- docker manifest 指令詳解
 
-我们知道使用镜像创建一个容器，该镜像必须与 Docker 宿主机系统架构一致，例如 `Linux x86_64` 架构的系统中只能使用 `Linux x86_64` 的镜像创建容器。
+我們知道使用映象建立一個容器，該映象必須與 Docker 宿主機系統架構一致，例如 `Linux x86_64` 架構的系統中只能使用 `Linux x86_64` 的映象建立容器。
 
-> Windows、macOS 除外，其使用了 [binfmt_misc](https://docs.docker.com/docker-for-mac/multi-arch/) 提供了多种架构支持，在 Windows、macOS 系统上 (x86_64) 可以运行 arm 等其他架构的镜像。
+> Windows、macOS 除外，其使用了 [binfmt_misc](https://docs.docker.com/docker-for-mac/multi-arch/) 提供了多種架構支援，在 Windows、macOS 系統上 (x86_64) 可以執行 arm 等其他架構的映象。
 
-例如我们在 `Linux x86_64` 中构建一个 `username/test` 镜像。
+例如我們在 `Linux x86_64` 中建立一個 `username/test` 映象。
 
 ```docker
 FROM alpine
@@ -12,27 +12,27 @@ FROM alpine
 CMD echo 1
 ```
 
-构建镜像后推送到 Docker Hub，之后我们尝试在树莓派 `Linux arm64v8` 中使用这个镜像。
+建立映象後推送到 Docker Hub，之後我們嘗試在樹莓派 `Linux arm64v8` 中使用這個映象。
 
 ```bash
 $ docker run -it --rm username/test
 ```
 
-可以发现这个镜像根本获取不到。
+可以發現這個映象根本獲取不到。
 
-要解决这个问题，通常采用的做法是通过镜像名区分不同系统架构的镜像，例如在 `Linux x86_64` 和 `Linux arm64v8` 分别构建 `username/test` 和 `username/arm64v8-test` 镜像。运行时使用对应架构的镜像即可。
+要解決這個問題，通常採用的做法是透過映象名區分不同系統架構的映象，例如在 `Linux x86_64` 和 `Linux arm64v8` 分別建立 `username/test` 和 `username/arm64v8-test` 映象。執行時使用對應架構的映象即可。
 
-这样做显得很繁琐，那么有没有一种方法让 Docker 引擎根据系统架构自动拉取对应的镜像呢？
+這樣做顯得很繁瑣，那麼有沒有一種方法讓 Docker 引擎根據系統架構自動拉取對應的映象呢？
 
-我们发现在 `Linux x86_64` 和 `Linux arm64v8` 架构的计算机中分别使用 `golang:alpine` 镜像运行容器 `$ docker run golang:alpine go version` 时，容器能够正常的运行。
+我們發現在 `Linux x86_64` 和 `Linux arm64v8` 架構的電腦中分別使用 `golang:alpine` 映象執行容器 `$ docker run golang:alpine go version` 時，容器能夠正常的執行。
 
-这是什么原因呢？
+這是什麼原因呢？
 
-原因就是 `golang:alpine` 官方镜像有一个 [`manifest` 列表 (`manifest list`)](https://docs.docker.com/registry/spec/manifest-v2-2/)。
+原因就是 `golang:alpine` 官方映象有一個 [`manifest` 清單 (`manifest list`)](https://docs.docker.com/registry/spec/manifest-v2-2/)。
 
-当用户获取一个镜像时，Docker 引擎会首先查找该镜像是否有 `manifest` 列表，如果有的话 Docker 引擎会按照 Docker 运行环境（系统及架构）查找出对应镜像（例如 `golang:alpine`）。如果没有的话会直接获取镜像（例如上例中我们构建的 `username/test`）。
+當用戶獲取一個映象時，Docker 引擎會首先查詢該映象是否有 `manifest` 清單，如果有的話 Docker 引擎會按照 Docker 執行環境（系統及架構）查詢出對應映象（例如 `golang:alpine`）。如果沒有的話會直接獲取映象（例如上例中我們建立的 `username/test`）。
 
-我们可以使用 `$ docker manifest inspect golang:alpine` 查看这个 `manifest` 列表的结构。
+我們可以使用 `$ docker manifest inspect golang:alpine` 檢視這個 `manifest` 清單的結構。
 
 ```bash
 $ docker manifest inspect golang:alpine
@@ -103,15 +103,15 @@ $ docker manifest inspect golang:alpine
 }
 ```
 
-可以看出 `manifest` 列表中包含了不同系统架构所对应的镜像 `digest` 值，这样 Docker 就可以在不同的架构中使用相同的 `manifest` (例如 `golang:alpine`) 获取对应的镜像。
+可以看出 `manifest` 清單中包含了不同系統架構所對應的映象 `digest` 值，這樣 Docker 就可以在不同的架構中使用相同的 `manifest` (例如 `golang:alpine`) 獲取對應的映象。
 
-下面介绍如何使用 `$ docker manifest` 命令创建并推送 `manifest` 列表到 Docker Hub。
+下面介紹如何使用 `$ docker manifest` 指令建立並推送 `manifest` 清單到 Docker Hub。
 
-## 构建镜像
+## 建立映象
 
-首先在 `Linux x86_64` 构建 `username/x8664-test` 镜像。并在 `Linux arm64v8` 中构建 `username/arm64v8-test` 镜像，构建好之后推送到 Docker Hub。
+首先在 `Linux x86_64` 建立 `username/x8664-test` 映象。並在 `Linux arm64v8` 中建立 `username/arm64v8-test` 映象，建立好之後推送到 Docker Hub。
 
-## 创建 `manifest` 列表
+## 建立 `manifest` 清單
 
 ```bash
 # $ docker manifest create MANIFEST_LIST MANIFEST [MANIFEST...]
@@ -120,9 +120,9 @@ $ docker manifest create username/test \
       username/arm64v8-test
 ```
 
-当要修改一个 `manifest` 列表时，可以加入 `-a` 或 `--amend` 参数。
+當要修改一個 `manifest` 清單時，可以加入 `-a` 或 `--amend` 引數。
 
-## 设置 `manifest` 列表
+## 設定 `manifest` 清單
 
 ```bash
 # $ docker manifest annotate [OPTIONS] MANIFEST_LIST MANIFEST
@@ -135,28 +135,28 @@ $ docker manifest annotate username/test \
       --os linux --arch arm64 --variant v8
 ```
 
-这样就配置好了 `manifest` 列表。
+這樣就設定好了 `manifest` 清單。
 
-## 查看 `manifest` 列表
+## 檢視 `manifest` 清單
 
 ```bash
 $ docker manifest inspect username/test
 ```
 
-## 推送 `manifest` 列表
+## 推送 `manifest` 清單
 
-最后我们可以将其推送到 Docker Hub。
+最後我們可以將其推送到 Docker Hub。
 
 ```bash
 $ docker manifest push username/test
 ```
 
-## 测试
+## 測試
 
-我们在 `Linux x86_64` `Linux arm64v8` 中分别执行 `$ docker run -it --rm username/test` 命令，发现可以正确的执行。
+我們在 `Linux x86_64` `Linux arm64v8` 中分別執行 `$ docker run -it --rm username/test` 指令，發現可以正確的執行。
 
-## 官方博客
+## 官方部落格
 
-详细了解 `manifest` 可以阅读官方博客。
+詳細瞭解 `manifest` 可以閱讀官方部落格。
 
 * https://www.docker.com/blog/multi-arch-all-the-things/
