@@ -1,10 +1,10 @@
-# 安装与卸载
+# 安裝與解除安裝
 
-`Compose` 支持 Linux、macOS、Windows 10 三大平台。
+`Compose` 支援 Linux、macOS、Windows 10 三大平台。
 
-`Compose` 可以通过 Python 的包管理工具 `pip` 进行安装，也可以直接下载编译好的二进制文件使用，甚至能够直接在 Docker 容器中运行。
+`Compose` 可以透過 Python 的套件管理工具 `pip` 進行安裝，也可以直接下載編譯好的二進位檔案使用，甚至能夠直接在 Docker 容器中執行。
 
-`Docker Desktop for Mac/Windows` 自带 `docker-compose` 二进制文件，安装 Docker 之后可以直接使用。
+`Docker Desktop for Mac/Windows` 自帶 `docker-compose` 二進位檔案，安裝 Docker 之後可以直接使用。
 
 ```bash
 $ docker-compose --version
@@ -12,36 +12,36 @@ $ docker-compose --version
 docker-compose version 1.27.4, build 40524192
 ```
 
-Linux 系统请使用以下介绍的方法安装。
+Linux 系統請使用以下介紹的方法安裝。
 
-## 二进制包
+## 二進位封裝
 
-在 Linux 上的也安装十分简单，从 [官方 GitHub Release](https://github.com/docker/compose/releases) 处直接下载编译好的二进制文件即可。
+在 Linux 上的也安裝十分簡單，從 [官方 GitHub Release](https://github.com/docker/compose/releases) 處直接下載編譯好的二進位檔案即可。
 
-例如，在 Linux 64 位系统上直接下载对应的二进制包。
+例如，在 Linux 64 位系統上直接下載對應的二進位封裝。
 
 ```bash
 $ sudo curl -L https://github.com/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
-# 国内用户可以使用以下方式加快下载
+# 國內使用者可以使用以下方式加快下載
 $ sudo curl -L https://download.fastgit.org/docker/compose/releases/download/1.27.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 
 $ sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-## PIP 安装
+## PIP 安裝
 
-*注：* `x86_64` 架构的 Linux 建议按照上边的方法下载二进制包进行安装，如果您计算机的架构是 `ARM` (例如，树莓派)，再使用 `pip` 安装。
+*注：* `x86_64` 架構的 Linux 建議按照上邊的方法下載二進位封裝進行安裝，如果您電腦的架構是 `ARM` (例如，樹莓派)，再使用 `pip` 安裝。
 
-这种方式是将 Compose 当作一个 Python 应用来从 pip 源中安装。
+這種方式是將 Compose 當作一個 Python 應用來從 pip 源中安裝。
 
-执行安装命令：
+執行安裝指令：
 
 ```bash
 $ sudo pip install -U docker-compose
 ```
 
-可以看到类似如下输出，说明安装成功。
+可以看到類似如下輸出，說明安裝成功。
 
 ```bash
 Collecting docker-compose
@@ -50,21 +50,21 @@ Collecting docker-compose
 Successfully installed docker-compose cached-property requests texttable websocket-client docker-py dockerpty six enum34 backports.ssl-match-hostname ipaddress
 ```
 
-## bash 补全命令
+## bash 補全指令
 
 ```bash
 $ curl -L https://raw.githubusercontent.com/docker/compose/1.27.4/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
 ```
 
-## 卸载
+## 解除安裝
 
-如果是二进制包方式安装的，删除二进制文件即可。
+如果是二進位封裝方式安裝的，刪除二進位檔案即可。
 
 ```bash
 $ sudo rm /usr/local/bin/docker-compose
 ```
 
-如果是通过 `pip` 安装的，则执行如下命令即可删除。
+如果是透過 `pip` 安裝的，則執行如下指令即可刪除。
 
 ```bash
 $ sudo pip uninstall docker-compose
