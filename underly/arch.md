@@ -1,11 +1,11 @@
-# 基本架构
+# 基本架構
 
-Docker 采用了 `C/S` 架构，包括客户端和服务端。Docker 守护进程 （`Daemon`）作为服务端接受来自客户端的请求，并处理这些请求（创建、运行、分发容器）。
+Docker 採用了 `C/S` 架構，包括用戶端和伺服器端。Docker 守護程序 （`Daemon`）作為伺服器端接受來自用戶端的請求，並處理這些請求（建立、執行、分發容器）。
 
-客户端和服务端既可以运行在一个机器上，也可通过 `socket` 或者 `RESTful API` 来进行通信。
+用戶端和伺服器端既可以執行在一個機器上，也可透過 `socket` 或者 `RESTful API` 來進行通訊。
 
-![Docker 基本架构](../.gitbook/assets/docker_arch.png)
+![Docker 基本架構](../.gitbook/assets/docker_arch.png)
 
-Docker 守护进程一般在宿主主机后台运行，等待接收来自客户端的消息。
+Docker 守護程序一般在宿主主機後台執行，等待接收來自用戶端的訊息。
 
-Docker 客户端则为用户提供一系列可执行命令，用户用这些命令实现跟 Docker 守护进程交互。
+Docker 用戶端則為使用者提供一系列可執行指令，使用者用這些指令實現跟 Docker 守護程序互動。
