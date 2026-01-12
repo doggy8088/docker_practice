@@ -1,32 +1,32 @@
-# 在 Swarm 集群中管理配置数据
+# 在 Swarm 叢集中管理設定資料
 
-在动态的、大规模的分布式集群上，管理和分发配置文件也是很重要的工作。传统的配置文件分发方式（如配置文件放入镜像中，设置环境变量，volume 动态挂载等）都降低了镜像的通用性。
+在動態的、大規模的分散式叢集上，管理和分發設定檔案也是很重要的工作。傳統的設定檔案分發方式（如設定檔案放入映象中，設定環境變數，volume 動態掛載等）都降低了映象的通用性。
 
-在 Docker 17.06 以上版本中，Docker 新增了 `docker config` 子命令来管理集群中的配置信息，以后你无需将配置文件放入镜像或挂载到容器中就可实现对服务的配置。
+在 Docker 17.06 以上版本中，Docker 新增了 `docker config` 子指令來管理叢集中的設定訊息，以後你無需將設定檔案放入映象或掛載到容器中就可實現對服務的設定。
 
->注意：`config` 仅能在 Swarm 集群中使用。
+>注意：`config` 僅能在 Swarm 叢集中使用。
 
-这里我们以在 Swarm 集群中部署 `redis` 服务为例。
+這裡我們以在 Swarm 叢集中部署 `redis` 服務為例。
 
-## 创建 config
+## 建立 config
 
-新建 `redis.conf` 文件
+新建 `redis.conf` 檔案
 
 ```bash
 port 6380
 ```
 
-此项配置 Redis 监听 `6380` 端口
+此項設定 Redis 監聽 `6380` 連接埠
 
-我们使用 `docker config create` 命令创建 `config`
+我們使用 `docker config create` 指令建立 `config`
 
 ```bash
 $ docker config create redis.conf redis.conf
 ```
 
-## 查看 config
+## 檢視 config
 
-使用 `docker config ls` 命令来查看 `config`
+使用 `docker config ls` 指令來檢視 `config`
 
 ```bash
 $ docker config ls
@@ -35,7 +35,7 @@ ID                          NAME                CREATED             UPDATED
 yod8fx8iiqtoo84jgwadp86yk   redis.conf          4 seconds ago       4 seconds ago
 ```
 
-## 创建 redis 服务
+## 建立 redis 服務
 
 ```bash
 $ docker service create \
@@ -47,8 +47,8 @@ $ docker service create \
      redis-server /redis.conf
 ```
 
-如果你没有在 `target` 中显式的指定路径时，默认的 `redis.conf` 以 `tmpfs` 文件系统挂载到容器的 `/config.conf`。
+如果你沒有在 `target` 中顯式的指定路徑時，預設的 `redis.conf` 以 `tmpfs` 檔案系統掛載到容器的 `/config.conf`。
 
-经过测试，redis 可以正常使用。
+經過測試，redis 可以正常使用。
 
-以前我们通过监听主机目录来配置 Redis，就需要在集群的每个节点放置该文件，如果采用 `docker config` 来管理服务的配置信息，我们只需在集群中的管理节点创建 `config`，当部署服务时，集群会自动的将配置文件分发到运行服务的各个节点中，大大降低了配置信息的管理和分发难度。
+以前我們透過監聽主機目錄來設定 Redis，就需要在叢集的每個節點放置該檔案，如果採用 `docker config` 來管理服務的設定訊息，我們只需在叢集中的管理節點建立 `config`，當部署服務時，叢集會自動的將設定檔案分發到執行服務的各個節點中，大大降低了設定訊息的管理和分發難度。
