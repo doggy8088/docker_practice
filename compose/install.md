@@ -1,24 +1,24 @@
-# 安装与卸载
+# 安裝與解除安裝
 
-`Compose` 是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。
+`Compose` 是 Docker 官方的開源專案，負責實現對 Docker 容器叢集的快速編排。
 
-从 `v2` 版本开始，`Compose` 作为 `docker` 的子命令存在，例如 `docker compose up`。
+從 `v2` 版本開始，`Compose` 作為 `docker` 的子指令存在，例如 `docker compose up`。
 
-`Compose` 支持 Linux、macOS、Windows 10 三大平台。
+`Compose` 支援 Linux、macOS、Windows 10 三大平台。
 
-`Docker Desktop for Mac/Windows` 自带 `docker compose` 命令。
+`Docker Desktop for Mac/Windows` 自帶 `docker compose` 指令。
 
-Linux 系统请使用以下介绍的方法安装。
+Linux 系統請使用以下介紹的方法安裝。
 
 ## Linux
 
-在 Linux 上，你可以通过下载 `docker-compose` 二进制包来安装。
+在 Linux 上，你可以透過下載 `docker-compose` 二進位封裝來安裝。
 
-从 [官方 GitHub Release](https://github.com/docker/compose/releases) 处直接下载编译好的二进制文件即可。
+從 [官方 GitHub Release](https://github.com/docker/compose/releases) 處直接下載編譯好的二進位檔案即可。
 
-> **提示**：版本更新较快，请访问上述链接获取最新版本号，替换下方命令中的版本号。
+> **提示**：版本更新較快，請訪問上述連結獲取最新版本號，替換下方指令中的版本號。
 
-例如，在 Linux 64 位系统上直接下载对应的二进制包（以 v2.40.3 为例）。
+例如，在 Linux 64 位系統上直接下載對應的二進位封裝（以 v2.40.3 為例）。
 
 ```bash
 $ DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
@@ -26,28 +26,28 @@ $ mkdir -p $DOCKER_CONFIG/cli-plugins
 $ curl -SL https://github.com/docker/compose/releases/download/v5.0.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
 ```
 
-之后，执行
+之後，執行
 
 ```bash
 $ chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
 ```
 
-## 测试安装
+## 測試安裝
 
 ```bash
 $ docker compose version
 Docker Compose version v5.0.1
 ```
 
-## bash 补全命令
+## bash 補全指令
 
 ```bash
 $ curl -L https://raw.githubusercontent.com/docker/compose/v5.0.1/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
 ```
 
-## 卸载
+## 解除安裝
 
-如果是二进制包方式安装的，删除二进制文件即可。
+如果是二進位封裝方式安裝的，刪除二進位檔案即可。
 
 ```bash
 $ rm $DOCKER_CONFIG/cli-plugins/docker-compose
