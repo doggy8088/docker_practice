@@ -1,20 +1,20 @@
-# 简介
+# 簡介
 
 ![](../.gitbook/assets/kubernetes_logo.png)
 
-Kubernetes 是 Google 团队发起的开源项目，它的目标是管理跨多个主机的容器，提供基本的部署，维护以及应用伸缩，主要实现语言为 Go 语言。Kubernetes 是：
+Kubernetes 是 Google 團隊發起的開源專案，它的目標是管理跨多個主機的容器，提供基本的部署，維護以及應用伸縮，主要實現語言為 Go 語言。Kubernetes 是：
 
-* 易学：轻量级，简单，容易理解
-* 便携：支持公有云，私有云，混合云，以及多种云平台
-* 可拓展：模块化，可插拔，支持钩子，可任意组合
-* 自修复：自动重调度，自动重启，自动复制
+* 易學：輕量級，簡單，容易理解
+* 便攜：支援公有雲，私有雲，混合雲，以及多種雲平台
+* 可拓展：模組化，可插拔，支援鉤子，可任意組合
+* 自修復：自動重排程，自動重啟，自動複製
 
-Kubernetes 构建于 Google 数十年经验，一大半来源于 Google 生产环境规模的经验。结合了社区最佳的想法和实践。
+Kubernetes 建立於 Google 數十年經驗，一大半來源於 Google 生產環境規模的經驗。結合了社群最佳的想法和實踐。
 
-在分布式系统中，部署，调度，伸缩一直是最为重要的也最为基础的功能。Kubernetes 就是希望解决这一序列问题的。
+在分散式系統中，部署，排程，伸縮一直是最為重要的也最為基礎的功能。Kubernetes 就是希望解決這一序列問題的。
 
-Kubernetes 目前在[GitHub](https://github.com/kubernetes/kubernetes)进行维护。
+Kubernetes 目前在[GitHub](https://github.com/kubernetes/kubernetes)進行維護。
 
-### Kubernetes 能够运行在任何地方！
+### Kubernetes 能夠執行在任何地方！
 
-虽然 Kubernetes 最初是为 GCE 定制的，但是在后续版本中陆续增加了其他云平台的支持，以及本地数据中心的支持。
+雖然 Kubernetes 最初是為 GCE 定製的，但是在後續版本中陸續增加了其他雲平台的支援，以及本地資料中心的支援。

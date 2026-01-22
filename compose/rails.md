@@ -1,12 +1,12 @@
 # 使用 Rails
 
-> 本小节内容适合 `Ruby` 开发人员阅读。
+> 本小節內容適合 `Ruby` 開發人員閱讀。
 
-我们现在将使用 `Compose` 配置并运行一个 `Rails/PostgreSQL` 应用。
+我們現在將使用 `Compose` 設定並執行一個 `Rails/PostgreSQL` 應用。
 
-在一切工作开始前，需要先设置好三个必要的文件。
+在一切工作開始前，需要先設定好三個必要的檔案。
 
-首先，因为应用将要运行在一个满足所有环境依赖的 Docker 容器里面，那么我们可以通过编辑 `Dockerfile` 文件来指定 Docker 容器要安装内容。内容如下：
+首先，因為應用將要執行在一個滿足所有環境依賴的 Docker 容器裡面，那麼我們可以透過編輯 `Dockerfile` 檔案來指定 Docker 容器要安裝內容。內容如下：
 
 ```docker
 FROM ruby
@@ -18,16 +18,16 @@ RUN bundle install
 ADD . /myapp
 ```
 
-以上内容指定应用将使用安装了 Ruby、Bundler 以及其依赖件的镜像。更多关于如何编写 Dockerfile 文件的信息可以查看 [Dockerfile 使用](../image/dockerfile/README.md)。
+以上內容指定應用將使用安裝了 Ruby、Bundler 以及其依賴件的映象。更多關於如何編寫 Dockerfile 檔案的訊息可以檢視 [Dockerfile 使用](../image/dockerfile/README.md)。
 
-下一步，我们需要一个引导加载 Rails 的文件 `Gemfile` 。 等一会儿它还会被 `rails new` 命令覆盖重写。
+下一步，我們需要一個引導載入 Rails 的檔案 `Gemfile` 。 等一會兒它還會被 `rails new` 指令覆蓋重寫。
 
 ```bash
 source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 ```
 
-最后，`docker-compose.yml` 文件才是最神奇的地方。 `docker-compose.yml` 文件将把所有的东西关联起来。它描述了应用的构成（一个 web 服务和一个数据库）、每个镜像的来源（数据库运行在使用预定义的 PostgreSQL 镜像，web 应用侧将从本地目录创建）、镜像之间的连接，以及服务开放的端口。
+最後，`docker-compose.yml` 檔案才是最神奇的地方。 `docker-compose.yml` 檔案將把所有的東西關聯起來。它描述了應用的構成（一個 web 服務和一個資料庫）、每個映象的來源（資料庫執行在使用預定義的 PostgreSQL 映象，web 應用側將從本地目錄建立）、映象之間的連線，以及服務開放的連接埠。
 
 ```yaml
 
@@ -47,13 +47,13 @@ services:
       - "3000:3000"
 ```
 
-所有文件就绪后，我们就可以通过使用 `docker compose run` 命令生成应用的骨架了。
+所有檔案就緒後，我們就可以透過使用 `docker compose run` 指令生成應用的骨架了。
 
 ```bash
 $ docker compose run web rails new . --force --database=postgresql --skip-bundle
 ```
 
-`Compose` 会先使用 `Dockerfile` 为 web 服务创建一个镜像，接着使用这个镜像在容器里运行 `rails new ` 和它之后的命令。一旦这个命令运行完后，应该就可以看一个崭新的应用已经生成了。
+`Compose` 會先使用 `Dockerfile` 為 web 服務建立一個映象，接著使用這個映象在容器裡執行 `rails new ` 和它之後的指令。一旦這個指令執行完後，應該就可以看一個嶄新的應用已經生成了。
 
 ```bash
 $ ls
@@ -64,20 +64,20 @@ README.rdoc  condocker-compose.ru    public
 Rakefile     db           test
 ```
 
-在新的 `Gemfile` 文件去掉加载 `therubyracer` 的行的注释，这样我们便可以使用 Javascript 运行环境：
+在新的 `Gemfile` 檔案去掉載入 `therubyracer` 的行的註解，這樣我們便可以使用 Javascript 執行環境：
 
 ```bash
 gem 'therubyracer', platforms: :ruby
 ```
 
-现在我们已经有一个新的 `Gemfile` 文件，需要再重新创建镜像。（这个会步骤会改变 Dockerfile 文件本身，所以需要重建一次）。
+現在我們已經有一個新的 `Gemfile` 檔案，需要再重新建立映象。（這個會步驟會改變 Dockerfile 檔案本身，所以需要重建一次）。
 
 ```bash
 $ docker compose build
 ```
 
-应用现在就可以启动了，但配置还未完成。Rails 默认读取的数据库目标是 `localhost` ，我们需要手动指定容器的 `db` 。同样的，还需要把用户名修改成和 postgres 镜像预定的一致。
-打开最新生成的 `database.yml` 文件。用以下内容替换：
+應用現在就可以啟動了，但設定還未完成。Rails 預設讀取的資料庫目標是 `localhost` ，我們需要手動指定容器的 `db` 。同樣的，還需要把使用者名修改成和 postgres 映象預定的一致。
+開啟最新生成的 `database.yml` 檔案。用以下內容替換：
 
 ```bash
 development: &default
@@ -94,13 +94,13 @@ test:
   database: myapp_test
 ```
 
-现在就可以启动应用了。
+現在就可以啟動應用了。
 
 ```bash
 $ docker compose up
 ```
 
-如果一切正常，你应该可以看到 PostgreSQL 的输出，几秒后可以看到这样的重复信息：
+如果一切正常，你應該可以看到 PostgreSQL 的輸出，幾秒後可以看到這樣的重複訊息：
 
 ```bash
 myapp_web_1 | [2014-01-17 17:16:29] INFO  WEBrick 1.3.1
@@ -108,10 +108,10 @@ myapp_web_1 | [2014-01-17 17:16:29] INFO  ruby 2.0.0 (2013-11-22) [x86_64-linux-
 myapp_web_1 | [2014-01-17 17:16:29] INFO  WEBrick::HTTPServer#start: pid=1 port=3000
 ```
 
-最后， 我们需要做的是创建数据库，打开另一个终端，运行：
+最後， 我們需要做的是建立資料庫，開啟另一個終端，執行：
 
 ```bash
 $ docker compose run web rake db:create
 ```
 
-这个 web 应用已经开始在你的 docker 守护进程里面监听着 3000 端口了。
+這個 web 應用已經開始在你的 docker 守護程序裡面監聽著 3000 連接埠了。

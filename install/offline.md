@@ -1,23 +1,23 @@
-# Linux 离线安装
+# Linux 離線安裝
 
 \[TOC]
 
-生产环境中一般都是没有公网资源的，本文介绍如何在生产服务器上离线部署`Docker`
+生產環境中一般都是沒有公網資源的，本文介紹如何在生產伺服器上離線部署`Docker`
 
-括号内的字母表示该操作需要在哪些服务器上执行
+括號內的字母表示該操作需要在哪些伺服器上執行
 
 ![Docker-offile-install-top](../.gitbook/assets/image-20200412202617411.png)
 
-## Centos7 离线安装Docker
+## Centos7 離線安裝Docker
 
-### YUM本地文件安装（推荐）
+### YUM本地檔案安裝（推薦）
 
-推荐这种方式，是因为在生产环境种一般会选定某个指定的文档软件版本使用。
+推薦這種方式，是因為在生產環境種一般會選定某個指定的文件軟體版本使用。
 
-#### 查询可用的软件版本(A)
+#### 查詢可用的軟體版本(A)
 
 ```bash
-#下载清华的镜像源文件
+#下載清華的映象源檔案
 wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
 
 sudo sed -i 's+download.docker.com+mirrors.tuna.tsinghua.edu.cn/docker-ce+' /etc/yum.repos.d/docker-ce.repo
@@ -41,7 +41,7 @@ docker-ce.x86_64            3:19.03.1-3.el7                     docker-ce-stable
 ....
 ```
 
-#### 下载到指定文件夹(A)
+#### 下載到指定資料夾(A)
 
 ```bash
 sudo yum install --downloadonly --downloaddir=/tmp/docker24_offline_install/ docker-ce-24.0.4-1.el7 docker-ce-cli-24.0.4-1.el7
@@ -76,31 +76,31 @@ Total                                                                           
 exiting because "Download Only" specified
 ```
 
-#### 复制到目标服务器之后进入文件夹安装(C-N)
+#### 複製到目標伺服器之後進入資料夾安裝(C-N)
 
-* 离线安装时，必须使用rpm命令不检查依赖的方式安装
+* 離線安裝時，必須使用rpm指令不檢查依賴的方式安裝
 
 ```bash
 rpm -Uvh *.rpm --nodeps --force
 ```
 
-#### 锁定软件版本(C-N)
+#### 鎖定軟體版本(C-N)
 
-**下载锁定版本软件**
+**下載鎖定版本軟體**
 
-可参考下文的网络源搭建
+可參考下文的網路源搭建
 
 ```bash
 sudo yum install yum-plugin-versionlock
 ```
 
-**锁定软件版本**
+**鎖定軟體版本**
 
 ```bash
 sudo yum versionlock add docker
 ```
 
-**查看锁定列表**
+**檢視鎖定清單**
 
 ```bash
 sudo yum versionlock list
@@ -112,7 +112,7 @@ Loaded plugins: fastestmirror, versionlock
 versionlock list done
 ```
 
-**锁定后无法再更新**
+**鎖定後無法再更新**
 
 ```bash
 sudo yum install docker-ce
@@ -123,7 +123,7 @@ Package 3:docker-ce-24.0.4-1.el7.x86_64 already installed and latest version
 Nothing to do
 ```
 
-**解锁指定软件**
+**解鎖指定軟體**
 
 ```bash
 sudo yum versionlock delete docker-ce
@@ -135,25 +135,25 @@ Deleting versionlock for: 3:docker-ce-24.0.4-1.el7.*
 versionlock deleted: 1
 ```
 
-**解锁所有软件**
+**解鎖所有軟體**
 
 ```bash
 sudo yum versionlock delete all
 ```
 
-### YUM 本地源服务器搭建安装Docker
+### YUM 本地源伺服器搭建安裝Docker
 
-#### 挂载 ISO 镜像搭建本地 File 源（AB）
+#### 掛載 ISO 映象搭建本地 File 源（AB）
 
 ```bash
-# 删除其他网络源
+# 刪除其他網路源
 rm -f /etc/yum.repo.d/*
-# 挂载光盘或者iso镜像
+# 掛載光碟或者iso映象
 mount /dev/cdrom /mnt
 ```
 
 ```bash
-# 添加本地源
+# 新增本地源
 cat >/etc/yum.repos.d/local_files.repo<< EOF
 [Local_Files]
 name=Local_Files
@@ -165,69 +165,69 @@ EOF
 ```
 
 ```bash
-# 测试刚才的本地源,安装createrepo软件
+# 測試剛才的本地源,安裝createrepo軟體
 yum clean all 
 yum install createrepo -y
 ```
 
-#### 根据本地文件搭建BASE网络源（B）
+#### 根據本地檔案搭建BASE網路源（B）
 
 ```bash
-# 安装apache 服务器
+# 安裝apache 伺服器
 yum install httpd -y
-# 挂载光盘
+# 掛載光碟
 mount /dev/cdrom /mnt
-# 新建centos目录
+# 新建centos目錄
 mkdir /var/www/html/base
-# 复制光盘内的文件到刚才新建的目录
+# 複製光碟內的檔案到剛才新建的目錄
 cp -R /mnt/Packages/* /var/www/html/base/
 createrepo  /var/www/html/centos/
 systemctl enable httpd
 systemctl start httpd
 ```
 
-#### 下载Docker-CE 镜像仓库（A）
+#### 下載Docker-CE 映象倉庫（A）
 
-在有网络的服务器上下载Docker-ce镜像
+在有網路的伺服器上下載Docker-ce映象
 
 ```bash
-# 下载清华的镜像源文件
+# 下載清華的映象源檔案
 wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
 sudo sed -i 's+download.docker.com+mirrors.tuna.tsinghua.edu.cn/docker-ce+' /etc/yum.repos.d/docker-ce.repo
 ```
 
 ```bash
-# 新建 docker-ce目录
+# 新建 docker-ce目錄
 mkdir /tmp/docker-ce/
-# 把镜像源同步到镜像文件中
+# 把映象源同步到映象檔案中
 reposync -r docker-ce-stable -p /tmp/docker-ce/
 ```
 
-#### 创建仓库索引（B）
+#### 建立倉庫索引（B）
 
-把下载的 docker-ce 文件夹复制到离线的服务器
+把下載的 docker-ce 資料夾複製到離線的伺服器
 
 ```bash
-# 把docker-ce 文件夹复制到/var/www/html/docker-ce
+# 把docker-ce 資料夾複製到/var/www/html/docker-ce
 # 重建索引
 createrepo  /var/www/html/docker-ce/
 ```
 
-#### YUM 客户端设置（C...N）
+#### YUM 用戶端設定（C...N）
 
 ```bash
 rm -f /etc/yum.repo.d/*
 cat >/etc/yum.repos.d/local_files.repo<< EOF
 [local_base]
 name=local_base
-# 改成B服务器地址
+# 改成B伺服器地址
 baseurl=http://x.x.x.x/base
 enable=1
 gpgcheck=0
 proxy=_none_
 [docker_ce]
 name=docker_ce
-# 改成B服务器地址
+# 改成B伺服器地址
 baseurl=http://x.x.x.x/base
 enable=1
 gpgcheck=0
@@ -236,7 +236,7 @@ EOF
 
 ```
 
-#### Docker 安装（C...N）
+#### Docker 安裝（C...N）
 
 ```bash
 sudo yum makecache fast

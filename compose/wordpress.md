@@ -1,16 +1,16 @@
 # 使用 WordPress
 
-> 本小节内容适合 `PHP` 开发人员阅读。
+> 本小節內容適合 `PHP` 開發人員閱讀。
 
-`Compose` 可以很便捷的让 `Wordpress` 运行在一个独立的环境中。
+`Compose` 可以很便捷的讓 `Wordpress` 執行在一個獨立的環境中。
 
-## 创建空文件夹
+## 建立空文件夾
 
-假设新建一个名为 `wordpress` 的文件夹，然后进入这个文件夹。
+假設新建一個名為 `wordpress` 的資料夾，然後進入這個資料夾。
 
-## 创建 `docker-compose.yml` 文件
+## 建立 `docker-compose.yml` 檔案
 
-[`docker-compose.yml`](https://github.com/yeasy/docker_practice/blob/master/compose/demo/wordpress/docker-compose.yml) 文件将开启一个 `wordpress` 服务和一个独立的 `MySQL` 实例：
+[`docker-compose.yml`](https://github.com/yeasy/docker_practice/blob/master/compose/demo/wordpress/docker-compose.yml) 檔案將開啟一個 `wordpress` 服務和一個獨立的 `MySQL` 實例：
 
 ```yaml
 
@@ -46,6 +46,6 @@ volumes:
   db_data:
 ```
 
-## 构建并运行项目
+## 建立並執行專案
 
-运行 `docker compose up -d` Compose 就会拉取镜像再创建我们所需要的镜像，然后启动 `wordpress` 和数据库容器。 接着浏览器访问 `127.0.0.1:8000` 端口就能看到 `WordPress` 安装界面了。
+執行 `docker compose up -d` Compose 就會拉取映象再建立我們所需要的映象，然後啟動 `wordpress` 和數據庫容器。 接著瀏覽器訪問 `127.0.0.1:8000` 連接埠就能看到 `WordPress` 安裝介面了。
