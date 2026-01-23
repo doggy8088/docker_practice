@@ -1,10 +1,10 @@
-# 创建 Swarm 集群
+# 建立 Swarm 叢集
 
-阅读 [基本概念](overview.md) 一节我们知道 `Swarm` 集群由 **管理节点** 和 **工作节点** 组成。本节我们来创建一个包含一个管理节点和两个工作节点的最小 `Swarm` 集群。
+閱讀 [基本概念](overview.md) 一節我們知道 `Swarm` 叢集由 **管理節點** 和 **工作節點** 組成。本節我們來建立一個包含一個管理節點和兩個工作節點的最小 `Swarm` 叢集。
 
-## 初始化集群
+## 初始化叢集
 
-在已经安装好 Docker 的主机上执行如下命令：
+在已經安裝好 Docker 的主機上執行如下指令：
 
 ```bash
 $ docker swarm init --advertise-addr 192.168.99.100
@@ -19,13 +19,13 @@ To add a worker to this swarm, run the following command:
 To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
 ```
 
-如果你的 Docker 主机有多个网卡，拥有多个 IP，必须使用 `--advertise-addr` 指定 IP。
+如果你的 Docker 主機有多個網絡卡，擁有多個 IP，必須使用 `--advertise-addr` 指定 IP。
 
-> 执行 `docker swarm init` 命令的节点自动成为管理节点。
+> 執行 `docker swarm init` 指令的節點自動成為管理節點。
 
-## 增加工作节点
+## 增加工作節點
 
-上一步我们初始化了一个 `Swarm` 集群，拥有了一个管理节点，下面我们继续在两个 Docker 主机中分别执行如下命令，创建工作节点并加入到集群中。
+上一步我們初始化了一個 `Swarm` 叢集，擁有了一個管理節點，下面我們繼續在兩個 Docker 主機中分別執行如下指令，建立工作節點並加入到叢集中。
 
 ```bash
 $ docker swarm join \
@@ -35,11 +35,11 @@ $ docker swarm join \
 This node joined a swarm as a worker.
 ```
 
-## 查看集群
+## 檢視叢集
 
-经过上边的两步，我们已经拥有了一个最小的 `Swarm` 集群，包含一个管理节点和两个工作节点。
+經過上邊的兩步，我們已經擁有了一個最小的 `Swarm` 叢集，包含一個管理節點和兩個工作節點。
 
-在管理节点使用 `docker node ls` 查看集群。
+在管理節點使用 `docker node ls` 檢視叢集。
 
 ```bash
 $ docker node ls

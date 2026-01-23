@@ -1,3 +1,3 @@
-# Dockerfile 指令详解
+# Dockerfile 指令詳解
 
-我们已经介绍了 `FROM`，`RUN`，还提及了 `COPY`, `ADD`，其实 `Dockerfile` 功能很强大，它提供了十多个指令。下面我们继续讲解其他的指令。
+我們已經介紹了 `FROM`，`RUN`，還提及了 `COPY`, `ADD`，其實 `Dockerfile` 功能很強大，它提供了十多個指令。下面我們繼續講解其他的指令。

@@ -1,10 +1,10 @@
-# USER 指定当前用户
+# USER 指定當前使用者
 
-格式：`USER <用户名>[:<用户组>]`
+格式：`USER <使用者名>[:<使用者組>]`
 
-`USER` 指令和 `WORKDIR` 相似，都是改变环境状态并影响以后的层。`WORKDIR` 是改变工作目录，`USER` 则是改变之后层的执行 `RUN`, `CMD` 以及 `ENTRYPOINT` 这类命令的身份。
+`USER` 指令和 `WORKDIR` 相似，都是改變環境狀態並影響以後的層。`WORKDIR` 是改變工作目錄，`USER` 則是改變之後層的執行 `RUN`, `CMD` 以及 `ENTRYPOINT` 這類指令的身份。
 
-注意，`USER` 只是帮助你切换到指定用户而已，这个用户必须是事先建立好的，否则无法切换。
+注意，`USER` 只是幫助你切換到指定使用者而已，這個使用者必須是事先建立好的，否則無法切換。
 
 ```docker
 RUN groupadd -r redis && useradd -r -g redis redis
@@ -12,15 +12,15 @@ USER redis
 RUN [ "redis-server" ]
 ```
 
-如果以 `root` 执行的脚本，在执行期间希望改变身份，比如希望以某个已经建立好的用户来运行某个服务进程，不要使用 `su` 或者 `sudo`，这些都需要比较麻烦的配置，而且在 TTY 缺失的环境下经常出错。建议使用 [`gosu`](https://github.com/tianon/gosu)。
+如果以 `root` 執行的指令碼，在執行期間希望改變身份，比如希望以某個已經建立好的使用者來執行某個服務程序，不要使用 `su` 或者 `sudo`，這些都需要比較麻煩的設定，而且在 TTY 缺失的環境下經常出錯。建議使用 [`gosu`](https://github.com/tianon/gosu)。
 
 ```docker
-# 建立 redis 用户，并使用 gosu 换另一个用户执行命令
+# 建立 redis 使用者，並使用 gosu 換另一個使用者執行指令
 RUN groupadd -r redis && useradd -r -g redis redis
-# 下载 gosu
+# 下載 gosu
 RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.12/gosu-amd64" \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
-# 设置 CMD，并以另外的用户执行
+# 設定 CMD，並以另外的使用者執行
 CMD [ "exec", "gosu", "redis", "redis-server" ]
 ```

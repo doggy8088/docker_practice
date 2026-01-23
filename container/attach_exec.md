@@ -1,12 +1,12 @@
-# 进入容器
+# 進入容器
 
-在使用 `-d` 参数时，容器启动后会进入后台。
+在使用 `-d` 引數時，容器啟動後會進入後台。
 
-某些时候需要进入容器进行操作，包括使用 `docker attach` 命令或 `docker exec` 命令，推荐大家使用 `docker exec` 命令，原因会在下面说明。
+某些時候需要進入容器進行操作，包括使用 `docker attach` 指令或 `docker exec` 指令，推薦大家使用 `docker exec` 指令，原因會在下面說明。
 
-## `attach` 命令
+## `attach` 指令
 
-下面示例如何使用 `docker attach` 命令。
+下面範例如何使用 `docker attach` 指令。
 
 ```bash
 $ docker run -dit ubuntu
@@ -20,17 +20,17 @@ $ docker attach 243c
 root@243c32535da7:/#
 ```
 
-*注意：* 如果从这个 stdin 中 exit，会导致容器的停止。
+*注意：* 如果從這個 stdin 中 exit，會導致容器的停止。
 
-## `exec` 命令
+## `exec` 指令
 
-### `-i` `-t` 参数
+### `-i` `-t` 引數
 
-`docker exec` 后边可以跟多个参数，这里主要说明 `-i` `-t` 参数。
+`docker exec` 後邊可以跟多個引數，這裡主要說明 `-i` `-t` 引數。
 
-只用 `-i` 参数时，由于没有分配伪终端，界面没有我们熟悉的 Linux 命令提示符，但命令执行结果仍然可以返回。
+只用 `-i` 引數時，由於沒有分配偽終端，介面沒有我們熟悉的 Linux 指令提示符，但指令執行結果仍然可以回傳。
 
-当 `-i` `-t` 参数一起使用时，则可以看到我们熟悉的 Linux 命令提示符。
+當 `-i` `-t` 引數一起使用時，則可以看到我們熟悉的 Linux 指令提示符。
 
 ```bash
 $ docker run -dit ubuntu
@@ -51,6 +51,6 @@ $ docker exec -it 69d1 bash
 root@69d137adef7a:/#
 ```
 
-如果从这个 stdin 中 exit，不会导致容器的停止。这就是为什么推荐大家使用 `docker exec` 的原因。
+如果從這個 stdin 中 exit，不會導致容器的停止。這就是為什麼推薦大家使用 `docker exec` 的原因。
 
-更多参数说明请使用 `docker exec --help` 查看。
+更多引數說明請使用 `docker exec --help` 檢視。
