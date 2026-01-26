@@ -1,29 +1,29 @@
 # Docker Registry
 
-镜像构建完成后，可以很容易的在当前宿主机上运行，但是，如果需要在其它服务器上使用这个镜像，我们就需要一个集中的存储、分发镜像的服务，[Docker Registry](../repository/registry.md) 就是这样的服务。
+映象建立完成後，可以很容易的在當前宿主機上執行，但是，如果需要在其它伺服器上使用這個映象，我們就需要一個集中的儲存、分發映象的服務，[Docker Registry](../repository/registry.md) 就是這樣的服務。
 
-一个 **Docker Registry** 中可以包含多个 **仓库**（`Repository`）；每个仓库可以包含多个 **标签**（`Tag`）；每个标签对应一个镜像。
+一個 **Docker Registry** 中可以包含多個 **倉庫**（`Repository`）；每個倉庫可以包含多個 **標籤**（`Tag`）；每個標籤對應一個映象。
 
-通常，一个仓库会包含同一个软件不同版本的镜像，而标签就常用于对应该软件的各个版本。我们可以通过 `<仓库名>:<标签>` 的格式来指定具体是这个软件哪个版本的镜像。如果不给出标签，将以 `latest` 作为默认标签。
+通常，一個倉庫會包含同一個軟體不同版本的映象，而標籤就常用於對應該軟體的各個版本。我們可以透過 `<倉庫名>:<標籤>` 的格式來指定具體是這個軟體哪個版本的映象。如果不給出標籤，將以 `latest` 作為預設標籤。
 
-以 [Ubuntu 镜像](https://hub.docker.com/_/ubuntu) 为例，`ubuntu` 是仓库的名字，其内包含有不同的版本标签，如，`22.04`, `24.04`。我们可以通过 `ubuntu:22.04`，或者 `ubuntu:24.04` 来具体指定所需哪个版本的镜像。如果忽略了标签，比如 `ubuntu`，那将视为 `ubuntu:latest`。
+以 [Ubuntu 映象](https://hub.docker.com/_/ubuntu) 為例，`ubuntu` 是倉庫的名字，其內包含有不同的版本標籤，如，`22.04`, `24.04`。我們可以透過 `ubuntu:22.04`，或者 `ubuntu:24.04` 來具體指定所需哪個版本的映象。如果忽略了標籤，比如 `ubuntu`，那將視為 `ubuntu:latest`。
 
-仓库名经常以 *两段式路径* 形式出现，比如 `jwilder/nginx-proxy`，前者往往意味着 Docker Registry 多用户环境下的用户名，后者则往往是对应的软件名。但这并非绝对，取决于所使用的具体 Docker Registry 的软件或服务。
+倉庫名經常以 *兩段式路徑* 形式出現，比如 `jwilder/nginx-proxy`，前者往往意味著 Docker Registry 多使用者環境下的使用者名，後者則往往是對應的軟體名。但這並非絕對，取決於所使用的具體 Docker Registry 的軟體或服務。
 
-## Docker Registry 公开服务
+## Docker Registry 公開服務
 
-Docker Registry 公开服务是开放给用户使用、允许用户管理镜像的 Registry 服务。一般这类公开服务允许用户免费上传、下载公开的镜像，并可能提供收费服务供用户管理私有镜像。
+Docker Registry 公開服務是開放給使用者使用、允許使用者管理映象的 Registry 服務。一般這類公開服務允許使用者免費上傳、下載公開的映象，並可能提供收費服務供使用者管理私有映象。
 
-最常使用的 Registry 公开服务是官方的 [Docker Hub](https://hub.docker.com/)，这也是默认的 Registry，并拥有大量的高质量的 [官方镜像](https://hub.docker.com/search?q=&type=image&image_filter=official)。除此以外，还有 Red Hat 的 [Quay.io](https://quay.io/repository/)；Google 的 [Google Container Registry](https://cloud.google.com/container-registry/)，[Kubernetes](https://kubernetes.io/) 的镜像使用的就是这个服务；代码托管平台 [GitHub](https://github.com) 推出的 [ghcr.io](https://docs.github.com/cn/packages/working-with-a-github-packages-registry/working-with-the-container-registry)。
+最常使用的 Registry 公開服務是官方的 [Docker Hub](https://hub.docker.com/)，這也是預設的 Registry，並擁有大量的高質量的 [官方映象](https://hub.docker.com/search?q=&type=image&image_filter=official)。除此以外，還有 Red Hat 的 [Quay.io](https://quay.io/repository/)；Google 的 [Google Container Registry](https://cloud.google.com/container-registry/)，[Kubernetes](https://kubernetes.io/) 的映象使用的就是這個服務；程式碼託管平台 [GitHub](https://github.com) 推出的 [ghcr.io](https://docs.github.com/cn/packages/working-with-a-github-packages-registry/working-with-the-container-registry)。
 
-由于某些原因，在国内访问这些服务可能会比较慢。国内的一些云服务商提供了针对 Docker Hub 的镜像服务（`Registry Mirror`），这些镜像服务被称为 **加速器**。常见的有 [阿里云加速器](https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu)、[DaoCloud 加速器](https://www.daocloud.io/mirror#accelerator-doc) 等。使用加速器会直接从国内的地址下载 Docker Hub 的镜像，比直接从 Docker Hub 下载速度会提高很多。在 [安装 Docker](../install/mirror.md)  一节中有详细的配置方法。
+由於某些原因，在國內訪問這些服務可能會比較慢。國內的一些雲服務商提供了針對 Docker Hub 的映象服務（`Registry Mirror`），這些映象服務被稱為 **加速器**。常見的有 [阿里雲加速器](https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu)、[DaoCloud 加速器](https://www.daocloud.io/mirror#accelerator-doc) 等。使用加速器會直接從國內的地址下載 Docker Hub 的映象，比直接從 Docker Hub 下載速度會提高很多。在 [安裝 Docker](../install/mirror.md)  一節中有詳細的設定方法。
 
-国内也有一些云服务商提供类似于 Docker Hub 的公开服务。比如 [网易云镜像服务](https://c.163.com/hub#/m/library/)、[DaoCloud 镜像市场](https://hub.daocloud.io/)、[阿里云镜像库](https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu) 等。
+國內也有一些雲服務商提供類似於 Docker Hub 的公開服務。比如 [網易雲映象服務](https://c.163.com/hub#/m/library/)、[DaoCloud 映象市場](https://hub.daocloud.io/)、[阿里雲映象函式庫](https://www.aliyun.com/product/acr?source=5176.11533457&userCode=8lx5zmtu) 等。
 
 ## 私有 Docker Registry
 
-除了使用公开服务外，用户还可以在本地搭建私有 Docker Registry。Docker 官方提供了 [Docker Registry](https://hub.docker.com/_/registry/) 镜像，可以直接使用做为私有 Registry 服务。在 [私有仓库](../repository/registry.md) 一节中，会有进一步的搭建私有 Registry 服务的讲解。
+除了使用公開服務外，使用者還可以在本地搭建私有 Docker Registry。Docker 官方提供了 [Docker Registry](https://hub.docker.com/_/registry/) 映象，可以直接使用做為私有 Registry 服務。在 [私有倉庫](../repository/registry.md) 一節中，會有進一步的搭建私有 Registry 服務的講解。
 
-开源的 Docker Registry 镜像只提供了 [Docker Registry API](https://docs.docker.com/registry/spec/api/) 的服务端实现，足以支持 `docker` 命令，不影响使用。但不包含图形界面，以及镜像维护、用户管理、访问控制等高级功能。
+開源的 Docker Registry 映象只提供了 [Docker Registry API](https://docs.docker.com/registry/spec/api/) 的伺服器端實現，足以支援 `docker` 指令，不影響使用。但不包含圖形界面，以及映象維護、使用者管理、訪問控制等高階功能。
 
-除了官方的 Docker Registry 外，还有第三方软件实现了 Docker Registry API，甚至提供了用户界面以及一些高级功能。比如，[Harbor](https://github.com/goharbor/harbor) 和 [Sonatype Nexus](../repository/nexus3_registry.md)。
+除了官方的 Docker Registry 外，還有第三方軟體實現了 Docker Registry API，甚至提供了使用者介面以及一些高階功能。比如，[Harbor](https://github.com/goharbor/harbor) 和 [Sonatype Nexus](../repository/nexus3_registry.md)。

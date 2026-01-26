@@ -1,22 +1,22 @@
-# 联合文件系统
+# 聯合檔案系統
 
-联合文件系统（[UnionFS](https://en.wikipedia.org/wiki/UnionFS)）是一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下(unite several directories into a single virtual filesystem)。
+聯合檔案系統（[UnionFS](https://en.wikipedia.org/wiki/UnionFS)）是一種分層、輕量級並且高效能的檔案系統，它支援對檔案系統的修改作為一次送出來一層層的疊加，同時可以將不同目錄掛載到同一個虛擬檔案系統下(unite several directories into a single virtual filesystem)。
 
-联合文件系统是 Docker 镜像的基础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像。
+聯合檔案系統是 Docker 映象的基礎。映象可以透過分層來進行繼承，基於基礎映象（沒有父映象），可以製作各種具體的應用映象。
 
-另外，不同 Docker 容器就可以共享一些基础的文件系统层，同时再加上自己独有的改动层，大大提高了存储的效率。
+另外，不同 Docker 容器就可以共享一些基礎的檔案系統層，同時再加上自己獨有的改動層，大大提高了儲存的效率。
 
-Docker 中使用的 AUFS（Advanced Multi-Layered Unification Filesystem）就是一种联合文件系统。 `AUFS` 支持为每一个成员目录（类似 Git 的分支）设定只读（readonly）、读写（readwrite）和写出（whiteout-able）权限, 同时 `AUFS` 里有一个类似分层的概念, 对只读权限的分支可以逻辑上进行增量地修改(不影响只读部分的)。
+Docker 中使用的 AUFS（Advanced Multi-Layered Unification Filesystem）就是一種聯合檔案系統。 `AUFS` 支援為每一個成員目錄（類似 Git 的分支）設定只讀（readonly）、讀寫（readwrite）和寫出（whiteout-able）許可權, 同時 `AUFS` 裡有一個類似分層的概念, 對只讀許可權的分支可以邏輯上進行增量地修改(不影響只讀部分的)。
 
-Docker 目前支持的联合文件系统包括 `OverlayFS`, `AUFS`, `Btrfs`, `VFS`, `ZFS` 和 `Device Mapper`。
+Docker 目前支援的聯合檔案系統包括 `OverlayFS`, `AUFS`, `Btrfs`, `VFS`, `ZFS` 和 `Device Mapper`。
 
-各 Linux 发行版 Docker 推荐使用的存储驱动如下表。
+各 Linux 發行版 Docker 推薦使用的儲存驅動如下表。
 
-|Linux 发行版 |	Docker 推荐使用的存储驱动 |
+|Linux 發行版 |	Docker 推薦使用的儲存驅動 |
 | :--        | :--                     |
 |Docker on Ubuntu |	`overlay2` (16.04 +) |
 |Docker on Debian |	`overlay2` (Debian Stretch), `aufs`, `devicemapper` |
 |Docker on CentOS |	`overlay2`  |
 |Docker on Fedora |	`overlay2`  |
 
-在可能的情况下，[推荐](https://docs.docker.com/storage/storagedriver/select-storage-driver/) 使用 `overlay2` 存储驱动，`overlay2` 是目前 Docker 默认的存储驱动，以前则是 `aufs`。你可以通过配置来使用以上提到的其他类型的存储驱动。
+在可能的情況下，[推薦](https://docs.docker.com/storage/storagedriver/select-storage-driver/) 使用 `overlay2` 儲存驅動，`overlay2` 是目前 Docker 預設的儲存驅動，以前則是 `aufs`。你可以透過設定來使用以上提到的其他型別的儲存驅動。

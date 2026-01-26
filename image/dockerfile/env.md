@@ -1,20 +1,20 @@
-# ENV 设置环境变量
+# ENV 設定環境變數
 
-格式有两种：
+格式有兩種：
 
 * `ENV <key> <value>`
 * `ENV <key1>=<value1> <key2>=<value2>...`
 
-这个指令很简单，就是设置环境变量而已，无论是后面的其它指令，如 `RUN`，还是运行时的应用，都可以直接使用这里定义的环境变量。
+這個指令很簡單，就是設定環境變數而已，無論是後面的其它指令，如 `RUN`，還是執行時的應用，都可以直接使用這裡定義的環境變數。
 
 ```docker
 ENV VERSION=1.0 DEBUG=on \
     NAME="Happy Feet"
 ```
 
-这个例子中演示了如何换行，以及对含有空格的值用双引号括起来的办法，这和 Shell 下的行为是一致的。
+這個例子中示範了如何換行，以及對含有空格的值用雙引號括起來的辦法，這和 Shell 下的行為是一致的。
 
-定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。比如在官方 `node` 镜像 `Dockerfile` 中，就有类似这样的代码：
+定義了環境變數，那麼在後續的指令中，就可以使用這個環境變數。比如在官方 `node` 映象 `Dockerfile` 中，就有類似這樣的程式碼：
 
 ```docker
 ENV NODE_VERSION 7.2.0
@@ -28,8 +28,8 @@ RUN curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 ```
 
-在这里先定义了环境变量 `NODE_VERSION`，其后的 `RUN` 这层里，多次使用 `$NODE_VERSION` 来进行操作定制。可以看到，将来升级镜像构建版本的时候，只需要更新 `7.2.0` 即可，`Dockerfile` 构建维护变得更轻松了。
+在這裡先定義了環境變數 `NODE_VERSION`，其後的 `RUN` 這層裡，多次使用 `$NODE_VERSION` 來進行操作定製。可以看到，將來升級映象建立版本的時候，只需要更新 `7.2.0` 即可，`Dockerfile` 建立維護變得更輕鬆了。
 
-下列指令可以支持环境变量展开： `ADD`、`COPY`、`ENV`、`EXPOSE`、`FROM`、`LABEL`、`USER`、`WORKDIR`、`VOLUME`、`STOPSIGNAL`、`ONBUILD`、`RUN`。
+下列指令可以支援環境變數展開： `ADD`、`COPY`、`ENV`、`EXPOSE`、`FROM`、`LABEL`、`USER`、`WORKDIR`、`VOLUME`、`STOPSIGNAL`、`ONBUILD`、`RUN`。
 
-可以从这个指令列表里感觉到，环境变量可以使用的地方很多，很强大。通过环境变量，我们可以让一份 `Dockerfile` 制作更多的镜像，只需使用不同的环境变量即可。
+可以從這個指令清單裡感覺到，環境變數可以使用的地方很多，很強大。透過環境變數，我們可以讓一份 `Dockerfile` 製作更多的映象，只需使用不同的環境變數即可。
