@@ -1,22 +1,22 @@
 # Docker Hub
 
-目前 Docker 官方维护了一个公共仓库 [Docker Hub](https://hub.docker.com/)，其中已经包括了数量超过 [10,000,000](https://hub.docker.com/search/?type=image) 的镜像。大部分需求都可以通过在 Docker Hub 中直接下载镜像来实现。
+目前 Docker 官方維護了一個公共倉庫 [Docker Hub](https://hub.docker.com/)，其中已經包括了數量超過 [10,000,000](https://hub.docker.com/search/?type=image) 的映象。大部分需求都可以透過在 Docker Hub 中直接下載映象來實現。
 
-## 注册
+## 註冊
 
-你可以在 https://hub.docker.com 免费注册一个 Docker 账号。
+你可以在 https://hub.docker.com 免費註冊一個 Docker 賬號。
 
-## 登录
+## 登入
 
-可以通过执行 `docker login` 命令交互式的输入用户名及密码来完成在命令行界面登录 Docker Hub。
+可以透過執行 `docker login` 指令互動式的輸入使用者名及密碼來完成在指令行介面登入 Docker Hub。
 
-你可以通过 `docker logout` 退出登录。
+你可以透過 `docker logout` 退出登入。
 
-## 拉取镜像
+## 拉取映象
 
-你可以通过 `docker search` 命令来查找官方仓库中的镜像，并利用 `docker pull` 命令来将它下载到本地。
+你可以透過 `docker search` 指令來查詢官方倉庫中的映象，並利用 `docker pull` 指令來將它下載到本地。
 
-例如以 `centos` 为关键词进行搜索：
+例如以 `centos` 為關鍵詞進行搜尋：
 
 ```bash
 $ docker search centos
@@ -28,17 +28,17 @@ jdeathe/centos-ssh                 OpenSSH / Supervisor / EPEL/IUS/SCL Repos - �
 centos/systemd                     systemd enabled base container.                 96                   [OK]
 ```
 
-可以看到返回了很多包含关键字的镜像，其中包括镜像名字、描述、收藏数（表示该镜像的受关注程度）、是否官方创建（`OFFICIAL`）、是否自动构建 （`AUTOMATED`）。
+可以看到回傳了很多包含關鍵字的映象，其中包括映象名字、描述、收藏數（表示該映象的受關注程度）、是否官方建立（`OFFICIAL`）、是否自動建立 （`AUTOMATED`）。
 
-根据是否是官方提供，可将镜像分为两类。
+根據是否是官方提供，可將映象分為兩類。
 
-一种是类似 `centos` 这样的镜像，被称为基础镜像或根镜像。这些基础镜像由 Docker 公司创建、验证、支持、提供。这样的镜像往往使用单个单词作为名字。
+一種是類似 `centos` 這樣的映象，被稱為基礎映象或根映象。這些基礎映象由 Docker 公司建立、驗證、支援、提供。這樣的映象往往使用單個單詞作為名字。
 
-还有一种类型，比如 `ansible/centos7-ansible` 镜像，它是由 Docker Hub 的注册用户创建并维护的，往往带有用户名称前缀。可以通过前缀 `username/` 来指定使用某个用户提供的镜像，比如 ansible 用户。
+還有一種型別，比如 `ansible/centos7-ansible` 映象，它是由 Docker Hub 的註冊使用者建立並維護的，往往帶有使用者名稱字首。可以透過字首 `username/` 來指定使用某個使用者提供的映象，比如 ansible 使用者。
 
-另外，在查找的时候通过 `--filter=stars=N` 参数可以指定仅显示收藏数量为 `N` 以上的镜像。
+另外，在查詢的時候透過 `--filter=stars=N` 引數可以指定僅顯示收藏數量為 `N` 以上的映象。
 
-下载官方 `centos` 镜像到本地。
+下載官方 `centos` 映象到本地。
 
 ```bash
 $ docker pull centos
@@ -50,11 +50,11 @@ Status: Downloaded newer image for centos:latest
 docker.io/library/centos:latest
 ```
 
-## 推送镜像
+## 推送映象
 
-用户也可以在登录后通过 `docker push` 命令来将自己的镜像推送到 Docker Hub。
+使用者也可以在登入後透過 `docker push` 指令來將自己的映象推送到 Docker Hub。
 
-以下命令中的 `username` 请替换为你的 Docker 账号用户名。
+以下指令中的 `username` 請替換為你的 Docker 賬號使用者名。
 
 ```bash
 $ docker tag ubuntu:24.04 username/ubuntu:24.04
@@ -73,26 +73,26 @@ NAME                      DESCRIPTION                                     STARS 
 username/ubuntu
 ```
 
-## 自动构建
+## 自動建立
 
-> 2021 年 7 月 26 日之后，该项功能仅限[付费用户](https://www.docker.com/blog/changes-to-docker-hub-autobuilds/)使用。
+> 2021 年 7 月 26 日之後，該項功能僅限[付費使用者](https://www.docker.com/blog/changes-to-docker-hub-autobuilds/)使用。
 
-自动构建（`Automated Builds`）可以自动触发构建镜像，方便升级镜像。
+自動建立（`Automated Builds`）可以自動觸發建立映象，方便升級映象。
 
-有时候，用户构建了镜像，安装了某个软件，当软件发布新版本则需要手动更新镜像。
+有時候，使用者建立了映象，安裝了某個軟體，當軟體發布新版本則需要手動更新映象。
 
-而自动构建允许用户通过 Docker Hub 指定跟踪一个目标网站（支持 [GitHub](https://github.com) 或 [BitBucket](https://bitbucket.org)）上的项目，一旦项目发生新的提交 （`commit`）或者创建了新的标签（`tag`），Docker Hub 会自动构建镜像并推送到 Docker Hub 中。
+而自動建立允許使用者透過 Docker Hub 指定跟蹤一個目標網站（支援 [GitHub](https://github.com) 或 [BitBucket](https://bitbucket.org)）上的專案，一旦專案發生新的送出 （`commit`）或者建立了新的標籤（`tag`），Docker Hub 會自動建立映象並推送到 Docker Hub 中。
 
-要配置自动构建，包括如下的步骤：
+要設定自動建立，包括如下的步驟：
 
-* 登录 Docker Hub；
+* 登入 Docker Hub；
 
-* 在 Docker Hub 点击右上角头像，在账号设置（`Account Settings`）中关联（`Linked Accounts`）目标网站；
+* 在 Docker Hub 點選右上角頭像，在賬號設定（`Account Settings`）中關聯（`Linked Accounts`）目標網站；
 
-* 在 Docker Hub 中新建或选择已有的仓库，在 `Builds` 选项卡中选择 `Configure Automated Builds`；
+* 在 Docker Hub 中新建或選擇已有的倉庫，在 `Builds` 頁籤中選擇 `Configure Automated Builds`；
 
-* 选取一个目标网站中的项目（需要含 `Dockerfile`）和分支；
+* 選取一個目標網站中的專案（需要含 `Dockerfile`）和分支；
 
-* 指定 `Dockerfile` 的位置，并保存。
+* 指定 `Dockerfile` 的位置，並儲存。
 
-之后，可以在 Docker Hub 的仓库页面的 `Timeline` 选项卡中查看每次构建的状态。
+之後，可以在 Docker Hub 的倉庫頁面的 `Timeline` 頁籤中檢視每次建立的狀態。
