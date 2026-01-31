@@ -1,18 +1,18 @@
-# 终止容器
+# 終止容器
 
-## 终止方式概述
+## 終止方式概述
 
-终止容器有三种方式：
+終止容器有三種方式：
 
-| 方式 | 命令 | 说明 |
+| 方式 | 指令 | 說明 |
 |------|------|------|
-| **优雅停止** | `docker stop` | 先发 SIGTERM，超时后发 SIGKILL |
-| **强制停止** | `docker kill` | 直接发 SIGKILL |
-| **自动终止** | - | 容器主进程退出时自动停止 |
+| **優雅停止** | `docker stop` | 先發 SIGTERM，超時後發 SIGKILL |
+| **強制停止** | `docker kill` | 直接發 SIGKILL |
+| **自動終止** | - | 容器主程序退出時自動停止 |
 
 ---
 
-## docker stop（推荐）
+## docker stop（推薦）
 
 ### 基本用法
 
@@ -27,31 +27,31 @@ docker stop mycontainer
         │
         ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│  1. 发送 SIGTERM 信号给容器主进程（PID 1）                        │
+│  1. 傳送 SIGTERM 訊號給容器主程序（PID 1）                        │
 │        ↓                                                        │
-│  2. 等待容器优雅退出（默认 10 秒）                                │
+│  2. 等待容器優雅退出（預設 10 秒）                                │
 │        ↓                                                        │
-│  3. 如果超时仍未退出，发送 SIGKILL 强制终止                       │
+│  3. 如果超時仍未退出，傳送 SIGKILL 強制終止                       │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### 自定义超时时间
+### 自定義超時時間
 
 ```bash
-# 等待 30 秒后强制终止
+# 等待 30 秒後強制終止
 $ docker stop -t 30 mycontainer
 
-# 立即发送 SIGKILL（相当于 docker kill）
+# 立即傳送 SIGKILL（相當於 docker kill）
 $ docker stop -t 0 mycontainer
 ```
 
-### 停止多个容器
+### 停止多個容器
 
 ```bash
-# 停止多个指定容器
+# 停止多個指定容器
 $ docker stop container1 container2 container3
 
-# 停止所有运行中的容器
+# 停止所有執行中的容器
 $ docker stop $(docker ps -q)
 ```
 
@@ -65,41 +65,41 @@ $ docker stop $(docker ps -q)
 $ docker kill 容器名或ID
 ```
 
-### 与 stop 的区别
+### 與 stop 的區別
 
-| 命令 | 信号 | 使用场景 |
+| 指令 | 訊號 | 使用場景 |
 |------|------|---------|
-| `docker stop` | SIGTERM → SIGKILL | 正常停止，让应用优雅退出 |
-| `docker kill` | SIGKILL | 应用无响应，强制终止 |
+| `docker stop` | SIGTERM → SIGKILL | 正常停止，讓應用優雅退出 |
+| `docker kill` | SIGKILL | 應用無回應，強制終止 |
 
-### 发送自定义信号
+### 傳送自定義訊號
 
 ```bash
-# 发送 SIGHUP（让进程重新加载配置）
+# 傳送 SIGHUP（讓程序重新載入設定）
 $ docker kill -s HUP mycontainer
 
-# 发送 SIGTERM
+# 傳送 SIGTERM
 $ docker kill -s TERM mycontainer
 ```
 
 ---
 
-## 容器自动终止
+## 容器自動終止
 
-容器的生命周期与主进程绑定。主进程退出时，容器自动停止：
+容器的生命週期與主程序繫結。主程序退出時，容器自動停止：
 
 ```bash
-# 主进程是交互式 bash
+# 主程序是互動式 bash
 $ docker run -it ubuntu bash
 root@abc123:/# exit    # 退出 bash → 容器停止
 
-# 主进程执行完毕
-$ docker run ubuntu echo "Hello"    # echo 执行完 → 容器停止
+# 主程序執行完畢
+$ docker run ubuntu echo "Hello"    # echo 執行完 → 容器停止
 ```
 
 ---
 
-## 查看已停止的容器
+## 檢視已停止的容器
 
 ```bash
 $ docker ps -a
@@ -108,42 +108,42 @@ ba267838cc1b   ubuntu   "/bin/bash"   Exited (0) 2 minutes ago    myubuntu
 c5d3a5e8f7b2   nginx    "nginx"       Up 5 minutes                mynginx
 ```
 
-**STATUS 字段说明**：
+**STATUS 欄位說明**：
 
-| 状态 | 说明 |
+| 狀態 | 說明 |
 |------|------|
-| `Up X minutes` | 运行中 |
-| `Exited (0)` | 正常退出（退出码 0） |
-| `Exited (1)` | 异常退出（非零退出码） |
-| `Exited (137)` | 被 SIGKILL 终止（128 + 9） |
-| `Exited (143)` | 被 SIGTERM 终止（128 + 15） |
+| `Up X minutes` | 執行中 |
+| `Exited (0)` | 正常退出（退出碼 0） |
+| `Exited (1)` | 異常退出（非零退出碼） |
+| `Exited (137)` | 被 SIGKILL 終止（128 + 9） |
+| `Exited (143)` | 被 SIGTERM 終止（128 + 15） |
 
 ---
 
-## 重新启动容器
+## 重新啟動容器
 
-### 启动已停止的容器
+### 啟動已停止的容器
 
 ```bash
 $ docker start 容器名或ID
 
-# 启动并附加终端
+# 啟動並附加終端
 $ docker start -ai 容器名
 ```
 
-### 重启运行中的容器
+### 重啟執行中的容器
 
 ```bash
-# 先停止再启动
+# 先停止再啟動
 $ docker restart 容器名
 
-# 自定义停止超时
+# 自定義停止超時
 $ docker restart -t 30 容器名
 ```
 
 ---
 
-## 生命周期状态图
+## 生命週期狀態圖
 
 ```
                     docker create
@@ -182,7 +182,7 @@ $ docker restart -t 30 容器名
 
 ---
 
-## 批量操作
+## 批次操作
 
 ### 停止所有容器
 
@@ -190,13 +190,13 @@ $ docker restart -t 30 容器名
 $ docker stop $(docker ps -q)
 ```
 
-### 删除所有已停止的容器
+### 刪除所有已停止的容器
 
 ```bash
 $ docker container prune
 ```
 
-### 停止并删除所有容器
+### 停止並刪除所有容器
 
 ```bash
 $ docker stop $(docker ps -q) && docker container prune -f
@@ -204,53 +204,53 @@ $ docker stop $(docker ps -q) && docker container prune -f
 
 ---
 
-## 常见问题
+## 常見問題
 
 ### Q: 容器停止很慢
 
-原因：应用没有正确处理 SIGTERM 信号，需要等待超时后强制终止。
+原因：應用沒有正確處理 SIGTERM 訊號，需要等待超時後強制終止。
 
-解决方案：
-1. 在应用中正确处理 SIGTERM
-2. 使用 `docker stop -t 0` 立即终止
-3. 检查 Dockerfile 中的 `STOPSIGNAL` 配置
+解決方案：
+1. 在應用中正確處理 SIGTERM
+2. 使用 `docker stop -t 0` 立即終止
+3. 檢查 Dockerfile 中的 `STOPSIGNAL` 設定
 
-### Q: 如何让容器优雅退出
+### Q: 如何讓容器優雅退出
 
-确保容器主进程正确处理信号：
+確保容器主程序正確處理訊號：
 
 ```dockerfile
-# Dockerfile 示例
+# Dockerfile 範例
 FROM node:18
 ...
-# 使用 exec 形式确保信号能传递给 node 进程
+# 使用 exec 形式確保訊號能傳遞給 node 程序
 CMD ["node", "server.js"]
 ```
 
-### Q: 容器无法停止
+### Q: 容器無法停止
 
 ```bash
-# 强制终止
+# 強制終止
 $ docker kill 容器名
 
-# 如果仍无法停止，检查系统资源
+# 如果仍無法停止，檢查系統資源
 $ docker inspect 容器名
 ```
 
 ---
 
-## 本章小结
+## 本章小結
 
-| 操作 | 命令 | 说明 |
+| 操作 | 指令 | 說明 |
 |------|------|------|
-| 优雅停止 | `docker stop` | 先 SIGTERM，超时后 SIGKILL |
-| 强制停止 | `docker kill` | 直接 SIGKILL |
-| 重新启动 | `docker start` | 启动已停止的容器 |
-| 重启 | `docker restart` | 停止后立即启动 |
-| 停止全部 | `docker stop $(docker ps -q)` | 停止所有运行中容器 |
+| 優雅停止 | `docker stop` | 先 SIGTERM，超時後 SIGKILL |
+| 強制停止 | `docker kill` | 直接 SIGKILL |
+| 重新啟動 | `docker start` | 啟動已停止的容器 |
+| 重啟 | `docker restart` | 停止後立即啟動 |
+| 停止全部 | `docker stop $(docker ps -q)` | 停止所有執行中容器 |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [启动容器](run.md)：容器启动详解
-- [删除容器](rm.md)：清理容器
-- [容器日志](logs.md)：排查停止原因
+- [啟動容器](run.md)：容器啟動詳解
+- [刪除容器](rm.md)：清理容器
+- [容器日誌](logs.md)：排查停止原因

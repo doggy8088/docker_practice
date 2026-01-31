@@ -1,24 +1,24 @@
-# CMD 容器启动命令
+# CMD 容器啟動指令
 
-## 什么是 CMD
+## 什麼是 CMD
 
-`CMD` 指令用于指定容器启动时默认执行的命令。它定义了容器的"主进程"。
+`CMD` 指令用於指定容器啟動時預設執行的指令。它定義了容器的"主程序"。
 
-> **核心概念**：容器的生命周期 = 主进程的生命周期。CMD 指定的命令就是这个主进程。
+> **核心概念**：容器的生命週期 = 主程序的生命週期。CMD 指定的指令就是這個主程序。
 
 ---
 
-## 语法格式
+## 語法格式
 
-CMD 有三种格式：
+CMD 有三種格式：
 
-| 格式 | 语法 | 推荐程度 |
+| 格式 | 語法 | 推薦程度 |
 |------|------|---------|
-| **exec 格式** | `CMD ["可执行文件", "参数1", "参数2"]` | ✅ **推荐** |
-| **shell 格式** | `CMD 命令 参数1 参数2` | ⚠️ 简单场景 |
-| **参数格式** | `CMD ["参数1", "参数2"]` | 配合 ENTRYPOINT |
+| **exec 格式** | `CMD ["可執行檔案", "引數1", "引數2"]` | ✅ **推薦** |
+| **shell 格式** | `CMD 指令 引數1 引數2` | ⚠️ 簡單場景 |
+| **引數格式** | `CMD ["引數1", "引數2"]` | 配合 ENTRYPOINT |
 
-### exec 格式（推荐）
+### exec 格式（推薦）
 
 ```docker
 CMD ["nginx", "-g", "daemon off;"]
@@ -26,10 +26,10 @@ CMD ["python", "app.py"]
 CMD ["node", "server.js"]
 ```
 
-**优点**：
-- 直接执行指定程序，是容器的 PID 1
-- 正确接收信号（如 SIGTERM）
-- 无需 shell 解析
+**優點**：
+- 直接執行指定程式，是容器的 PID 1
+- 正確接收訊號（如 SIGTERM）
+- 無需 shell 解析
 
 ### shell 格式
 
@@ -38,72 +38,72 @@ CMD echo "Hello World"
 CMD nginx -g "daemon off;"
 ```
 
-**实际执行**：会被包装为 `sh -c`
+**實際執行**：會被包裝為 `sh -c`
 
 ```docker
-# 你写的
+# 你寫的
 CMD echo $HOME
 
-# 实际执行的
+# 實際執行的
 CMD ["sh", "-c", "echo $HOME"]
 ```
 
-**优点**：可以使用环境变量、管道等 shell 特性
-**缺点**：主进程是 sh，信号无法正确传递给应用
+**優點**：可以使用環境變數、通道等 shell 屬性
+**缺點**：主程序是 sh，訊號無法正確傳遞給應用
 
 ---
 
 ## exec 格式 vs shell 格式
 
-| 特性 | exec 格式 | shell 格式 |
+| 屬性 | exec 格式 | shell 格式 |
 |------|----------|-----------|
-| 主进程 | 指定的程序 | `/bin/sh` |
-| 信号传递 | ✅ 正确 | ❌ 无法传递 |
-| 环境变量 | ❌ 需要 shell 包装 | ✅ 自动解析 |
-| 推荐使用 | ✅ 大多数场景 | 需要 shell 特性时 |
+| 主程序 | 指定的程式 | `/bin/sh` |
+| 訊號傳遞 | ✅ 正確 | ❌ 無法傳遞 |
+| 環境變數 | ❌ 需要 shell 包裝 | ✅ 自動解析 |
+| 推薦使用 | ✅ 大多數場景 | 需要 shell 屬性時 |
 
-### 信号传递问题示例
+### 訊號傳遞問題範例
 
 ```docker
-# ❌ shell 格式：docker stop 会超时
+# ❌ shell 格式：docker stop 會超時
 CMD node server.js
-# 实际是 sh -c "node server.js"
-# SIGTERM 发给 sh，不会传递给 node
+# 實際是 sh -c "node server.js"
+# SIGTERM 發給 sh，不會傳遞給 node
 
 # ✅ exec 格式：docker stop 正常工作
 CMD ["node", "server.js"]
-# SIGTERM 直接发给 node
+# SIGTERM 直接發給 node
 ```
 
 ---
 
-## 运行时覆盖 CMD
+## 執行時覆蓋 CMD
 
-`docker run` 后的命令会覆盖 Dockerfile 中的 CMD：
+`docker run` 後的指令會覆蓋 Dockerfile 中的 CMD：
 
 ```bash
-# ubuntu 默认 CMD 是 /bin/bash
-$ docker run -it ubuntu        # 进入 bash
-$ docker run ubuntu cat /etc/os-release  # 覆盖为 cat 命令
+# ubuntu 預設 CMD 是 /bin/bash
+$ docker run -it ubuntu        # 進入 bash
+$ docker run ubuntu cat /etc/os-release  # 覆蓋為 cat 指令
 ```
 
 ```
-Dockerfile:              docker run 命令:
+Dockerfile:              docker run 指令:
 CMD ["/bin/bash"]   +    cat /etc/os-release
         │                        │
-        └───────► 被覆盖 ◄───────┘
+        └───────► 被覆蓋 ◄───────┘
                     ↓
-           执行: cat /etc/os-release
+           執行: cat /etc/os-release
 ```
 
 ---
 
-## 经典错误：容器立即退出
+## 經典錯誤：容器立即退出
 
-### 错误示例
+### 錯誤範例
 
 ```docker
-# ❌ 容器启动后立即退出
+# ❌ 容器啟動後立即退出
 CMD service nginx start
 ```
 
@@ -111,22 +111,22 @@ CMD service nginx start
 
 ```
 1. CMD service nginx start
-   ↓ 被转换为
+   ↓ 被轉換為
 2. CMD ["sh", "-c", "service nginx start"]
    ↓
-3. sh 启动，执行 service 命令
+3. sh 啟動，執行 service 指令
    ↓
-4. service 命令将 nginx 放到后台
+4. service 指令將 nginx 放到後台
    ↓
-5. service 命令结束，sh 退出
+5. service 指令結束，sh 退出
    ↓
-6. 容器主进程（sh）退出 → 容器停止
+6. 容器主程序（sh）退出 → 容器停止
 ```
 
-### 正确做法
+### 正確做法
 
 ```docker
-# ✅ 让 nginx 在前台运行
+# ✅ 讓 nginx 在前台執行
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
@@ -134,12 +134,12 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ## CMD vs ENTRYPOINT
 
-| 指令 | 用途 | 运行时行为 |
+| 指令 | 用途 | 執行時行為 |
 |------|------|-----------|
-| **CMD** | 默认命令 | `docker run` 参数会**覆盖**它 |
-| **ENTRYPOINT** | 入口点 | `docker run` 参数会**追加**到它后面 |
+| **CMD** | 預設指令 | `docker run` 引數會**覆蓋**它 |
+| **ENTRYPOINT** | 入口點 | `docker run` 引數會**追加**到它後面 |
 
-### 单独使用 CMD
+### 單獨使用 CMD
 
 ```docker
 # Dockerfile
@@ -147,8 +147,8 @@ CMD ["curl", "-s", "http://example.com"]
 ```
 
 ```bash
-$ docker run myimage              # 执行默认命令
-$ docker run myimage curl -v ...  # 完全覆盖
+$ docker run myimage              # 執行預設指令
+$ docker run myimage curl -v ...  # 完全覆蓋
 ```
 
 ### 搭配 ENTRYPOINT
@@ -161,108 +161,108 @@ CMD ["http://example.com"]
 
 ```bash
 $ docker run myimage              # curl -s http://example.com
-$ docker run myimage http://other.com  # curl -s http://other.com（参数覆盖）
+$ docker run myimage http://other.com  # curl -s http://other.com（引數覆蓋）
 ```
 
-详见 [ENTRYPOINT 入口点](entrypoint.md) 章节。
+詳見 [ENTRYPOINT 入口點](entrypoint.md) 章節。
 
 ---
 
-## 最佳实践
+## 最佳實踐
 
-### 1. 优先使用 exec 格式
+### 1. 優先使用 exec 格式
 
 ```docker
-# ✅ 推荐
+# ✅ 推薦
 CMD ["python", "app.py"]
 
-# ⚠️ 仅在需要 shell 特性时使用
+# ⚠️ 僅在需要 shell 屬性時使用
 CMD ["sh", "-c", "echo $PATH && python app.py"]
 ```
 
-### 2. 确保应用在前台运行
+### 2. 確保應用在前台執行
 
 ```docker
-# ✅ 前台运行
+# ✅ 前台執行
 CMD ["nginx", "-g", "daemon off;"]
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 CMD ["java", "-jar", "app.jar"]
 
-# ❌ 不要使用后台服务命令
+# ❌ 不要使用後台服務指令
 CMD service nginx start
 CMD systemctl start nginx
 ```
 
-### 3. 使用双引号
+### 3. 使用雙引號
 
 ```docker
-# ✅ 正确：双引号
+# ✅ 正確：雙引號
 CMD ["node", "server.js"]
 
-# ❌ 错误：单引号（JSON 不支持）
+# ❌ 錯誤：單引號（JSON 不支援）
 CMD ['node', 'server.js']
 ```
 
 ### 4. 配合 ENTRYPOINT 使用
 
 ```docker
-# 用于可配置参数的场景
+# 用於可設定引數的場景
 ENTRYPOINT ["python", "app.py"]
 CMD ["--port", "8080"]
 
-# 运行时可以覆盖端口
+# 執行時可以覆蓋連接埠
 $ docker run myapp --port 9000
 ```
 
 ---
 
-## 常见问题
+## 常見問題
 
-### Q: CMD 可以写多个吗？
+### Q: CMD 可以寫多個嗎？
 
-不可以。多个 CMD 只有最后一个生效：
+不可以。多個 CMD 只有最後一個生效：
 
 ```docker
 CMD ["echo", "first"]
-CMD ["echo", "second"]  # 只有这个生效
+CMD ["echo", "second"]  # 只有這個生效
 ```
 
-### Q: 如何在 CMD 中使用环境变量？
+### Q: 如何在 CMD 中使用環境變數？
 
 ```docker
 # 方法1：使用 shell 格式
 CMD echo "Port is $PORT"
 
-# 方法2：显式使用 sh -c
+# 方法2：顯式使用 sh -c
 CMD ["sh", "-c", "echo Port is $PORT"]
 ```
 
-### Q: 为什么我的容器不响应 Ctrl+C？
+### Q: 為什麼我的容器不回應 Ctrl+C？
 
-可能是使用了 shell 格式，信号被 sh 吃掉了：
+可能是使用了 shell 格式，訊號被 sh 吃掉了：
 
 ```docker
-# ❌ 信号无法传递
+# ❌ 訊號無法傳遞
 CMD python app.py
 
-# ✅ 信号正确传递
+# ✅ 訊號正確傳遞
 CMD ["python", "app.py"]
 ```
 
 ---
 
-## 本章小结
+## 本章小結
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 指定容器启动时的默认命令 |
-| **推荐格式** | exec 格式 `CMD ["程序", "参数"]` |
-| **覆盖方式** | `docker run image 新命令` |
-| **与 ENTRYPOINT** | CMD 作为 ENTRYPOINT 的默认参数 |
-| **核心原则** | 应用必须在前台运行 |
+| **作用** | 指定容器啟動時的預設指令 |
+| **推薦格式** | exec 格式 `CMD ["程式", "引數"]` |
+| **覆蓋方式** | `docker run image 新指令` |
+| **與 ENTRYPOINT** | CMD 作為 ENTRYPOINT 的預設引數 |
+| **核心原則** | 應用必須在前台執行 |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [ENTRYPOINT 入口点](entrypoint.md)：固定的启动命令
-- [后台运行](../../container/daemon.md)：容器前台/后台概念
-- [最佳实践](../../appendix/best_practices.md)：Dockerfile 编写指南
+- [ENTRYPOINT 入口點](entrypoint.md)：固定的啟動指令
+- [後台執行](../../container/daemon.md)：容器前台/後台概念
+- [最佳實踐](../../appendix/best_practices.md)：Dockerfile 編寫指南

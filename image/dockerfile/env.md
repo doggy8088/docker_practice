@@ -1,12 +1,12 @@
-# ENV 设置环境变量
+# ENV 設定環境變數
 
-## 基本语法
+## 基本語法
 
 ```docker
-# 格式一：单个变量
+# 格式一：單個變數
 ENV <key> <value>
 
-# 格式二：多个变量（推荐）
+# 格式二：多個變數（推薦）
 ENV <key1>=<value1> <key2>=<value2> ...
 ```
 
@@ -14,14 +14,14 @@ ENV <key1>=<value1> <key2>=<value2> ...
 
 ## 基本用法
 
-### 设置单个变量
+### 設定單個變數
 
 ```docker
 ENV NODE_VERSION 20.10.0
 ENV APP_ENV production
 ```
 
-### 设置多个变量
+### 設定多個變數
 
 ```docker
 ENV NODE_VERSION=20.10.0 \
@@ -29,13 +29,13 @@ ENV NODE_VERSION=20.10.0 \
     APP_NAME="My Application"
 ```
 
-> 💡 包含空格的值用双引号括起来。
+> 💡 包含空格的值用雙引號括起來。
 
 ---
 
-## 环境变量的作用
+## 環境變數的作用
 
-### 1. 后续指令中使用
+### 1. 後續指令中使用
 
 ```docker
 ENV NODE_VERSION=20.10.0
@@ -52,13 +52,13 @@ WORKDIR $APP_HOME
 COPY . $APP_HOME
 ```
 
-### 2. 容器运行时使用
+### 2. 容器執行時使用
 
 ```docker
 ENV DATABASE_URL=postgres://localhost/mydb
 ```
 
-应用代码中可以读取：
+應用程式碼中可以讀取：
 
 ```python
 import os
@@ -71,11 +71,11 @@ const dbUrl = process.env.DATABASE_URL;
 
 ---
 
-## 支持环境变量的指令
+## 支援環境變數的指令
 
-以下指令可以使用 `$变量名` 或 `${变量名}` 格式：
+以下指令可以使用 `$變數名` 或 `${變數名}` 格式：
 
-| 指令 | 示例 |
+| 指令 | 範例 |
 |------|------|
 | `RUN` | `RUN echo $VERSION` |
 | `CMD` | `CMD ["sh", "-c", "echo $HOME"]` |
@@ -91,22 +91,22 @@ const dbUrl = process.env.DATABASE_URL;
 
 ---
 
-## 运行时覆盖
+## 執行時覆蓋
 
-使用 `-e` 或 `--env` 覆盖 Dockerfile 中定义的环境变量：
+使用 `-e` 或 `--env` 覆蓋 Dockerfile 中定義的環境變數：
 
 ```bash
-# 覆盖单个变量
+# 覆蓋單個變數
 $ docker run -e APP_ENV=development myimage
 
-# 覆盖多个变量
+# 覆蓋多個變數
 $ docker run -e APP_ENV=development -e DEBUG=true myimage
 
-# 从环境变量文件读取
+# 從環境變數檔案讀取
 $ docker run --env-file .env myimage
 ```
 
-### .env 文件格式
+### .env 檔案格式
 
 ```bash
 # .env
@@ -119,36 +119,36 @@ DATABASE_URL=postgres://localhost/mydb
 
 ## ENV vs ARG
 
-| 特性 | ENV | ARG |
+| 屬性 | ENV | ARG |
 |------|-----|-----|
-| **生效时间** | 构建时 + 运行时 | 仅构建时 |
-| **持久性** | 写入镜像，运行时可用 | 构建后消失 |
-| **覆盖方式** | `docker run -e` | `docker build --build-arg` |
-| **适用场景** | 应用配置 | 构建参数（如版本号） |
+| **生效時間** | 建立時 + 執行時 | 僅建立時 |
+| **持久性** | 寫入映象，執行時可用 | 建立後消失 |
+| **覆蓋方式** | `docker run -e` | `docker build --build-arg` |
+| **適用場景** | 應用設定 | 建立引數（如版本號） |
 
-### 组合使用
+### 組合使用
 
 ```docker
-# ARG 接收构建时参数
+# ARG 接收建立時引數
 ARG NODE_VERSION=20
 
-# ENV 保存到运行时
+# ENV 儲存到執行時
 ENV NODE_VERSION=$NODE_VERSION
 
-# 后续指令使用
+# 後續指令使用
 RUN curl -fsSL https://nodejs.org/dist/v${NODE_VERSION}/...
 ```
 
 ```bash
-# 构建时指定版本
+# 建立時指定版本
 $ docker build --build-arg NODE_VERSION=18 -t myapp .
 ```
 
 ---
 
-## 最佳实践
+## 最佳實踐
 
-### 1. 统一管理版本号
+### 1. 統一管理版本號
 
 ```docker
 # ✅ 好：版本集中管理
@@ -158,21 +158,21 @@ ENV NGINX_VERSION=1.25.0 \
 
 RUN apt-get install nginx=${NGINX_VERSION}
 
-# ❌ 差：版本分散在各处
+# ❌ 差：版本分散在各處
 RUN apt-get install nginx=1.25.0
 ```
 
-### 2. 不要存储敏感信息
+### 2. 不要儲存敏感訊息
 
 ```docker
-# ❌ 错误：密码写入镜像
+# ❌ 錯誤：密碼寫入映象
 ENV DB_PASSWORD=secret123
 
-# ✅ 正确：运行时传入
+# ✅ 正確：執行時傳入
 # docker run -e DB_PASSWORD=xxx myimage
 ```
 
-### 3. 为应用提供合理默认值
+### 3. 為應用提供合理預設值
 
 ```docker
 ENV APP_ENV=production \
@@ -180,7 +180,7 @@ ENV APP_ENV=production \
     LOG_LEVEL=info
 ```
 
-### 4. 使用有意义的变量名
+### 4. 使用有意義的變數名
 
 ```docker
 # ✅ 好：清晰的命名
@@ -194,36 +194,36 @@ ENV HOST=localhost \
 
 ---
 
-## 常见问题
+## 常見問題
 
-### Q: 环境变量在 CMD 中不展开
+### Q: 環境變數在 CMD 中不展開
 
-exec 格式不会自动展开环境变量：
+exec 格式不會自動展開環境變數：
 
 ```docker
-# ❌ 不会展开 $PORT
+# ❌ 不會展開 $PORT
 CMD ["python", "app.py", "--port", "$PORT"]
 
-# ✅ 使用 shell 格式或显式调用 sh
+# ✅ 使用 shell 格式或顯式呼叫 sh
 CMD ["sh", "-c", "python app.py --port $PORT"]
 ```
 
-### Q: 如何查看容器的环境变量
+### Q: 如何檢視容器的環境變數
 
 ```bash
 $ docker inspect mycontainer --format '{{json .Config.Env}}'
 $ docker exec mycontainer env
 ```
 
-### Q: 多行 ENV 还是多个 ENV
+### Q: 多行 ENV 還是多個 ENV
 
 ```docker
-# ✅ 推荐：减少层数
+# ✅ 推薦：減少層數
 ENV VAR1=value1 \
     VAR2=value2 \
     VAR3=value3
 
-# ⚠️ 多个 ENV 会创建多层
+# ⚠️ 多個 ENV 會建立多層
 ENV VAR1=value1
 ENV VAR2=value2
 ENV VAR3=value3
@@ -231,18 +231,18 @@ ENV VAR3=value3
 
 ---
 
-## 本章小结
+## 本章小結
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **语法** | `ENV KEY=value` |
-| **作用范围** | 构建时 + 运行时 |
-| **覆盖方式** | `docker run -e KEY=value` |
-| **与 ARG** | ARG 仅构建时，ENV 持久化到运行时 |
-| **安全** | 不要存储敏感信息 |
+| **語法** | `ENV KEY=value` |
+| **作用範圍** | 建立時 + 執行時 |
+| **覆蓋方式** | `docker run -e KEY=value` |
+| **與 ARG** | ARG 僅建立時，ENV 持久化到執行時 |
+| **安全** | 不要儲存敏感訊息 |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [ARG 构建参数](arg.md)：构建时变量
-- [Compose 环境变量](../../compose/compose_file.md)：Compose 中的环境变量
-- [最佳实践](../../appendix/best_practices.md)：Dockerfile 编写指南
+- [ARG 建立引數](arg.md)：建立時變數
+- [Compose 環境變數](../../compose/compose_file.md)：Compose 中的環境變數
+- [最佳實踐](../../appendix/best_practices.md)：Dockerfile 編寫指南

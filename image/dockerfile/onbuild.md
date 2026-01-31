@@ -1,39 +1,39 @@
-# ONBUILD 为他人做嫁衣裳
+# ONBUILD 為他人做嫁衣裳
 
-## 基本语法
+## 基本語法
 
 ```docker
 ONBUILD <其它指令>
 ```
 
-`ONBUILD` 是一个特殊的指令，它后面跟的是其它指令（如 `RUN`, `COPY` 等），这些指令**在当前镜像构建时不会执行**，只有当以当前镜像为基础镜像去构建下一级镜像时才会被执行。
+`ONBUILD` 是一個特殊的指令，它後面跟的是其它指令（如 `RUN`, `COPY` 等），這些指令**在當前映象建立時不會執行**，只有當以當前映象為基礎映象去建立下一級映象時才會被執行。
 
 ---
 
-## 为什么需要 ONBUILD
+## 為什麼需要 ONBUILD
 
-`ONBUILD` 主要用于制作**语言栈基础镜像**或**框架基础镜像**。
+`ONBUILD` 主要用於製作**語言棧基礎映象**或**框架基礎映象**。
 
-### 场景：维护 Node.js 项目
+### 場景：維護 Node.js 專案
 
-假设你有多个 Node.js 项目，它们的构建流程都一样：
-1. 创建目录
-2. 复制 `package.json`
-3. 执行 `npm install`
-4. 复制源码
-5. 启动应用
+假設你有多個 Node.js 專案，它們的建立流程都一樣：
+1. 建立目錄
+2. 複製 `package.json`
+3. 執行 `npm install`
+4. 複製原始碼
+5. 啟動應用
 
-如果不使用 `ONBUILD`，每个项目的 Dockerfile 都要重复这些步骤，且通过 `COPY` 复制文件时，基础镜像无法预知子项目的文件名。
+如果不使用 `ONBUILD`，每個專案的 Dockerfile 都要重複這些步驟，且透過 `COPY` 複製檔案時，基礎映象無法預知子專案的檔案名。
 
-### 使用 ONBUILD 的解决方案
+### 使用 ONBUILD 的解決方案
 
-**基础镜像 (my-node-base)**：
+**基礎映象 (my-node-base)**：
 
 ```docker
 FROM node:20-alpine
 WORKDIR /app
 
-# 这些指令将在子镜像构建时执行
+# 這些指令將在子映象建立時執行
 ONBUILD COPY package*.json ./
 ONBUILD RUN npm install
 ONBUILD COPY . .
@@ -41,111 +41,111 @@ ONBUILD COPY . .
 CMD ["npm", "start"]
 ```
 
-**子项目 Dockerfile**：
+**子專案 Dockerfile**：
 
 ```docker
 FROM my-node-base
 # 只需要一行！
-# 构建时会自动执行 COPY 和 RUN
+# 建立時會自動執行 COPY 和 RUN
 ```
 
 ---
 
-## 执行机制
+## 執行機制
 
 ```
-基础镜像构建：
-Dockerfile (含 ONBUILD) ──build──> 基础镜像 (记录了 ONBUILD 触发器)
-                                    (指令未执行)
+基礎映象建立：
+Dockerfile (含 ONBUILD) ──build──> 基礎映象 (記錄了 ONBUILD 觸發器)
+                                    (指令未執行)
 
-子镜像构建：
-FROM 基础镜像 ──build──> 读取基础镜像触发器 ──> 执行触发器指令 ──> 继续执行子 Dockerfile
+子映象建立：
+FROM 基礎映象 ──build──> 讀取基礎映象觸發器 ──> 執行觸發器指令 ──> 繼續執行子 Dockerfile
 ```
 
 ---
 
-## 常见使用场景
+## 常見使用場景
 
-### 1. 自动处理依赖安装
+### 1. 自動處理依賴安裝
 
 ```docker
-# Python 基础镜像
+# Python 基礎映象
 ONBUILD COPY requirements.txt ./
 ONBUILD RUN pip install -r requirements.txt
 ```
 
-### 2. 自动编译代码
+### 2. 自動編譯程式碼
 
 ```docker
-# Go 基础镜像
+# Go 基礎映象
 ONBUILD COPY . .
 ONBUILD RUN go build -o app main.go
 ```
 
-### 3. 处理静态资源
+### 3. 處理靜態資源
 
 ```docker
-# Nginx 静态网站基础镜像
+# Nginx 靜態網站基礎映象
 ONBUILD COPY dist/ /usr/share/nginx/html/
 ```
 
 ---
 
-## 注意事项
+## 注意事項
 
-### 1. 继承性限制
+### 1. 繼承性限制
 
-`ONBUILD` 指令**只会继承一次**。
-- 镜像 A (含 ONBUILD)
-- 镜像 B (FROM A) -> 触发 ONBUILD
-- 镜像 C (FROM B) -> **不会**再次触发 ONBUILD
+`ONBUILD` 指令**只會繼承一次**。
+- 映象 A (含 ONBUILD)
+- 映象 B (FROM A) -> 觸發 ONBUILD
+- 映象 C (FROM B) -> **不會**再次觸發 ONBUILD
 
-### 2. 构建上下文
+### 2. 建立上下文
 
-子镜像构建时，`ONBUILD COPY . .` 中的 `.` 指的是**子项目**的构建上下文，而不是基础镜像的上下文。
+子映象建立時，`ONBUILD COPY . .` 中的 `.` 指的是**子專案**的建立上下文，而不是基礎映象的上下文。
 
-### 3. 不允许级联
+### 3. 不允許級聯
 
-`ONBUILD ONBUILD` 是非法的。你不能写 `ONBUILD ONBUILD COPY ...`。
+`ONBUILD ONBUILD` 是非法的。你不能寫 `ONBUILD ONBUILD COPY ...`。
 
-### 4. 可能会导致构建失败
+### 4. 可能會導致建立失敗
 
-由于 `ONBUILD` 实际上是在子镜像中执行指令，如果子项目的上下文不满足要求（例如缺少 `package.json`），会导致子镜像构建失败，且错误信息可能比较隐晦。
+由於 `ONBUILD` 實際上是在子映象中執行指令，如果子專案的上下文不滿足要求（例如缺少 `package.json`），會導致子映象建立失敗，且錯誤訊息可能比較隱晦。
 
 ---
 
-## 最佳实践
+## 最佳實踐
 
-### 1. 命名规范
+### 1. 命名規範
 
-建议在镜像标签中添加 `-onbuild` 后缀，明确告知使用者该镜像包含触发器。
+建議在映象標籤中新增 `-onbuild` 字尾，明確告知使用者該映象包含觸發器。
 
 ```
 node:20-onbuild
 python:3.12-onbuild
 ```
 
-### 2. 避免执行耗时操作
+### 2. 避免執行耗時操作
 
-尽量不要在 `ONBUILD` 中执行过于耗时或不确定的操作（如更新系统软件），这会让子镜像构建变得缓慢且不可控。
+儘量不要在 `ONBUILD` 中執行過於耗時或不確定的操作（如更新系統軟件），這會讓子映象建立變得緩慢且不可控。
 
 ### 3. 清理工作
 
-如果 `ONBUILD` 指令产生了临时文件，最好在同一个指令链中清理，或者提供机制让子镜像清理。
+如果 `ONBUILD` 指令產生了臨時檔案，最好在同一個指令鏈中清理，或者提供機制讓子映象清理。
 
 ---
 
-## 本章小结
+## 本章小結
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 定义在子镜像构建时执行的指令 |
-| **语法** | `ONBUILD INSTRUCTION` |
-| **适用** | 基础架构镜像（Node, Python, Go 等） |
-| **限制** | 只继承一次，不可级联 |
-| **规范** | 建议使用 `-onbuild` 标签后缀 |
+| **作用** | 定義在子映象建立時執行的指令 |
+| **語法** | `ONBUILD INSTRUCTION` |
+| **適用** | 基礎架構映象（Node, Python, Go 等） |
+| **限制** | 只繼承一次，不可級聯 |
+| **規範** | 建議使用 `-onbuild` 標籤字尾 |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [COPY 指令](copy.md)：文件复制
-- [Dockerfile 最佳实践](../../appendix/best_practices.md)：基础镜像设计
+- [COPY 指令](copy.md)：檔案複製
+- [Dockerfile 最佳實踐](../../appendix/best_practices.md)：基礎映象設計
