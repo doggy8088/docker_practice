@@ -1,20 +1,20 @@
 # 使用 Rails
 
-> 本小节内容适合 Ruby 开发人员阅读。
+> 本小節內容適合 Ruby 開發人員閱讀。
 
-本节使用 Docker Compose 配置并运行一个 **Rails + PostgreSQL** 应用。
+本節使用 Docker Compose 設定並執行一個 **Rails + PostgreSQL** 應用。
 
-## 架构概览
+## 架構概覽
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Docker Compose 网络                     │
+│                     Docker Compose 網路                     │
 │                                                             │
 │  ┌─────────────────────┐      ┌─────────────────────┐       │
-│  │     web 服务         │      │      db 服务        │       │
+│  │     web 服務         │      │      db 服務        │       │
 │  │  ┌───────────────┐  │      │  ┌───────────────┐  │       │
 │  │  │   Rails       │  │──────│  │  PostgreSQL   │  │       │
-│  │  │   应用        │  │ :5432│  │   数据库      │  │       │
+│  │  │   應用        │  │ :5432│  │   資料庫      │  │       │
 │  │  └───────────────┘  │      │  └───────────────┘  │       │
 │  │       :3000         │      │                     │       │
 │  └──────────┬──────────┘      └─────────────────────┘       │
@@ -25,63 +25,63 @@
          localhost:3000
 ```
 
-## 准备工作
+## 準備工作
 
-创建项目目录：
+建立專案目錄：
 
 ```bash
 $ mkdir rails-docker && cd rails-docker
 ```
 
-需要创建三个文件：`Dockerfile`、`Gemfile` 和 `docker-compose.yml`。
+需要建立三個檔案：`Dockerfile`、`Gemfile` 和 `docker-compose.yml`。
 
-## Step 1: 创建 Dockerfile
+## Step 1: 建立 Dockerfile
 
 ```docker
 FROM ruby:3.2
 
-# 安装系统依赖
+# 安裝系統依賴
 RUN apt-get update -qq && \
     apt-get install -y build-essential libpq-dev nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# 设置工作目录
+# 設定工作目錄
 WORKDIR /myapp
 
-# 先复制 Gemfile，利用缓存加速构建
+# 先複製 Gemfile，利用快取加速建立
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
 RUN bundle install
 
-# 复制应用代码
+# 複製應用程式碼
 COPY . /myapp
 ```
 
-**配置说明**：
+**設定說明**：
 
 | 指令 | 作用 |
 |------|------|
-| `build-essential` | 编译原生扩展所需 |
-| `libpq-dev` | PostgreSQL 客户端库 |
+| `build-essential` | 編譯原生擴充套件所需 |
+| `libpq-dev` | PostgreSQL 用戶端函式庫 |
 | `nodejs` | Rails Asset Pipeline 需要 |
-| 先复制 Gemfile | 只有依赖变化时才重新 `bundle install` |
+| 先複製 Gemfile | 只有依賴變化時才重新 `bundle install` |
 
-## Step 2: 创建 Gemfile
+## Step 2: 建立 Gemfile
 
-创建一个初始的 `Gemfile`，稍后会被 `rails new` 覆盖：
+建立一個初始的 `Gemfile`，稍後會被 `rails new` 覆蓋：
 
 ```ruby
 source 'https://rubygems.org'
 gem 'rails', '~> 7.1'
 ```
 
-创建空的 `Gemfile.lock`：
+建立空的 `Gemfile.lock`：
 
 ```bash
 $ touch Gemfile.lock
 ```
 
-## Step 3: 创建 docker-compose.yml
+## Step 3: 建立 docker-compose.yml
 
 ```yaml
 services:
@@ -108,30 +108,30 @@ volumes:
   postgres_data:
 ```
 
-**配置详解**：
+**設定詳解**：
 
-| 配置项 | 说明 |
+| 設定項 | 說明 |
 |--------|------|
-| `rm -f tmp/pids/server.pid` | 清理上次异常退出留下的 PID 文件 |
-| `volumes: .:/myapp` | 挂载代码目录，支持热更新 |
-| `depends_on: db` | 确保数据库先启动 |
-| `DATABASE_URL` | Rails 12-factor 风格的数据库配置 |
+| `rm -f tmp/pids/server.pid` | 清理上次異常退出留下的 PID 檔案 |
+| `volumes: .:/myapp` | 掛載程式碼目錄，支援熱更新 |
+| `depends_on: db` | 確保資料庫先啟動 |
+| `DATABASE_URL` | Rails 12-factor 風格的資料庫設定 |
 
-## Step 4: 生成 Rails 项目
+## Step 4: 生成 Rails 專案
 
-使用 `docker compose run` 生成项目骨架：
+使用 `docker compose run` 生成專案骨架：
 
 ```bash
 $ docker compose run --rm web rails new . --force --database=postgresql --skip-bundle
 ```
 
-**命令解释**：
-- `--rm`：执行后删除临时容器
-- `--force`：覆盖已存在的文件
-- `--database=postgresql`：配置使用 PostgreSQL
-- `--skip-bundle`：暂不安装依赖（稍后统一安装）
+**指令解釋**：
+- `--rm`：執行後刪除臨時容器
+- `--force`：覆蓋已存在的檔案
+- `--database=postgresql`：設定使用 PostgreSQL
+- `--skip-bundle`：暫不安裝依賴（稍後統一安裝）
 
-生成的目录结构：
+生成的目錄結構：
 
 ```bash
 $ ls
@@ -140,17 +140,17 @@ Gemfile.lock     README.md        app              config.ru        log         
 docker-compose.yml                bin              db               public
 ```
 
-> ⚠️ **Linux 用户**：如遇权限问题，执行 `sudo chown -R $USER:$USER .`
+> ⚠️ **Linux 使用者**：如遇許可權問題，執行 `sudo chown -R $USER:$USER .`
 
-## Step 5: 重新构建镜像
+## Step 5: 重新建立映象
 
-由于生成了新的 Gemfile，需要重新构建镜像以安装完整依赖：
+由於生成了新的 Gemfile，需要重新建立映象以安裝完整依賴：
 
 ```bash
 $ docker compose build
 ```
 
-## Step 6: 配置数据库连接
+## Step 6: 設定資料庫連線
 
 修改 `config/database.yml`：
 
@@ -172,15 +172,15 @@ production:
   <<: *default
 ```
 
-> 💡 使用 `DATABASE_URL` 环境变量配置数据库，符合 12-factor 应用原则，便于在不同环境间切换。
+> 💡 使用 `DATABASE_URL` 環境變數設定資料庫，符合 12-factor 應用原則，便於在不同環境間切換。
 
-## Step 7: 启动应用
+## Step 7: 啟動應用
 
 ```bash
 $ docker compose up
 ```
 
-输出示例：
+輸出範例：
 
 ```
 db-1   | PostgreSQL init process complete; ready for start up.
@@ -192,9 +192,9 @@ web-1  | Puma starting in single mode...
 web-1  | * Listening on http://0.0.0.0:3000
 ```
 
-## Step 8: 创建数据库
+## Step 8: 建立資料庫
 
-在另一个终端执行：
+在另一個終端執行：
 
 ```bash
 $ docker compose exec web rails db:create
@@ -202,67 +202,67 @@ Created database 'myapp_development'
 Created database 'myapp_test'
 ```
 
-访问 http://localhost:3000 查看 Rails 欢迎页面。
+訪問 http://localhost:3000 檢視 Rails 歡迎頁面。
 
-## 常用开发命令
+## 常用開發指令
 
 ```bash
-# 数据库迁移
+# 資料庫遷移
 $ docker compose exec web rails db:migrate
 
 # Rails 控制台
 $ docker compose exec web rails console
 
-# 运行测试
+# 執行測試
 $ docker compose exec web rails test
 
-# 生成脚手架
+# 生成腳手架
 $ docker compose exec web rails generate scaffold Post title:string body:text
 
-# 进入容器 Shell
+# 進入容器 Shell
 $ docker compose exec web bash
 ```
 
-## 常见问题
+## 常見問題
 
-### Q: 数据库连接失败
+### Q: 資料庫連線失敗
 
-检查 `DATABASE_URL` 环境变量格式是否正确，确保 db 服务已启动：
+檢查 `DATABASE_URL` 環境變數格式是否正確，確保 db 服務已啟動：
 
 ```bash
 $ docker compose ps
 $ docker compose logs db
 ```
 
-### Q: server.pid 文件导致启动失败
+### Q: server.pid 檔案導致啟動失敗
 
-错误信息：`A server is already running`
+錯誤訊息：`A server is already running`
 
-已在 command 中添加 `rm -f tmp/pids/server.pid` 处理。如仍有问题：
+已在 command 中新增 `rm -f tmp/pids/server.pid` 處理。如仍有問題：
 
 ```bash
 $ docker compose exec web rm -f tmp/pids/server.pid
 ```
 
-### Q: Gem 安装失败
+### Q: Gem 安裝失敗
 
-可能需要更新 bundler 或清理缓存：
+可能需要更新 bundler 或清理快取：
 
 ```bash
 $ docker compose run --rm web bundle update
 ```
 
-## 开发 vs 生产
+## 開發 vs 生產
 
-| 配置项 | 开发环境 | 生产环境 |
+| 設定項 | 開發環境 | 生產環境 |
 |--------|---------|---------|
-| Rails 服务器 | Puma (开发模式) | Puma + Nginx |
-| 代码挂载 | 使用 volumes | 代码打包进镜像 |
-| 静态资源 | 动态编译 | 预编译 (`rails assets:precompile`) |
-| 数据库密码 | 明文配置 | 使用 Secrets 管理 |
+| Rails 伺服器 | Puma (開發模式) | Puma + Nginx |
+| 程式碼掛載 | 使用 volumes | 程式碼打包進映象 |
+| 靜態資源 | 動態編譯 | 預編譯 (`rails assets:precompile`) |
+| 資料庫密碼 | 明文設定 | 使用 Secrets 管理 |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [使用 Django](django.md)：Python Web 框架实战
-- [Compose 模板文件](compose_file.md)：配置详解
-- [数据管理](../data_management/README.md)：数据持久化
+- [使用 Django](django.md)：Python Web 框架實戰
+- [Compose 樣板檔案](compose_file.md)：設定詳解
+- [資料管理](../data_management/README.md)：資料持久化
