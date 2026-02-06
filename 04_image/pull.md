@@ -1,55 +1,55 @@
-# 获取镜像
+# 獲取映象
 
-## docker pull 命令
+## docker pull 指令
 
-从镜像仓库获取镜像的命令是 `docker pull`：
+從映象倉庫獲取映象的指令是 `docker pull`：
 
 ```bash
-docker pull [选项] [Registry地址/]仓库名[:标签]
+docker pull [選項] [Registry地址/]倉庫名[:標籤]
 ```
 
-### 镜像名称格式
+### 映象名稱格式
 
 ```
 docker.io / library / ubuntu : 24.04
 ────┬────   ───┬───   ──┬───   ──┬──
     │         │        │        │
-Registry地址  用户名    仓库名    标签
+Registry地址  使用者名    倉庫名    標籤
  (可省略)    (可省略)
 ```
 
-| 组成部分 | 说明 | 默认值 |
+| 組成部分 | 說明 | 預設值 |
 |---------|------|--------|
-| Registry 地址 | 镜像仓库地址 | `docker.io`（Docker Hub） |
-| 用户名 | 镜像所属用户/组织 | `library`（官方镜像） |
-| 仓库名 | 镜像名称 | 必须指定 |
-| 标签 | 版本标识 | `latest` |
+| Registry 地址 | 映象倉庫地址 | `docker.io`（Docker Hub） |
+| 使用者名 | 映象所屬使用者/組織 | `library`（官方映象） |
+| 倉庫名 | 映象名稱 | 必須指定 |
+| 標籤 | 版本標識 | `latest` |
 
-### 示例
+### 範例
 
 ```bash
 # 完整格式
 $ docker pull docker.io/library/ubuntu:24.04
 
-# 省略 Registry（默认 Docker Hub）
+# 省略 Registry（預設 Docker Hub）
 $ docker pull library/ubuntu:24.04
 
-# 省略 library（官方镜像）
+# 省略 library（官方映象）
 $ docker pull ubuntu:24.04
 
-# 省略标签（默认 latest）
+# 省略標籤（預設 latest）
 $ docker pull ubuntu
 
-# 拉取第三方镜像
+# 拉取第三方映象
 $ docker pull bitnami/redis:latest
 
-# 从其他 Registry 拉取
+# 從其他 Registry 拉取
 $ docker pull ghcr.io/username/myapp:v1.0
 ```
 
 ---
 
-## 下载过程解析
+## 下載過程解析
 
 ```bash
 $ docker pull ubuntu:24.04
@@ -62,46 +62,46 @@ Status: Downloaded newer image for ubuntu:24.04
 docker.io/library/ubuntu:24.04
 ```
 
-### 输出解读
+### 輸出解讀
 
-| 输出内容 | 说明 |
+| 輸出內容 | 說明 |
 |---------|------|
-| `Pulling from library/ubuntu` | 正在从官方 ubuntu 仓库拉取 |
-| `92dc2a97ff99: Pull complete` | 各层的下载状态（显示层 ID 前 12 位） |
-| `Digest: sha256:...` | 镜像内容的唯一摘要 |
-| `docker.io/library/ubuntu:24.04` | 镜像的完整名称 |
+| `Pulling from library/ubuntu` | 正在從官方 ubuntu 倉庫拉取 |
+| `92dc2a97ff99: Pull complete` | 各層的下載狀態（顯示層 ID 前 12 位） |
+| `Digest: sha256:...` | 映象內容的唯一摘要 |
+| `docker.io/library/ubuntu:24.04` | 映象的完整名稱 |
 
-### 分层下载
+### 分層下載
 
-从输出可以看到，镜像是**分层下载**的：
+從輸出可以看到，映象是**分層下載**的：
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                   ubuntu:24.04 镜像                          │
+│                   ubuntu:24.04 映象                          │
 ├─────────────────────────────────────────────────────────────┤
-│  第3层 c8299583700a  ───────► 已存在，跳过下载               │
+│  第3層 c8299583700a  ───────► 已存在，跳過下載               │
 ├─────────────────────────────────────────────────────────────┤
-│  第2层 be13a9d27eb8  ───────► 下载中... 完成                 │
+│  第2層 be13a9d27eb8  ───────► 下載中... 完成                 │
 ├─────────────────────────────────────────────────────────────┤
-│  第1层 92dc2a97ff99  ───────► 下载中... 完成                 │
+│  第1層 92dc2a97ff99  ───────► 下載中... 完成                 │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-如果本地已有相同的层，Docker 会跳过下载，节省带宽和时间。
+如果本地已有相同的層，Docker 會跳過下載，節省頻寬和時間。
 
 ---
 
-## 常用选项
+## 常用選項
 
-| 选项 | 说明 | 示例 |
+| 選項 | 說明 | 範例 |
 |------|------|------|
-| `--all-tags, -a` | 拉取所有标签 | `docker pull -a ubuntu` |
-| `--platform` | 指定平台架构 | `docker pull --platform linux/arm64 nginx` |
-| `--quiet, -q` | 静默模式 | `docker pull -q nginx` |
+| `--all-tags, -a` | 拉取所有標籤 | `docker pull -a ubuntu` |
+| `--platform` | 指定平台架構 | `docker pull --platform linux/arm64 nginx` |
+| `--quiet, -q` | 靜默模式 | `docker pull -q nginx` |
 
 ### 指定平台
 
-在 Apple Silicon Mac 上拉取 x86 镜像：
+在 Apple Silicon Mac 上拉取 x86 映象：
 
 ```bash
 $ docker pull --platform linux/amd64 nginx
@@ -109,15 +109,15 @@ $ docker pull --platform linux/amd64 nginx
 
 ---
 
-## 拉取后运行
+## 拉取後執行
 
-拉取镜像后，可以基于它启动容器：
+拉取映象後，可以基於它啟動容器：
 
 ```bash
-# 拉取镜像
+# 拉取映象
 $ docker pull ubuntu:24.04
 
-# 运行容器
+# 執行容器
 $ docker run -it --rm ubuntu:24.04 bash
 root@e7009c6ce357:/# cat /etc/os-release
 PRETTY_NAME="Ubuntu 24.04 LTS"
@@ -125,21 +125,21 @@ PRETTY_NAME="Ubuntu 24.04 LTS"
 root@e7009c6ce357:/# exit
 ```
 
-**参数说明**：
+**引數說明**：
 
-| 参数 | 说明 |
+| 引數 | 說明 |
 |------|------|
-| `-it` | 交互式终端模式 |
-| `--rm` | 退出后自动删除容器 |
-| `bash` | 启动命令 |
+| `-it` | 互動式終端模式 |
+| `--rm` | 退出後自動刪除容器 |
+| `bash` | 啟動指令 |
 
-> 💡 `docker run` 在需要时会自动 `pull` 镜像，因此通常不需要单独执行 `docker pull`。
+> 💡 `docker run` 在需要時會自動 `pull` 映象，因此通常不需要單獨執行 `docker pull`。
 
 ---
 
-## 镜像加速
+## 映象加速
 
-从 Docker Hub 下载可能较慢。可以配置镜像加速器：
+從 Docker Hub 下載可能較慢。可以設定映象加速器：
 
 ```json
 // /etc/docker/daemon.json (Linux)
@@ -151,20 +151,20 @@ root@e7009c6ce357:/# exit
 }
 ```
 
-配置后重启 Docker：
+設定後重啟 Docker：
 
 ```bash
 $ sudo systemctl restart docker  # Linux
-# 或在 Docker Desktop 中重启
+# 或在 Docker Desktop 中重啟
 ```
 
-详见 [镜像加速器](../install/mirror.md) 章节。
+詳見 [映象加速器](../install/mirror.md) 章節。
 
 ---
 
-## 验证镜像完整性
+## 驗證映象完整性
 
-### 查看镜像摘要
+### 檢視映象摘要
 
 ```bash
 $ docker images --digests ubuntu
@@ -174,59 +174,59 @@ ubuntu       24.04   sha256:4bc3ae6596938cb0d9e5ac51a1152ec9dcac2a1c50829c74abd9
 
 ### 使用摘要拉取
 
-用摘要拉取可确保获取完全相同的镜像：
+用摘要拉取可確保獲取完全相同的映象：
 
 ```bash
 $ docker pull ubuntu@sha256:4bc3ae6596938cb0d9e5ac51a1152ec9dcac2a1c50829c74abd9c4361e321b26
 ```
 
-> 笔者建议：生产环境使用摘要而非标签，因为标签可能被覆盖，摘要则是不可变的。
+> 筆者建議：生產環境使用摘要而非標籤，因為標籤可能被覆蓋，摘要則是不可變的。
 
 ---
 
-## 常见问题
+## 常見問題
 
-### Q: 下载速度很慢
+### Q: 下載速度很慢
 
-1. 配置镜像加速器
-2. 检查网络连接
-3. 尝试拉取更小的镜像版本（如 `alpine` 变体）
+1. 設定映象加速器
+2. 檢查網路連線
+3. 嘗試拉取更小的映象版本（如 `alpine` 變體）
 
-### Q: 提示镜像不存在
+### Q: 提示映象不存在
 
 ```bash
 Error: pull access denied, repository does not exist
 ```
 
 可能原因：
-- 镜像名拼写错误
-- 私有镜像未登录（需要 `docker login`）
-- 镜像确实不存在
+- 映象名拼寫錯誤
+- 私有映象未登入（需要 `docker login`）
+- 映象確實不存在
 
-### Q: 磁盘空间不足
+### Q: 磁碟空間不足
 
 ```bash
-# 清理未使用的镜像
+# 清理未使用的映象
 $ docker image prune
 
-# 清理所有未使用资源
+# 清理所有未使用資源
 $ docker system prune
 ```
 
 ---
 
-## 本章小结
+## 本章小結
 
-| 操作 | 命令 |
+| 操作 | 指令 |
 |------|------|
-| 拉取镜像 | `docker pull 镜像名:标签` |
-| 拉取所有标签 | `docker pull -a 镜像名` |
-| 指定平台 | `docker pull --platform linux/amd64 镜像名` |
-| 用摘要拉取 | `docker pull 镜像名@sha256:...` |
+| 拉取映象 | `docker pull 映象名:標籤` |
+| 拉取所有標籤 | `docker pull -a 映象名` |
+| 指定平台 | `docker pull --platform linux/amd64 映象名` |
+| 用摘要拉取 | `docker pull 映象名@sha256:...` |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [列出镜像](list.md)：查看本地镜像
-- [删除镜像](rm.md)：清理本地镜像
-- [镜像加速器](../install/mirror.md)：加速镜像下载
-- [Docker Hub](../repository/dockerhub.md)：官方镜像仓库
+- [列出映象](list.md)：檢視本地映象
+- [刪除映象](rm.md)：清理本地映象
+- [映象加速器](../install/mirror.md)：加速映象下載
+- [Docker Hub](../repository/dockerhub.md)：官方映象倉庫

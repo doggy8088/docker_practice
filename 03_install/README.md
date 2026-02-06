@@ -1,5 +1,5 @@
-# 安装 Docker
+# 安裝 Docker
 
-Docker 分为 `stable` `test` 和 `nightly` 三个更新频道。
+Docker 分為 `stable` `test` 和 `nightly` 三個更新頻道。
 
-官方网站上有各种环境下的 [安装指南](https://docs.docker.com/get-docker/)，这里主要介绍 Docker 在 `Linux` 、`Windows 10` 和 `macOS` 上的安装。
+官方網站上有各種環境下的 [安裝指南](https://docs.docker.com/get-docker/)，這裡主要介紹 Docker 在 `Linux` 、`Windows 10` 和 `macOS` 上的安裝。

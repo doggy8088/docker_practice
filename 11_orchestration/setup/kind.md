@@ -1,15 +1,15 @@
 # Kind - Kubernetes IN Docker
 
-[Kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker) 是一个使用 Docker 容器作为节点运行本地 Kubernetes 集群的工具。主要用于测试 Kubernetes 本身，也非常适合本地开发和 CI 环境。
+[Kind](https://kind.sigs.k8s.io/) (Kubernetes in Docker) 是一個使用 Docker 容器作為節點執行本地 Kubernetes 叢集的工具。主要用於測試 Kubernetes 本身，也非常適合本地開發和 CI 環境。
 
-## 为什么选择 Kind
+## 為什麼選擇 Kind
 
-*   **轻量便捷**：只要有 Docker 环境即可，无需额外虚拟机。
-*   **多集群支持**：可以轻松在本地启动多个集群。
-*   **多版本支持**：支持指定 Kubernetes 版本进行测试。
-*   **HA 支持**：支持模拟高可用集群（多 Control Plane）。
+*   **輕量便捷**：只要有 Docker 環境即可，無需額外虛擬機。
+*   **多叢集支援**：可以輕鬆在本地啟動多個叢集。
+*   **多版本支援**：支援指定 Kubernetes 版本進行測試。
+*   **HA 支援**：支援模擬高可用叢集（多 Control Plane）。
 
-## 安装 Kind
+## 安裝 Kind
 
 ### macOS
 
@@ -19,7 +19,7 @@ brew install kind
 
 ### Linux / Windows (WSL2)
 
-可以下载二进制文件：
+可以下載二進位檔案：
 
 ```bash
 # Linux AMD64
@@ -28,32 +28,32 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
 
-## 创建集群
+## 建立叢集
 
-最简单的创建方式：
+最簡單的建立方式：
 
 ```bash
 kind create cluster
 ```
 
-指定集群名称：
+指定叢集名稱：
 
 ```bash
 kind create cluster --name my-cluster
 ```
 
-## 与集群交互
+## 與叢集互動
 
-Kind 会自动将 kubeconfig 合并到 `~/.kube/config`。
+Kind 會自動將 kubeconfig 合併到 `~/.kube/config`。
 
 ```bash
 kubectl cluster-info --context kind-kind
 kubectl get nodes
 ```
 
-## 高级用法：配置集群
+## 高階用法：設定叢集
 
-创建一个 `kind-config.yaml` 来定制集群，例如映射端口到宿主机：
+建立一個 `kind-config.yaml` 來定製叢集，例如對映連接埠到宿主機：
 
 ```yaml
 kind: Cluster
@@ -68,13 +68,13 @@ nodes:
 - role: worker
 ```
 
-应用配置：
+應用設定：
 
 ```bash
 kind create cluster --config kind-config.yaml
 ```
 
-## 删除集群
+## 刪除叢集
 
 ```bash
 kind delete cluster

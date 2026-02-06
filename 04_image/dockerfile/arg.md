@@ -1,42 +1,42 @@
-# ARG 构建参数
+# ARG 建立引數
 
-## 基本语法
+## 基本語法
 
 ```docker
-ARG <参数名>[=<默认值>]
+ARG <引數名>[=<預設值>]
 ```
 
-`ARG` 指令定义构建时的变量，可以在 `docker build` 时通过 `--build-arg` 传入。
+`ARG` 指令定義建立時的變數，可以在 `docker build` 時透過 `--build-arg` 傳入。
 
 ---
 
 ## ARG vs ENV
 
-| 特性 | ARG | ENV |
+| 屬性 | ARG | ENV |
 |------|-----|-----|
-| **生效时间** | 仅构建时 | 构建时 + 运行时 |
-| **持久性** | 构建后消失 | 写入镜像 |
-| **覆盖方式** | `docker build --build-arg` | `docker run -e` |
-| **适用场景** | 构建参数（版本号等） | 应用配置 |
-| **可见性** | `docker history` 可见 | `docker inspect` 可见 |
+| **生效時間** | 僅建立時 | 建立時 + 執行時 |
+| **持久性** | 建立後消失 | 寫入映象 |
+| **覆蓋方式** | `docker build --build-arg` | `docker run -e` |
+| **適用場景** | 建立引數（版本號等） | 應用設定 |
+| **可見性** | `docker history` 可見 | `docker inspect` 可見 |
 
 ```
-构建时                         运行时
+建立時                         執行時
 ├─ ARG VERSION=1.0             │ （ARG 已消失）
 ├─ ENV APP_ENV=prod            │ APP_ENV=prod（仍存在）
 └─ RUN echo $VERSION           │
 ```
 
-> ⚠️ **安全提示**：不要用 ARG 传递密码等敏感信息，`docker history` 可以查看所有 ARG 值。
+> ⚠️ **安全提示**：不要用 ARG 傳遞密碼等敏感訊息，`docker history` 可以檢視所有 ARG 值。
 
 ---
 
 ## 基本用法
 
-### 定义和使用
+### 定義和使用
 
 ```docker
-# 定义有默认值的 ARG
+# 定義有預設值的 ARG
 ARG NODE_VERSION=20
 
 # 使用 ARG
@@ -44,13 +44,13 @@ FROM node:${NODE_VERSION}-alpine
 RUN echo "Using Node.js $NODE_VERSION"
 ```
 
-### 构建时覆盖
+### 建立時覆蓋
 
 ```bash
-# 使用默认值
+# 使用預設值
 $ docker build -t myapp .
 
-# 覆盖默认值
+# 覆蓋預設值
 $ docker build --build-arg NODE_VERSION=18 -t myapp .
 ```
 
@@ -61,49 +61,49 @@ $ docker build --build-arg NODE_VERSION=18 -t myapp .
 ### FROM 之前的 ARG
 
 ```docker
-# FROM 之前的 ARG 只能用于 FROM 指令
+# FROM 之前的 ARG 只能用於 FROM 指令
 ARG REGISTRY=docker.io
 ARG IMAGE_NAME=node
 
 FROM ${REGISTRY}/${IMAGE_NAME}:20
 
-# ❌ 这里无法使用上面的 ARG
-RUN echo $REGISTRY  # 输出空
+# ❌ 這裡無法使用上面的 ARG
+RUN echo $REGISTRY  # 輸出空
 ```
 
-### FROM 之后重新声明
+### FROM 之後重新宣告
 
 ```docker
 ARG NODE_VERSION=20
 
 FROM node:${NODE_VERSION}-alpine
 
-# 需要再次声明才能使用
+# 需要再次宣告才能使用
 ARG NODE_VERSION
 RUN echo "Node version: $NODE_VERSION"
 ```
 
-### 多阶段构建中的 ARG
+### 多階段建立中的 ARG
 
 ```docker
 ARG BASE_VERSION=alpine
 
 FROM node:20-${BASE_VERSION} AS builder
-# 需要重新声明
+# 需要重新宣告
 ARG NODE_VERSION=20
 RUN echo "Building with Node $NODE_VERSION"
 
 FROM node:20-${BASE_VERSION}
-# 每个阶段都需要重新声明
+# 每個階段都需要重新宣告
 ARG NODE_VERSION=20
 RUN echo "Running with Node $NODE_VERSION"
 ```
 
 ---
 
-## 常见使用场景
+## 常見使用場景
 
-### 1. 控制基础镜像版本
+### 1. 控制基礎映象版本
 
 ```docker
 ARG ALPINE_VERSION=3.19
@@ -114,7 +114,7 @@ FROM alpine:${ALPINE_VERSION}
 $ docker build --build-arg ALPINE_VERSION=3.18 .
 ```
 
-### 2. 设置软件版本
+### 2. 設定軟體版本
 
 ```docker
 ARG NGINX_VERSION=1.25.0
@@ -122,7 +122,7 @@ ARG NGINX_VERSION=1.25.0
 RUN curl -fsSL https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar -xz
 ```
 
-### 3. 配置构建环境
+### 3. 設定建立環境
 
 ```docker
 ARG BUILD_ENV=production
@@ -135,7 +135,7 @@ RUN if [ "$ENABLE_DEBUG" = "true" ]; then \
     fi
 ```
 
-### 4. 配置私有仓库
+### 4. 設定私有倉庫
 
 ```docker
 ARG NPM_TOKEN
@@ -146,33 +146,33 @@ RUN echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc && \
 ```
 
 ```bash
-# 构建时传入 token
+# 建立時傳入 token
 $ docker build --build-arg NPM_TOKEN=xxx .
 ```
 
 ---
 
-## 将 ARG 传递给 ENV
+## 將 ARG 傳遞給 ENV
 
-如果需要在运行时使用 ARG 的值：
+如果需要在執行時使用 ARG 的值：
 
 ```docker
 ARG VERSION=1.0.0
 
-# 将 ARG 传递给 ENV
+# 將 ARG 傳遞給 ENV
 ENV APP_VERSION=$VERSION
 
-# 运行时可用
+# 執行時可用
 CMD echo "App version: $APP_VERSION"
 ```
 
 ---
 
-## 预定义 ARG
+## 預定義 ARG
 
-Docker 提供了一些预定义的 ARG，无需声明即可使用：
+Docker 提供了一些預定義的 ARG，無需宣告即可使用：
 
-| ARG | 说明 |
+| ARG | 說明 |
 |-----|------|
 | `HTTP_PROXY` | HTTP 代理 |
 | `HTTPS_PROXY` | HTTPS 代理 |
@@ -180,59 +180,59 @@ Docker 提供了一些预定义的 ARG，无需声明即可使用：
 | `FTP_PROXY` | FTP 代理 |
 
 ```bash
-# 构建时使用代理
+# 建立時使用代理
 $ docker build --build-arg HTTP_PROXY=http://proxy:8080 .
 ```
 
 ---
 
-## 最佳实践
+## 最佳實踐
 
-### 1. 为 ARG 提供合理默认值
+### 1. 為 ARG 提供合理預設值
 
 ```docker
-# ✅ 好：有默认值
+# ✅ 好：有預設值
 ARG NODE_VERSION=20
 
-# ⚠️ 需要每次传入
+# ⚠️ 需要每次傳入
 ARG NODE_VERSION
 ```
 
-### 2. 不要用 ARG 存储敏感信息
+### 2. 不要用 ARG 儲存敏感訊息
 
 ```docker
-# ❌ 错误：密码会被记录在镜像历史中
+# ❌ 錯誤：密碼會被記錄在映象歷史中
 ARG DB_PASSWORD
 RUN echo "password=$DB_PASSWORD" > /app/.env
 
-# ✅ 正确：使用 secrets 或运行时环境变量
+# ✅ 正確：使用 secrets 或執行時環境變數
 ```
 
-### 3. 使用 ARG 提高构建灵活性
+### 3. 使用 ARG 提高建立靈活性
 
 ```docker
 ARG BASE_IMAGE=python:3.12-slim
 FROM ${BASE_IMAGE}
 
-# 可以构建不同基础镜像的版本
+# 可以建立不同基礎映象的版本
 # docker build --build-arg BASE_IMAGE=python:3.11-alpine .
 ```
 
 ---
 
-## 本章小结
+## 本章小結
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 定义构建时变量 |
-| **语法** | `ARG NAME=value` |
-| **覆盖** | `docker build --build-arg NAME=value` |
-| **作用域** | FROM 之后需要重新声明 |
-| **vs ENV** | ARG 仅构建时，ENV 构建+运行时 |
-| **安全** | 不要存储敏感信息 |
+| **作用** | 定義建立時變數 |
+| **語法** | `ARG NAME=value` |
+| **覆蓋** | `docker build --build-arg NAME=value` |
+| **作用域** | FROM 之後需要重新宣告 |
+| **vs ENV** | ARG 僅建立時，ENV 建立+執行時 |
+| **安全** | 不要儲存敏感訊息 |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [ENV 设置环境变量](env.md)：运行时环境变量
-- [FROM 指令](../../04_image/build.md)：基础镜像指定
-- [多阶段构建](../multistage-builds.md)：复杂构建场景
+- [ENV 設定環境變數](env.md)：執行時環境變數
+- [FROM 指令](../../04_image/build.md)：基礎映象指定
+- [多階段建立](../multistage-builds.md)：複雜建立場景

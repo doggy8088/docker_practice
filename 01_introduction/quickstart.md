@@ -1,65 +1,65 @@
-# 快速上手 (5分钟)
+# 快速上手 (5分鐘)
 
-本节将通过一个简单的 Web 应用例子，带你快速体验 Docker 的核心流程：构建镜像、运行容器。
+本節將透過一個簡單的 Web 應用例子，帶你快速體驗 Docker 的核心流程：建立映象、執行容器。
 
-## 1. 准备代码
+## 1. 準備程式碼
 
-创建一个名为 `hello-docker` 的文件夹，并在其中创建一个 `index.html` 文件：
+建立一個名為 `hello-docker` 的資料夾，並在其中建立一個 `index.html` 檔案：
 
 ```html
 <h1>Hello, Docker!</h1>
 ```
 
-## 2. 编写 Dockerfile
+## 2. 編寫 Dockerfile
 
-在同级目录下创建一个名为 `Dockerfile` (无后缀) 的文件：
+在同級目錄下建立一個名為 `Dockerfile` (無後綴) 的檔案：
 
 ```dockerfile
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/index.html
 ```
 
-## 3. 构建镜像
+## 3. 建立映象
 
-打开终端，进入该目录，执行构建命令：
+開啟終端，進入該目錄，執行建立指令：
 
 ```bash
 $ docker build -t my-hello-world .
 ```
 
-* `docker build`: 构建命令
-* `-t my-hello-world`: 给镜像起个名字（标签）
-* `.`: 指定上下文路径为当前目录
+* `docker build`: 建立指令
+* `-t my-hello-world`: 給映象起個名字（標籤）
+* `.`: 指定上下文路徑為當前目錄
 
-## 4. 运行容器
+## 4. 執行容器
 
-使用刚才构建的镜像启动一个容器：
+使用剛才建立的映象啟動一個容器：
 
 ```bash
 $ docker run -d -p 8080:80 my-hello-world
 ```
 
-* `docker run`: 运行命令
-* `-d`: 后台运行
-* `-p 8080:80`: 将宿主机的 8080 端口映射到容器的 80 端口
+* `docker run`: 執行指令
+* `-d`: 後台執行
+* `-p 8080:80`: 將宿主機的 8080 連接埠對映到容器的 80 連接埠
 
-## 5. 访问测试
+## 5. 訪問測試
 
-打开浏览器访问 [http://localhost:8080](http://localhost:8080)，你应该能看到 "Hello, Docker!"。
+開啟瀏覽器訪問 [http://localhost:8080](http://localhost:8080)，你應該能看到 "Hello, Docker!"。
 
 ## 6. 清理
 
-停止并删除容器：
+停止並刪除容器：
 
 ```bash
-# 查看正在运行的容器 ID
+# 檢視正在執行的容器 ID
 $ docker ps
 
 # 停止容器
 $ docker stop <CONTAINER_ID>
 
-# 删除容器
+# 刪除容器
 $ docker rm <CONTAINER_ID>
 ```
 
-恭喜！你已经完成了第一次 Docker 实战。接下来请阅读 [Docker 核心概念](../02_basic_concept/README.md) 做深入了解。
+恭喜！你已經完成了第一次 Docker 實戰。接下來請閱讀 [Docker 核心概念](../02_basic_concept/README.md) 做深入瞭解。

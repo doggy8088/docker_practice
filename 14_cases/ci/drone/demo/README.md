@@ -1,22 +1,22 @@
-# Drone CI Demo 项目
+# Drone CI Demo 專案
 
-这是一个基于 Go 语言编写的简单 Web 应用示例，用于演示 Drone CI 的持续集成流程。
+這是一個基於 Go 語言編寫的簡單 Web 應用範例，用於示範 Drone CI 的持續整合流程。
 
-## 目录结构
+## 目錄結構
 
-*   `app.go`: 简单的 Go Web 服务器代码。
-*   `.drone.yml`: Drone CI 的配置文件，定义了构建和测试流程。
-*   `Dockerfile`: 定义了如何将该应用构建为 Docker 镜像。
+*   `app.go`: 簡單的 Go Web 伺服器程式碼。
+*   `.drone.yml`: Drone CI 的設定檔案，定義了建立和測試流程。
+*   `Dockerfile`: 定義了如何將該應用建立為 Docker 映象。
 
-## 如何运行
+## 如何執行
 
-1.  确保本地已安装 Docker 环境。
-2.  进入本目录构建镜像：
+1.  確保本地已安裝 Docker 環境。
+2.  進入本目錄建立映象：
     ```bash
     docker build -t drone-demo-app .
     ```
-3.  运行容器：
+3.  執行容器：
     ```bash
     docker run -p 8080:8080 drone-demo-app
     ```
-4.  访问 `http://localhost:8080` 查看效果。
+4.  訪問 `http://localhost:8080` 檢視效果。

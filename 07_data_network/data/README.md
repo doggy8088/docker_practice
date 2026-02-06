@@ -1,8 +1,8 @@
-# 数据管理
+# 資料管理
 
 ![](../_images/types-of-mounts.png)
 
-这一章介绍如何在 Docker 内部以及容器之间管理数据，在容器中管理数据主要有两种方式：
+這一章介紹如何在 Docker 內部以及容器之間管理資料，在容器中管理資料主要有兩種方式：
 
-* 数据卷（Volumes）
-* 挂载主机目录 (Bind mounts)
+* 資料卷（Volumes）
+* 掛載主機目錄 (Bind mounts)

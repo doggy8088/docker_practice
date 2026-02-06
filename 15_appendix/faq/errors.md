@@ -1,13 +1,13 @@
-# 常见错误速查表
+# 常見錯誤速查表
 
-| 错误信息 / 现象 | 可能原因 | 解决方案 |
+| 錯誤訊息 / 現象 | 可能原因 | 解決方案 |
 | :--- | :--- | :--- |
-| `Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` | Docker 服务未启动 | Linux: `sudo systemctl start docker`<br>Mac/Win: 启动 Docker Desktop |
-| `permission denied while trying to connect to the Docker daemon socket` | 当前用户不在 `docker` 用户组 | `sudo usermod -aG docker $USER` (需重新登录) |
-| `manifest for ... not found: manifest unknown` | 镜像 tag 不存在 | 检查 Docker Hub 该镜像是否存在该 tag，或拼写是否正确 |
-| `connection refused` (pull image) | 网络不通或镜像源无法访问 | 检查网络，配置[镜像加速器](../../install/mirror.md) |
-| `Bind for 0.0.0.0:8080 failed: port is already allocated` | 端口被占用 | 检查占用端口的进程 (`lsof -i:8080`) 并杀掉，或换个端口映射 (`-p 8081:80`) |
-| `exec user process caused "exec format error"` | 架构不匹配 (如在 x86 上跑 ARM 镜像) | 使用 `docker buildx` 构建多架构镜像，或拉取对应架构的镜像 |
-| `standard_init_linux.go:211: exec user process caused "no such file or directory"` | 找不到解释器或依赖库 | 检查 `ENTRYPOINT`/`CMD` 脚本开头的 shebang (`#!/bin/sh` vs `#!/bin/bash`)，或确认二进制文件是否依赖缺失 (Alpine 常见缺少 glibc) |
-| `iptables: No chain/target/match by that name` | 防火墙规则缺失或冲突 | 重启 Docker 服务重置 iptables 链: `sudo systemctl restart docker` |
-| 容器内无法访问外网 | DNS 配置或转发问题 | 检查 `/etc/docker/daemon.json` 中的 DNS 配置 |
+| `Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` | Docker 服務未啟動 | Linux: `sudo systemctl start docker`<br>Mac/Win: 啟動 Docker Desktop |
+| `permission denied while trying to connect to the Docker daemon socket` | 當前使用者不在 `docker` 使用者組 | `sudo usermod -aG docker $USER` (需重新登入) |
+| `manifest for ... not found: manifest unknown` | 映象 tag 不存在 | 檢查 Docker Hub 該映象是否存在該 tag，或拼寫是否正確 |
+| `connection refused` (pull image) | 網路不通或映象源無法訪問 | 檢查網路，設定[映象加速器](../../install/mirror.md) |
+| `Bind for 0.0.0.0:8080 failed: port is already allocated` | 連接埠被佔用 | 檢查佔用連接埠的程序 (`lsof -i:8080`) 並殺掉，或換個連接埠對映 (`-p 8081:80`) |
+| `exec user process caused "exec format error"` | 架構不對應 (如在 x86 上跑 ARM 映象) | 使用 `docker buildx` 建立多架構映象，或拉取對應架構的映象 |
+| `standard_init_linux.go:211: exec user process caused "no such file or directory"` | 找不到直譯器或依賴庫 | 檢查 `ENTRYPOINT`/`CMD` 指令碼開頭的 shebang (`#!/bin/sh` vs `#!/bin/bash`)，或確認二進位檔案是否依賴缺失 (Alpine 常見缺少 glibc) |
+| `iptables: No chain/target/match by that name` | 防火牆規則缺失或衝突 | 重啟 Docker 服務重置 iptables 鏈: `sudo systemctl restart docker` |
+| 容器內無法訪問外網 | DNS 設定或轉發問題 | 檢查 `/etc/docker/daemon.json` 中的 DNS 設定 |

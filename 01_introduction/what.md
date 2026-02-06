@@ -1,124 +1,124 @@
-# 什么是 Docker
+# 什麼是 Docker
 
-## 一句话理解 Docker
+## 一句話理解 Docker
 
-> **Docker 是一种轻量级的虚拟化技术，它让应用程序及其依赖环境可以被打包成一个标准化的单元，在任何地方都能一致地运行。**
+> **Docker 是一種輕量級的虛擬化技術，它讓應用程式及其依賴環境可以被打包成一個標準化的單元，在任何地方都能一致地執行。**
 
-如果用一个生活中的类比：**Docker 之于软件，就像集装箱之于货物**。
+如果用一個生活中的類比：**Docker 之於軟體，就像集裝箱之於貨物**。
 
-在集装箱发明之前，货物的运输是一件麻烦的事情——不同的货物需要不同的包装、不同的装卸方式，换一种运输工具就要重新装卸。集装箱的出现改变了这一切：无论里面装的是什么，集装箱的外形是标准的，可以用同样的方式装卸、堆放和运输。
+在集裝箱發明之前，貨物的運輸是一件麻煩的事情——不同的貨物需要不同的包裝、不同的裝卸方式，換一種運輸工具就要重新裝卸。集裝箱的出現改變了這一切：無論裡面裝的是什麼，集裝箱的外形是標準的，可以用同樣的方式裝卸、堆放和運輸。
 
-Docker 做的事情类似：无论你的应用是用 Python、Java、Node.js 还是其他语言写的，无论它需要什么样的依赖库和环境，一旦被打包成 Docker 镜像，就可以用同样的方式在任何支持 Docker 的机器上运行。
+Docker 做的事情類似：無論你的應用是用 Python、Java、Node.js 還是其他語言寫的，無論它需要什麼樣的依賴庫和環境，一旦被打包成 Docker 映象，就可以用同樣的方式在任何支援 Docker 的機器上執行。
 
-## Docker 的核心价值
+## Docker 的核心價值
 
-笔者认为，Docker 解决的是软件开发中最古老的问题之一：**"在我机器上明明能跑啊！"**
+筆者認為，Docker 解決的是軟體開發中最古老的問題之一：**"在我機器上明明能跑啊！"**
 
 ```
-开发环境                    生产环境
+開發環境                    生產環境
 ┌─────────────────┐        ┌─────────────────┐
 │  Python 3.14    │   ≠    │  Python 3.11    │
 │  Ubuntu 24.04   │        │  Ubuntu 22.04   │
-│  特定版本的库    │        │  不同版本的库    │
+│  特定版本的函式庫    │        │  不同版本的函式庫    │
 └─────────────────┘        └─────────────────┘
         ↓                          ↓
-     运行正常                    运行失败！
+     執行正常                    執行失敗！
 ```
 
 有了 Docker：
 
 ```
-开发环境                    生产环境
+開發環境                    生產環境
 ┌─────────────────┐        ┌─────────────────┐
-│  Docker 镜像    │   =    │  同一个镜像     │
-│  (包含所有依赖)  │        │  (完全一致)     │
+│  Docker 映象    │   =    │  同一個映象     │
+│  (包含所有依賴)  │        │  (完全一致)     │
 └─────────────────┘        └─────────────────┘
         ↓                          ↓
-     运行正常                    运行正常！
+     執行正常                    執行正常！
 ```
 
-## Docker vs 虚拟机
+## Docker vs 虛擬機
 
-很多人第一次接触 Docker 时会问：**"这不就是虚拟机吗？"**
+很多人第一次接觸 Docker 時會問：**"這不就是虛擬機嗎？"**
 
-答案是：**不是，而且差别很大。**
+答案是：**不是，而且差別很大。**
 
-### 传统虚拟机
+### 傳統虛擬機
 
-传统虚拟机技术是虚拟出一套完整的硬件，在其上运行一个完整的操作系统，再在该系统上运行应用：
+傳統虛擬機技術是虛擬出一套完整的硬體，在其上執行一個完整的作業系統，再在該系統上執行應用：
 
-![传统虚拟化](../_images/virtualization.png)
+![傳統虛擬化](../_images/virtualization.png)
 
 ### Docker 容器
 
-而 Docker 容器内的应用直接运行于宿主的内核，容器内没有自己的内核，也没有进行硬件虚拟：
+而 Docker 容器內的應用直接執行於宿主的核心，容器內沒有自己的核心，也沒有進行硬體虛擬：
 
 ![Docker](../_images/docker.png)
 
-### 关键区别
+### 關鍵區別
 
-| 特性 | Docker 容器 | 传统虚拟机 |
+| 屬性 | Docker 容器 | 傳統虛擬機 |
 |------|-------------|------------|
-| **启动速度** | 秒级 | 分钟级 |
-| **资源占用** | MB 级别 | GB 级别 |
-| **性能** | 接近原生 | 有明显损耗 |
-| **隔离级别** | 进程级隔离 | 完全隔离 |
-| **单机数量** | 可运行上千个 | 通常几十个 |
+| **啟動速度** | 秒級 | 分鐘級 |
+| **資源佔用** | MB 級別 | GB 級別 |
+| **效能** | 接近原生 | 有明顯損耗 |
+| **隔離級別** | 程序級隔離 | 完全隔離 |
+| **單機數量** | 可執行上千個 | 通常幾十個 |
 
-> 笔者经常用这个类比来解释：虚拟机像是每个应用都住在一栋独立的房子里（有自己的地基、水电系统），而容器像是大家住在同一栋公寓楼里的不同房间（共享地基和水电系统，但各自独立）。
+> 筆者經常用這個類比來解釋：虛擬機像是每個應用都住在一棟獨立的房子裡（有自己的地基、水電系統），而容器像是大家住在同一棟公寓樓裡的不同房間（共享地基和水電系統，但各自獨立）。
 
-## Docker 的技术基础
+## Docker 的技術基礎
 
-Docker 使用 [Go 语言](https://golang.google.cn/) 开发，基于 Linux 内核的以下技术：
+Docker 使用 [Go 語言](https://golang.google.cn/) 開發，基於 Linux 核心的以下技術：
 
-- **[Namespace](https://en.wikipedia.org/wiki/Linux_namespaces)**：实现资源隔离（进程、网络、文件系统等）
-- **[Cgroups](https://zh.wikipedia.org/wiki/Cgroups)**：实现资源限制（CPU、内存、I/O 等）
-- **[Union FS](https://en.wikipedia.org/wiki/Union_mount)**：实现分层存储（如 OverlayFS）
+- **[Namespace](https://en.wikipedia.org/wiki/Linux_namespaces)**：實現資源隔離（程序、網路、檔案系統等）
+- **[Cgroups](https://zh.wikipedia.org/wiki/Cgroups)**：實現資源限制（CPU、記憶體、I/O 等）
+- **[Union FS](https://en.wikipedia.org/wiki/Union_mount)**：實現分層儲存（如 OverlayFS）
 
-> 如果你对这些底层技术感兴趣，可以阅读本书的[底层实现](../13_implementation/README.md)章节。
+> 如果你對這些底層技術感興趣，可以閱讀本書的[底層實現](../13_implementation/README.md)章節。
 
-### Docker 架构演进
+### Docker 架構演進
 
-Docker 的底层实现经历了多次演进：
+Docker 的底層實現經歷了多次演進：
 
 ```
-2013        2014          2015         现在
+2013        2014          2015         現在
  │           │             │            │
  ▼           ▼             ▼            ▼
 LXC ──→ libcontainer ──→ runC ──→ containerd + runC
                            │
-                           └── OCI 标准化
+                           └── OCI 標準化
 ```
 
-- **LXC**（2013）：Docker 最初基于 Linux Containers
-- **libcontainer**（2014，v0.7）：Docker 自研的容器运行时
-- **runC**（2015，v1.11）：捐献给 OCI 的标准容器运行时
-- **containerd**：高级容器运行时，管理容器生命周期
+- **LXC**（2013）：Docker 最初基於 Linux Containers
+- **libcontainer**（2014，v0.7）：Docker 自研的容器執行時
+- **runC**（2015，v1.11）：捐獻給 OCI 的標準容器執行時
+- **containerd**：高階容器執行時，管理容器生命週期
 
-![Docker 架构](../_images/docker-on-linux.png)
+![Docker 架構](../_images/docker-on-linux.png)
 
-> `runc` 是一个 Linux 命令行工具，用于根据 [OCI 容器运行时规范](https://github.com/opencontainers/runtime-spec) 创建和运行容器。
+> `runc` 是一個 Linux 指令行工具，用於根據 [OCI 容器執行時規範](https://github.com/opencontainers/runtime-spec) 建立和執行容器。
 
-> `containerd` 是一个守护程序，它管理容器生命周期，提供了在一个节点上执行容器和管理镜像的最小功能集。
+> `containerd` 是一個守護程式，它管理容器生命週期，提供了在一個節點上執行容器和管理映象的最小功能集。
 
-## Docker 的历史与生态
+## Docker 的歷史與生態
 
-**Docker** 最初是 `dotCloud` 公司创始人 [Solomon Hykes](https://github.com/shykes) 在法国期间发起的一个公司内部项目，于 [2013 年 3 月以 Apache 2.0 授权协议开源](https://en.wikipedia.org/wiki/Docker_(software))。
+**Docker** 最初是 `dotCloud` 公司創始人 [Solomon Hykes](https://github.com/shykes) 在法國期間發起的一個公司內部專案，於 [2013 年 3 月以 Apache 2.0 授權協定開源](https://en.wikipedia.org/wiki/Docker_(software))。
 
-Docker 的发展历程：
+Docker 的發展歷程：
 
-- **2013 年 3 月**：开源发布
-- **2013 年底**：dotCloud 公司改名为 Docker, Inc.
-- **2015 年**：成立 [开放容器联盟（OCI）](https://opencontainers.org/)，推动容器标准化
-- **至今**：[GitHub 项目](https://github.com/moby/moby) 超过 7 万星标
+- **2013 年 3 月**：開源發布
+- **2013 年底**：dotCloud 公司改名為 Docker, Inc.
+- **2015 年**：成立 [開放容器聯盟（OCI）](https://opencontainers.org/)，推動容器標準化
+- **至今**：[GitHub 專案](https://github.com/moby/moby) 超過 7 萬星標
 
-Docker 的成功推动了整个容器生态的发展，催生了 Kubernetes、Podman 等众多相关项目。笔者认为，Docker 最大的贡献不仅是技术本身，更是它**让容器技术从系统管理员的工具变成了每个开发者都能使用的标准工具**。
+Docker 的成功推動了整個容器生態的發展，催生了 Kubernetes、Podman 等眾多相關專案。筆者認為，Docker 最大的貢獻不僅是技術本身，更是它**讓容器技術從系統管理員的工具變成了每個開發者都能使用的標準工具**。
 
-## 本章小结
+## 本章小結
 
-- Docker 是一种轻量级虚拟化技术，核心价值是**环境一致性**
-- 与虚拟机相比，Docker 更轻量、更快速、资源利用率更高
-- Docker 基于 Linux 内核的 Namespace、Cgroups 和 Union FS 技术
-- Docker 推动了容器技术的标准化（OCI）和生态发展
+- Docker 是一種輕量級虛擬化技術，核心價值是**環境一致性**
+- 與虛擬機相比，Docker 更輕量、更快速、資源利用率更高
+- Docker 基於 Linux 核心的 Namespace、Cgroups 和 Union FS 技術
+- Docker 推動了容器技術的標準化（OCI）和生態發展
 
-接下来，让我们了解[为什么要使用 Docker](why.md)。
+接下來，讓我們瞭解[為什麼要使用 Docker](why.md)。

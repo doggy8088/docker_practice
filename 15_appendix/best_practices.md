@@ -1,40 +1,40 @@
-# Dockerfile 最佳实践
+# Dockerfile 最佳實踐
 
-本附录是笔者对 Docker 官方文档中 [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) 的理解与翻译。
+本附錄是筆者對 Docker 官方文件中 [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) 的理解與翻譯。
 
-## 一般性的指南和建议
+## 一般性的指南和建議
 
-### 容器应该是短暂的
+### 容器應該是短暫的
 
-通过 `Dockerfile` 构建的镜像所启动的容器应该尽可能短暂（生命周期短）。「短暂」意味着可以停止和销毁容器，并且创建一个新容器并部署好所需的设置和配置工作量应该是极小的。
+透過 `Dockerfile` 建立的映象所啟動的容器應該儘可能短暫（生命週期短）。「短暫」意味著可以停止和銷燬容器，並且建立一個新容器並部署好所需的設定和設定工作量應該是極小的。
 
-### 使用 `.dockerignore` 文件
+### 使用 `.dockerignore` 檔案
 
-使用 `Dockerfile` 构建镜像时最好是将 `Dockerfile` 放置在一个新建的空目录下。然后将构建镜像所需要的文件添加到该目录中。为了提高构建镜像的效率，你可以在目录下新建一个 `.dockerignore` 文件来指定要忽略的文件和目录。`.dockerignore` 文件的排除模式语法和 Git 的 `.gitignore` 文件相似。
+使用 `Dockerfile` 建立映象時最好是將 `Dockerfile` 放置在一個新建的空目錄下。然後將建立映象所需要的檔案新增到該目錄中。為了提高建立映象的效率，你可以在目錄下新建一個 `.dockerignore` 檔案來指定要忽略的檔案和目錄。`.dockerignore` 檔案的排除模式語法和 Git 的 `.gitignore` 檔案相似。
 
-### 使用多阶段构建
+### 使用多階段建立
 
-在 `Docker 17.05` 以上版本中，你可以使用 [多阶段构建](../04_image/multistage-builds.md) 来减少所构建镜像的大小。
+在 `Docker 17.05` 以上版本中，你可以使用 [多階段建立](../04_image/multistage-builds.md) 來減少所建立映象的大小。
 
-### 避免安装不必要的包
+### 避免安裝不必要的套件
 
-为了降低复杂性、减少依赖、减小文件大小、节约构建时间，你应该避免安装任何不必要的包。例如，不要在数据库镜像中包含一个文本编辑器。
+為了降低複雜性、減少依賴、減小檔案大小、節約建立時間，你應該避免安裝任何不必要的套件。例如，不要在資料庫映象中包含一個文字編輯器。
 
-### 一个容器只运行一个进程
+### 一個容器只執行一個程序
 
-应该保证在一个容器中只运行一个进程。将多个应用解耦到不同容器中，保证了容器的横向扩展和复用。例如 web 应用应该包含三个容器：web应用、数据库、缓存。
+應該保證在一個容器中只執行一個程序。將多個應用解耦到不同容器中，保證了容器的橫向擴充套件和複用。例如 web 應用應該包含三個容器：web應用、資料庫、快取。
 
-如果容器互相依赖，你可以使用 [Docker 自定义网络](../network/README.md) 来把这些容器连接起来。
+如果容器互相依賴，你可以使用 [Docker 自定義網路](../network/README.md) 來把這些容器連線起來。
 
-### 镜像层数尽可能少
+### 映象層數儘可能少
 
-你需要在 `Dockerfile` 可读性（也包括长期的可维护性）和减少层数之间做一个平衡。
+你需要在 `Dockerfile` 可讀性（也包括長期的可維護性）和減少層數之間做一個平衡。
 
-### 将多行参数排序
+### 將多行引數排序
 
-将多行参数按字母顺序排序（比如要安装多个包时）。这可以帮助你避免重复包含同一个包，更新包列表时也更容易。也便于 `PRs` 阅读和审查。建议在反斜杠符号 `\` 之前添加一个空格，以增加可读性。
+將多行引數按字母順序排序（比如要安裝多個套件時）。這可以幫助你避免重複包含同一個套件，更新套件清單時也更容易。也便於 `PRs` 閱讀和審查。建議在反斜槓符號 `\` 之前新增一個空格，以增加可讀性。
 
-下面是来自 `buildpack-deps` 镜像的例子：
+下面是來自 `buildpack-deps` 映象的例子：
 
 ```docker
 RUN apt-get update && apt-get install -y \
@@ -45,32 +45,32 @@ RUN apt-get update && apt-get install -y \
   subversion
 ```
 
-### 构建缓存
+### 建立快取
 
-在镜像的构建过程中，Docker 会遍历 `Dockerfile` 文件中的指令，然后按顺序执行。在执行每条指令之前，Docker 都会在缓存中查找是否已经存在可重用的镜像，如果有就使用现存的镜像，不再重复创建。如果你不想在构建过程中使用缓存，你可以在 `docker build` 命令中使用 `--no-cache=true` 选项。
+在映象的建立過程中，Docker 會遍歷 `Dockerfile` 檔案中的指令，然後按順序執行。在執行每條指令之前，Docker 都會在快取中查詢是否已經存在可重用的映象，如果有就使用現存的映象，不再重複建立。如果你不想在建立過程中使用快取，你可以在 `docker build` 指令中使用 `--no-cache=true` 選項。
 
-但是，如果你想在构建的过程中使用缓存，你得明白什么时候会，什么时候不会找到匹配的镜像，遵循的基本规则如下：
+但是，如果你想在建立的過程中使用快取，你得明白什麼時候會，什麼時候不會找到對應的映象，遵循的基本規則如下：
 
-* 从一个基础镜像开始（`FROM` 指令指定），下一条指令将和该基础镜像的所有子镜像进行匹配，检查这些子镜像被创建时使用的指令是否和被检查的指令完全一样。如果不是，则缓存失效。
-* 在大多数情况下，只需要简单地对比 `Dockerfile` 中的指令和子镜像。然而，有些指令需要更多的检查和解释。
-* 对于 `ADD` 和 `COPY` 指令，镜像中对应文件的内容也会被检查，每个文件都会计算出一个校验和。文件的最后修改时间和最后访问时间不会纳入校验。在缓存的查找过程中，会将这些校验和和已存在镜像中的文件校验和进行对比。如果文件有任何改变，比如内容和元数据，则缓存失效。
-* 除了 `ADD` 和 `COPY` 指令，缓存匹配过程不会查看临时容器中的文件来决定缓存是否匹配。例如，当执行完 `RUN apt-get -y update` 指令后，容器中一些文件被更新，但 Docker 不会检查这些文件。这种情况下，只有指令字符串本身被用来匹配缓存。
+* 從一個基礎映象開始（`FROM` 指令指定），下一條指令將和該基礎映象的所有子映象進行對應，檢查這些子映象被建立時使用的指令是否和被檢查的指令完全一樣。如果不是，則快取失效。
+* 在大多數情況下，只需要簡單地對比 `Dockerfile` 中的指令和子映象。然而，有些指令需要更多的檢查和解釋。
+* 對於 `ADD` 和 `COPY` 指令，映象中對應檔案的內容也會被檢查，每個檔案都會計算出一個校驗和。檔案的最後修改時間和最後訪問時間不會納入校驗。在快取的查詢過程中，會將這些校驗和和已存在映象中的檔案校驗和進行對比。如果檔案有任何改變，比如內容和元資料，則快取失效。
+* 除了 `ADD` 和 `COPY` 指令，快取對應過程不會檢視臨時容器中的檔案來決定快取是否對應。例如，當執行完 `RUN apt-get -y update` 指令後，容器中一些檔案被更新，但 Docker 不會檢查這些檔案。這種情況下，只有指令字串本身被用來對應快取。
 
-一旦缓存失效，所有后续的 `Dockerfile` 指令都将产生新的镜像，缓存不会被使用。
+一旦快取失效，所有後續的 `Dockerfile` 指令都將產生新的映象，快取不會被使用。
 
 ## Dockerfile 指令
 
-下面针对 `Dockerfile` 中各种指令的最佳编写方式给出建议。
+下面針對 `Dockerfile` 中各種指令的最佳編寫方式給出建議。
 
 ### FROM
 
-尽可能使用当前官方仓库作为你构建镜像的基础。推荐使用 [Alpine](https://hub.docker.com/_/alpine/) 镜像，因为它被严格控制并保持最小尺寸（目前小于 5 MB），但它仍然是一个完整的发行版。
+儘可能使用當前官方倉庫作為你建立映象的基礎。推薦使用 [Alpine](https://hub.docker.com/_/alpine/) 映象，因為它被嚴格控制並保持最小尺寸（目前小於 5 MB），但它仍然是一個完整的發行版。
 
 ### LABEL
 
-你可以给镜像添加标签来帮助组织镜像、记录许可信息、辅助自动化构建等。每个标签一行，由 `LABEL` 开头加上一个或多个标签对。下面的示例展示了各种不同的可能格式。`#` 开头的行是注释内容。
+你可以給映象新增標籤來幫助組織映象、記錄許可訊息、輔助自動化建立等。每個標籤一行，由 `LABEL` 開頭加上一個或多個標籤對。下面的範例展示了各種不同的可能格式。`#` 開頭的行是註解內容。
 
->注意：如果你的字符串中包含空格，必须将字符串放入引号中或者对空格使用转义。如果字符串内容本身就包含引号，必须对引号使用转义。
+>注意：如果你的字串中包含空格，必須將字串放入引號中或者對空格使用轉義。如果字串內容本身就包含引號，必須對引號使用轉義。
 
 ```docker
 # Set one or more individual labels
@@ -83,7 +83,7 @@ LABEL com.example.release-date="2015-02-12"
 LABEL com.example.version.is-production=""
 ```
 
-一个镜像可以包含多个标签，但建议将多个标签放入到一个 `LABEL` 指令中。
+一個映象可以包含多個標籤，但建議將多個標籤放入到一個 `LABEL` 指令中。
 
 ```docker
 # Set multiple labels at once, using line-continuation characters to break long lines
@@ -94,19 +94,19 @@ LABEL vendor=ACME\ Incorporated \
       com.example.release-date="2015-02-12"
 ```
 
-关于标签可以接受的键值对，参考 [Understanding object labels](https://docs.docker.com/config/labels-custom-metadata/)。关于查询标签信息，参考 [Managing labels on objects](https://docs.docker.com/config/labels-custom-metadata/)。
+關於標籤可以接受的鍵值對，參考 [Understanding object labels](https://docs.docker.com/config/labels-custom-metadata/)。關於查詢標籤訊息，參考 [Managing labels on objects](https://docs.docker.com/config/labels-custom-metadata/)。
 
 ### RUN
 
-为了保持 `Dockerfile` 文件的可读性，可理解性，以及可维护性，建议将长的或复杂的 `RUN` 指令用反斜杠 `\` 分割成多行。
+為了保持 `Dockerfile` 檔案的可讀性，可理解性，以及可維護性，建議將長的或複雜的 `RUN` 指令用反斜槓 `\` 分割成多行。
 
 #### apt-get
 
-`RUN` 指令最常见的用法是安装包用的 `apt-get`。因为 `RUN apt-get` 指令会安装包，所以有几个问题需要注意。
+`RUN` 指令最常見的用法是安裝套件用的 `apt-get`。因為 `RUN apt-get` 指令會安裝套件，所以有幾個問題需要注意。
 
-不要使用 `RUN apt-get upgrade` 或 `dist-upgrade`，因为许多基础镜像中的「必须」包不会在一个非特权容器中升级。如果基础镜像中的某个包过时了，你应该联系它的维护者。如果你确定某个特定的包，比如 `foo`，需要升级，使用 `apt-get install -y foo` 就行，该指令会自动升级 `foo` 包。
+不要使用 `RUN apt-get upgrade` 或 `dist-upgrade`，因為許多基礎映象中的「必須」套件不會在一個非特權容器中升級。如果基礎映象中的某個套件過時了，你應該聯絡它的維護者。如果你確定某個特定的套件，比如 `foo`，需要升級，使用 `apt-get install -y foo` 就行，該指令會自動升級 `foo` 套件。
 
-永远将 `RUN apt-get update` 和 `apt-get install` 组合成一条 `RUN` 声明，例如：
+永遠將 `RUN apt-get update` 和 `apt-get install` 組合成一條 `RUN` 宣告，例如：
 
 ```docker
 RUN apt-get update && apt-get install -y \
@@ -115,7 +115,7 @@ RUN apt-get update && apt-get install -y \
         package-foo
 ```
 
-将 `apt-get update` 放在一条单独的 `RUN` 声明中会导致缓存问题以及后续的 `apt-get install` 失败。比如，假设你有一个 `Dockerfile` 文件：
+將 `apt-get update` 放在一條單獨的 `RUN` 宣告中會導致快取問題以及後續的 `apt-get install` 失敗。比如，假設你有一個 `Dockerfile` 檔案：
 
 ```docker
 FROM ubuntu:24.04
@@ -125,7 +125,7 @@ RUN apt-get update
 RUN apt-get install -y curl
 ```
 
-构建镜像后，所有的层都在 Docker 的缓存中。假设你后来又修改了其中的 `apt-get install` 添加了一个包：
+建立映象後，所有的層都在 Docker 的快取中。假設你後來又修改了其中的 `apt-get install` 新增了一個套件：
 
 ```docker
 FROM ubuntu:24.04
@@ -135,9 +135,9 @@ RUN apt-get update
 RUN apt-get install -y curl nginx
 ```
 
-Docker 发现修改后的 `RUN apt-get update` 指令和之前的完全一样。所以，`apt-get update` 不会执行，而是使用之前的缓存镜像。因为 `apt-get update` 没有运行，后面的 `apt-get install` 可能安装的是过时的 `curl` 和 `nginx` 版本。
+Docker 發現修改後的 `RUN apt-get update` 指令和之前的完全一樣。所以，`apt-get update` 不會執行，而是使用之前的快取映象。因為 `apt-get update` 沒有執行，後面的 `apt-get install` 可能安裝的是過時的 `curl` 和 `nginx` 版本。
 
-使用 `RUN apt-get update && apt-get install -y` 可以确保你的 Dockerfiles 每次安装的都是包的最新的版本，而且这个过程不需要进一步的编码或额外干预。这项技术叫作 `cache busting`。你也可以显示指定一个包的版本号来达到 `cache-busting`，这就是所谓的固定版本，例如：
+使用 `RUN apt-get update && apt-get install -y` 可以確保你的 Dockerfiles 每次安裝的都是套件的最新的版本，而且這個過程不需要進一步的編碼或額外干預。這項技術叫作 `cache busting`。你也可以顯示指定一個套件的版本號來達到 `cache-busting`，這就是所謂的固定版本，例如：
 
 ```docker
 RUN apt-get update && apt-get install -y \
@@ -146,9 +146,9 @@ RUN apt-get update && apt-get install -y \
     package-foo=1.3.*
 ```
 
-固定版本会迫使构建过程检索特定的版本，而不管缓存中有什么。这项技术也可以减少因所需包中未预料到的变化而导致的失败。
+固定版本會迫使建立過程檢索特定的版本，而不管快取中有什麼。這項技術也可以減少因所需套件中未預料到的變化而導致的失敗。
 
-下面是一个 `RUN` 指令的示例模板，展示了所有关于 `apt-get` 的建议。
+下面是一個 `RUN` 指令的範例樣板，展示了所有關於 `apt-get` 的建議。
 
 ```docker
 RUN apt-get update && apt-get install -y \
@@ -164,31 +164,31 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/*
 ```
 
-其中 `redis-server` 是示例包。确保安装的是最新版本。
+其中 `redis-server` 是範例套件。確保安裝的是最新版本。
 
-另外，清理掉 apt 缓存 `var/lib/apt/lists` 可以减小镜像大小。因为 `RUN` 指令的开头为 `apt-get update`，包缓存总是会在 `apt-get install` 之前刷新。
+另外，清理掉 apt 快取 `var/lib/apt/lists` 可以減小映象大小。因為 `RUN` 指令的開頭為 `apt-get update`，套件快取總是會在 `apt-get install` 之前重新整理。
 
-> 注意：官方的 Debian 和 Ubuntu 镜像会自动运行 apt-get clean，所以不需要显式的调用 apt-get clean。
+> 注意：官方的 Debian 和 Ubuntu 映象會自動執行 apt-get clean，所以不需要顯式的呼叫 apt-get clean。
 
 ### CMD
 
-`CMD` 指令用于执行目标镜像中包含的软件，可以包含参数。`CMD` 大多数情况下都应该以 `CMD ["executable", "param1", "param2"...]` 的形式使用。因此，如果创建镜像的目的是为了部署某个服务(比如 `Apache`)，你可能会执行类似于 `CMD ["apache2", "-DFOREGROUND"]` 形式的命令。我们建议任何服务镜像都使用这种形式的命令。
+`CMD` 指令用於執行目標映象中包含的軟體，可以包含引數。`CMD` 大多數情況下都應該以 `CMD ["executable", "param1", "param2"...]` 的形式使用。因此，如果建立映象的目的是為了部署某個服務(比如 `Apache`)，你可能會執行類似於 `CMD ["apache2", "-DFOREGROUND"]` 形式的指令。我們建議任何服務映象都使用這種形式的指令。
 
-多数情况下，`CMD` 都需要一个交互式的 `shell` (bash, Python, perl 等)，例如 `CMD ["perl", "-de0"]`，或者 `CMD ["PHP", "-a"]`。使用这种形式意味着，当你执行类似 `docker run -it python` 时，你会进入一个准备好的 `shell` 中。`CMD` 应该在极少的情况下才能以 `CMD ["param", "param"]` 的形式与 `ENTRYPOINT` 协同使用，除非你和你的镜像使用者都对 `ENTRYPOINT` 的工作方式十分熟悉。
+多數情況下，`CMD` 都需要一個互動式的 `shell` (bash, Python, perl 等)，例如 `CMD ["perl", "-de0"]`，或者 `CMD ["PHP", "-a"]`。使用這種形式意味著，當你執行類似 `docker run -it python` 時，你會進入一個準備好的 `shell` 中。`CMD` 應該在極少的情況下才能以 `CMD ["param", "param"]` 的形式與 `ENTRYPOINT` 協同使用，除非你和你的映象使用者都對 `ENTRYPOINT` 的工作方式十分熟悉。
 
 ### EXPOSE
 
-`EXPOSE` 指令用于指定容器将要监听的端口。因此，你应该为你的应用程序使用常见的端口。例如，提供 `Apache` web 服务的镜像应该使用 `EXPOSE 80`，而提供 `MongoDB` 服务的镜像使用 `EXPOSE 27017`。
+`EXPOSE` 指令用於指定容器將要監聽的連接埠。因此，你應該為你的應用程式使用常見的連接埠。例如，提供 `Apache` web 服務的映象應該使用 `EXPOSE 80`，而提供 `MongoDB` 服務的映象使用 `EXPOSE 27017`。
 
-对于外部访问，用户可以在执行 `docker run` 时使用一个标志来指示如何将指定的端口映射到所选择的端口。
+對於外部訪問，使用者可以在執行 `docker run` 時使用一個標誌來指示如何將指定的連接埠對映到所選擇的連接埠。
 
 ### ENV
 
-为了方便新程序运行，你可以使用 `ENV` 来为容器中安装的程序更新 `PATH` 环境变量。例如使用 `ENV PATH /usr/local/nginx/bin:$PATH` 来确保 `CMD ["nginx"]` 能正确运行。
+為了方便新程式執行，你可以使用 `ENV` 來為容器中安裝的程式更新 `PATH` 環境變數。例如使用 `ENV PATH /usr/local/nginx/bin:$PATH` 來確保 `CMD ["nginx"]` 能正確執行。
 
-`ENV` 指令也可用于为你想要容器化的服务提供必要的环境变量，比如 Postgres 需要的 `PGDATA`。
+`ENV` 指令也可用於為你想要容器化的服務提供必要的環境變數，比如 Postgres 需要的 `PGDATA`。
 
-最后，`ENV` 也能用于设置常见的版本号，比如下面的示例：
+最後，`ENV` 也能用於設定常見的版本號，比如下面的範例：
 
 ```docker
 ENV PG_MAJOR 9.3
@@ -200,13 +200,13 @@ RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/
 ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
 ```
 
-类似于程序中的常量，这种方法可以让你只需改变 `ENV` 指令来自动的改变容器中的软件版本。
+類似於程式中的常數，這種方法可以讓你只需改變 `ENV` 指令來自動的改變容器中的軟體版本。
 
 ### ADD 和 COPY
 
-虽然 `ADD` 和 `COPY` 功能类似，但一般优先使用 `COPY`。因为它比 `ADD` 更透明。`COPY` 只支持简单将本地文件拷贝到容器中，而 `ADD` 有一些并不明显的功能（比如本地 tar 提取和远程 URL 支持）。因此，`ADD` 的最佳用例是将本地 tar 文件自动提取到镜像中，例如 `ADD rootfs.tar.xz`。
+雖然 `ADD` 和 `COPY` 功能類似，但一般優先使用 `COPY`。因為它比 `ADD` 更透明。`COPY` 只支援簡單將本地檔案複製到容器中，而 `ADD` 有一些並不明顯的功能（比如本地 tar 提取和遠端 URL 支援）。因此，`ADD` 的最佳用例是將本地 tar 檔案自動提取到映象中，例如 `ADD rootfs.tar.xz`。
 
-如果你的 `Dockerfile` 有多个步骤需要使用上下文中不同的文件。单独 `COPY` 每个文件，而不是一次性的 `COPY` 所有文件，这将保证每个步骤的构建缓存只在特定的文件变化时失效。例如：
+如果你的 `Dockerfile` 有多個步驟需要使用上下文中不同的檔案。單獨 `COPY` 每個檔案，而不是一次性的 `COPY` 所有檔案，這將保證每個步驟的建立快取只在特定的檔案變化時失效。例如：
 
 ```docker
 COPY requirements.txt /tmp/
@@ -216,9 +216,9 @@ RUN pip install --requirement /tmp/requirements.txt
 COPY . /tmp/
 ```
 
-如果将 `COPY . /tmp/` 放置在 `RUN` 指令之前，只要 `.` 目录中任何一个文件变化，都会导致后续指令的缓存失效。
+如果將 `COPY . /tmp/` 放置在 `RUN` 指令之前，只要 `.` 目錄中任何一個檔案變化，都會導致後續指令的快取失效。
 
-为了让镜像尽量小，最好不要使用 `ADD` 指令从远程 URL 获取包，而是使用 `curl` 和 `wget`。这样你可以在文件提取完之后删掉不再需要的文件来避免在镜像中额外添加一层。比如尽量避免下面的用法：
+為了讓映象儘量小，最好不要使用 `ADD` 指令從遠端 URL 獲取套件，而是使用 `curl` 和 `wget`。這樣你可以在檔案提取完之後刪掉不再需要的檔案來避免在映象中額外新增一層。比如儘量避免下面的用法：
 
 ```docker
 ADD http://example.com/big.tar.xz /usr/src/things/
@@ -228,7 +228,7 @@ RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things
 RUN make -C /usr/src/things all
 ```
 
-而是应该使用下面这种方法：
+而是應該使用下面這種方法：
 
 ```docker
 RUN mkdir -p /usr/src/things \
@@ -237,15 +237,15 @@ RUN mkdir -p /usr/src/things \
     && make -C /usr/src/things all
 ```
 
-上面使用的管道操作，所以没有中间文件需要删除。
+上面使用的通道操作，所以沒有中間檔案需要刪除。
 
-对于其他不需要 `ADD` 的自动提取功能的文件或目录，你应该使用 `COPY`。
+對於其他不需要 `ADD` 的自動提取功能的檔案或目錄，你應該使用 `COPY`。
 
 ### ENTRYPOINT
 
-`ENTRYPOINT` 的最佳用处是设置镜像的主命令，允许将镜像当成命令本身来运行（用 `CMD` 提供默认选项）。
+`ENTRYPOINT` 的最佳用處是設定映象的主指令，允許將映象當成指令本身來執行（用 `CMD` 提供預設選項）。
 
-例如，下面的示例镜像提供了命令行工具 `s3cmd`:
+例如，下面的範例映象提供了指令行工具 `s3cmd`:
 
 ```docker
 ENTRYPOINT ["s3cmd"]
@@ -253,23 +253,23 @@ ENTRYPOINT ["s3cmd"]
 CMD ["--help"]
 ```
 
-现在直接运行该镜像创建的容器会显示命令帮助：
+現在直接執行該映象建立的容器會顯示指令幫助：
 
 ```bash
 $ docker run s3cmd
 ```
 
-或者提供正确的参数来执行某个命令：
+或者提供正確的引數來執行某個指令：
 
 ```bash
 $ docker run s3cmd ls s3://mybucket
 ```
 
-这样镜像名可以当成命令行的参考。
+這樣映象名可以當成指令行的參考。
 
-`ENTRYPOINT` 指令也可以结合一个辅助脚本使用，和前面命令行风格类似，即使启动工具需要不止一个步骤。
+`ENTRYPOINT` 指令也可以結合一個輔助指令碼使用，和前面指令行風格類似，即使啟動工具需要不止一個步驟。
 
-例如，`Postgres` 官方镜像使用下面的脚本作为 `ENTRYPOINT`：
+例如，`Postgres` 官方映象使用下面的指令碼作為 `ENTRYPOINT`：
 
 ```bash
 #!/bin/bash
@@ -288,9 +288,9 @@ fi
 exec "$@"
 ```
 
->注意：该脚本使用了 Bash 的内置命令 exec，所以最后运行的进程就是容器的 PID 为 1 的进程。这样，进程就可以接收到任何发送给容器的 Unix 信号了。
+>注意：該指令碼使用了 Bash 的內建指令 exec，所以最後執行的程序就是容器的 PID 為 1 的程序。這樣，程序就可以接收到任何傳送給容器的 Unix 訊號了。
 
-该辅助脚本被拷贝到容器，并在容器启动时通过 `ENTRYPOINT` 执行：
+該輔助指令碼被複製到容器，並在容器啟動時透過 `ENTRYPOINT` 執行：
 
 ```docker
 COPY ./docker-entrypoint.sh /
@@ -298,21 +298,21 @@ COPY ./docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 ```
 
-该脚本可以让用户用几种不同的方式和 `Postgres` 交互。
+該指令碼可以讓使用者用幾種不同的方式和 `Postgres` 互動。
 
-你可以很简单地启动 `Postgres`：
+你可以很簡單地啟動 `Postgres`：
 
 ```bash
 $ docker run postgres
 ```
 
-也可以执行 `Postgres` 并传递参数：
+也可以執行 `Postgres` 並傳遞引數：
 
 ```bash
 $ docker run postgres postgres --help
 ```
 
-最后，你还可以启动另外一个完全不同的工具，比如 `Bash`：
+最後，你還可以啟動另外一個完全不同的工具，比如 `Bash`：
 
 ```bash
 $ docker run --rm -it postgres bash
@@ -320,22 +320,22 @@ $ docker run --rm -it postgres bash
 
 ### VOLUME
 
-`VOLUME` 指令用于暴露任何数据库存储文件，配置文件，或容器创建的文件和目录。强烈建议使用 `VOLUME` 来管理镜像中的可变部分和用户可以改变的部分。
+`VOLUME` 指令用於暴露任何資料庫儲存檔案，設定檔案，或容器建立的檔案和目錄。強烈建議使用 `VOLUME` 來管理映象中的可變部分和使用者可以改變的部分。
 
 ### USER
 
-如果某个服务不需要特权执行，建议使用 `USER` 指令切换到非 root 用户。先在 `Dockerfile` 中使用类似 `RUN groupadd -r postgres && useradd -r -g postgres postgres` 的指令创建用户和用户组。
+如果某個服務不需要特權執行，建議使用 `USER` 指令切換到非 root 使用者。先在 `Dockerfile` 中使用類似 `RUN groupadd -r postgres && useradd -r -g postgres postgres` 的指令建立使用者和使用者組。
 
->注意：在镜像中，用户和用户组每次被分配的 UID/GID 都是不确定的，下次重新构建镜像时被分配到的 UID/GID 可能会不一样。如果要依赖确定的 UID/GID，你应该显式的指定一个 UID/GID。
+>注意：在映象中，使用者和使用者組每次被分配的 UID/GID 都是不確定的，下次重新建立映象時被分配到的 UID/GID 可能會不一樣。如果要依賴確定的 UID/GID，你應該顯式的指定一個 UID/GID。
 
-你应该避免使用 `sudo`，因为它不可预期的 TTY 和信号转发行为可能造成的问题比它能解决的问题还多。如果你真的需要和 `sudo` 类似的功能（例如，以 root 权限初始化某个守护进程，以非 root 权限执行它），你可以使用 [gosu](https://github.com/tianon/gosu)。
+你應該避免使用 `sudo`，因為它不可預期的 TTY 和訊號轉發行為可能造成的問題比它能解決的問題還多。如果你真的需要和 `sudo` 類似的功能（例如，以 root 許可權初始化某個守護程序，以非 root 許可權執行它），你可以使用 [gosu](https://github.com/tianon/gosu)。
 
-最后，为了减少层数和复杂度，避免频繁地使用 `USER` 来回切换用户。
+最後，為了減少層數和複雜度，避免頻繁地使用 `USER` 來回切換使用者。
 
 ### WORKDIR
 
-为了清晰性和可靠性，你应该总是在 `WORKDIR` 中使用绝对路径。另外，你应该使用 `WORKDIR` 来替代类似于 `RUN cd ... && do-something` 的指令，后者难以阅读、排错和维护。
+為了清晰性和可靠性，你應該總是在 `WORKDIR` 中使用絕對路徑。另外，你應該使用 `WORKDIR` 來替代類似於 `RUN cd ... && do-something` 的指令，後者難以閱讀、排錯和維護。
 
-## 官方镜像示例
+## 官方映象範例
 
-这些官方镜像的 Dockerfile 都是参考典范：https://github.com/docker-library/docs
+這些官方映象的 Dockerfile 都是參考典範：https://github.com/docker-library/docs

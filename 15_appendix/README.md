@@ -1,12 +1,12 @@
-# 附录
+# 附錄
 
-本章包含了 Docker 相关的参考资料、常见问题解答以及最佳实践指南，旨在为读者提供便捷的查阅工具。
+本章包含了 Docker 相關的參考資料、常見問題解答以及最佳實踐指南，旨在為讀者提供便捷的查閱工具。
 
-## 目录
+## 目錄
 
-*   [**常见问题总结 (FAQ)**](faq/README.md)：汇总了学习和使用 Docker 过程中的常见问题与错误解决方案。
-*   [**热门镜像介绍**](repo/README.md)：详细介绍了 Nginx, MySQL, Redis 等常用官方镜像的使用方法。
-*   [**Docker 命令查询**](command/README.md)：速查 Docker 客户端和服务端的常用命令。
-*   [**Dockerfile 最佳实践**](best_practices.md)：提供编写高效、安全 Dockerfile 的指导原则。
-*   [**如何调试 Docker**](debug.md)：介绍 Docker 调试技巧和工具。
-*   [**资源链接**](resources.md)：推荐更多 Docker 相关的学习资源。
+*   [**常見問題總結 (FAQ)**](faq/README.md)：彙總了學習和使用 Docker 過程中的常見問題與錯誤解決方案。
+*   [**熱門映象介紹**](repo/README.md)：詳細介紹了 Nginx, MySQL, Redis 等常用官方映象的使用方法。
+*   [**Docker 指令查詢**](command/README.md)：速查 Docker 用戶端和伺服器端的常用指令。
+*   [**Dockerfile 最佳實踐**](best_practices.md)：提供編寫高效、安全 Dockerfile 的指導原則。
+*   [**如何除錯 Docker**](debug.md)：介紹 Docker 除錯技巧和工具。
+*   [**資源連結**](resources.md)：推薦更多 Docker 相關的學習資源。
