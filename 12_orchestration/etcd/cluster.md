@@ -1,8 +1,8 @@
-## etcd 集群
+## etcd 叢集
 
-下面我们使用 [Docker Compose](../compose/) 模拟启动一个 3 节点的 `etcd` 集群。
+下面我們使用 [Docker Compose](../compose/) 模擬啟動一個 3 節點的 `etcd` 叢集。
 
-编辑 `docker-compose.yml` 文件
+編輯 `docker-compose.yml` 檔案
 
 ```yaml
 version: "3.6"
@@ -119,7 +119,7 @@ networks:
         subnet: 172.16.238.0/24
 ```
 
-使用 `docker compose up` 启动集群之后使用 `docker exec` 命令登录到任一节点测试 `etcd` 集群。
+使用 `docker compose up` 啟動叢集之後使用 `docker exec` 指令登入到任一節點測試 `etcd` 叢集。
 
 ```bash
 / # etcdctl member list

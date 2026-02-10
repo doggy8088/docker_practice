@@ -1,12 +1,12 @@
 ## 使用 kubeadm 部署 kubernetes（CRI 使用 containerd）
 
-`kubeadm` 提供了 `kubeadm init` 以及 `kubeadm join` 这两个命令作为快速创建 `kubernetes` 集群的最佳实践。
+`kubeadm` 提供了 `kubeadm init` 以及 `kubeadm join` 這兩個指令作為快速建立 `kubernetes` 叢集的最佳實踐。
 
-> **版本说明**：Kubernetes 版本更新较快（约每 4 个月一个新版本），本文档基于 Kubernetes 1.35 编写。请访问 [Kubernetes 官方发布页](https://kubernetes.io/releases/) 获取最新版本信息。
+> **版本說明**：Kubernetes 版本更新較快（約每 4 個月一個新版本），本文件基於 Kubernetes 1.35 編寫。請訪問 [Kubernetes 官方發布頁](https://kubernetes.io/releases/) 獲取最新版本訊息。
 
-### 安装 containerd
+### 安裝 containerd
 
-参考 [安装 Docker](../../install) 一节添加 apt/yum 源，之后执行如下命令。
+參考 [安裝 Docker](../../install) 一節新增 apt/yum 源，之後執行如下指令。
 
 ```bash
 ## debian 系
@@ -18,9 +18,9 @@ $ sudo apt install containerd.io
 $ sudo yum install containerd.io
 ```
 
-### 配置 containerd
+### 設定 containerd
 
-新建 `/etc/systemd/system/cri-containerd.service` 文件
+新建 `/etc/systemd/system/cri-containerd.service` 檔案
 
 ```
 [Unit]
@@ -55,7 +55,7 @@ OOMScoreAdjust=-999
 WantedBy=multi-user.target
 ```
 
-新建 `/etc/cri-containerd/config.toml` containerd 配置文件
+新建 `/etc/cri-containerd/config.toml` containerd 設定檔案
 
 ```toml
 version = 2
@@ -210,13 +210,13 @@ oom_score = 0
     async_remove = false
 ```
 
-### 安装 **kubelet** **kubeadm** **kubectl** **cri-tools** **kubernetes-cni**
+### 安裝 **kubelet** **kubeadm** **kubectl** **cri-tools** **kubernetes-cni**
 
-需要在每台机器上安装以下的软件包：
+需要在每台機器上安裝以下的軟體套件：
 
 #### Ubuntu/Debian
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ apt-get update && apt-get install -y apt-transport-https
@@ -232,7 +232,7 @@ $ apt-get install -y kubelet kubeadm kubectl
 
 #### CentOS/Fedora
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
@@ -248,9 +248,9 @@ EOF
 $ sudo yum install -y kubelet kubeadm kubectl
 ```
 
-### 修改内核的运行参数
+### 修改核心的執行引數
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
@@ -259,21 +259,21 @@ net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 EOF
 
-## 应用配置
+## 應用設定
 
 $ sysctl --system
 ```
 
-### 配置 kubelet
+### 設定 kubelet
 
-为了让 kubelet 正确运行，我们需要对其进行一些必要的配置。
+為了讓 kubelet 正確執行，我們需要對其進行一些必要的設定。
 
 #### 修改 `kubelet.service`
 
-`/etc/systemd/system/kubelet.service.d/10-proxy-ipvs.conf` 写入以下内容
+`/etc/systemd/system/kubelet.service.d/10-proxy-ipvs.conf` 寫入以下內容
 
 ```bash
-## 启用 ipvs 相关内核模块
+## 啟用 ipvs 相關核心模組
 
 [Service]
 ExecStartPre=-/sbin/modprobe ip_vs
@@ -282,7 +282,7 @@ ExecStartPre=-/sbin/modprobe ip_vs_wrr
 ExecStartPre=-/sbin/modprobe ip_vs_sh
 ```
 
-执行以下命令应用配置。
+執行以下指令應用設定。
 
 ```bash
 $ sudo systemctl daemon-reload
@@ -290,11 +290,11 @@ $ sudo systemctl daemon-reload
 
 ### 部署
 
-安装配置完成后，我们将分别在 Master 节点和 Worker 节点上进行部署操作。
+安裝設定完成後，我們將分別在 Master 節點和 Worker 節點上進行部署操作。
 
 #### master
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ systemctl enable cri-containerd
@@ -309,11 +309,11 @@ $ sudo kubeadm init \
       --ignore-preflight-errors=all
 ```
 
-* `--pod-network-cidr 10.244.0.0/16` 参数与后续 CNI 插件有关，这里以 `flannel` 为例，若后续部署其他类型的网络插件请更改此参数。
+* `--pod-network-cidr 10.244.0.0/16` 引數與後續 CNI 外掛有關，這裡以 `flannel` 為例，若後續部署其他型別的網路外掛請更改此引數。
 
-> 执行可能出现错误，例如缺少依赖包，根据提示安装即可。
+> 執行可能出現錯誤，例如缺少依賴套件，根據提示安裝即可。
 
-执行成功会输出
+執行成功會輸出
 
 ```bash
 ...
@@ -340,9 +340,9 @@ kubeadm join 192.168.199.100:6443 --token cz81zt.orsy9gm9v649e5lf \
     --discovery-token-ca-cert-hash sha256:5edb316fd0d8ea2792cba15cdf1c899a366f147aa03cba52d4e5c5884ad836fe
 ```
 
-#### node 工作节点
+#### node 工作節點
 
-在 **另一主机**重复**部署** 小节以前的步骤，安装配置好 kubelet。根据提示，加入到集群。
+在 **另一主機**重複**部署** 小節以前的步驟，安裝設定好 kubelet。根據提示，加入到叢集。
 
 ```bash
 $ systemctl enable cri-containerd
@@ -355,50 +355,50 @@ $ kubeadm join 192.168.199.100:6443 \
     --cri-socket /run/cri-containerd/cri-containerd.sock
 ```
 
-### 查看服务
+### 檢視服務
 
-所有服务启动后，通过 `crictl` 查看本地实际运行的容器。这些服务大概分为三类：主节点服务、工作节点服务和其它服务。
+所有服務啟動後，透過 `crictl` 檢視本地實際執行的容器。這些服務大概分為三類：主節點服務、工作節點服務和其它服務。
 
 ```bash
 CONTAINER_RUNTIME_ENDPOINT=/run/cri-containerd/cri-containerd.sock crictl ps -a
 ```
 
-#### 主节点服务
+#### 主節點服務
 
-* `apiserver` 是整个系统的对外接口，提供 RESTful 方式供客户端和其它组件调用；
+* `apiserver` 是整個系統的對外介面，提供 RESTful 方式供用戶端和其它元件呼叫；
 
-* `scheduler` 负责对资源进行调度，分配某个 pod 到某个节点上；
+* `scheduler` 負責對資源進行排程，分配某個 pod 到某個節點上；
 
-* `controller-manager` 负责管理控制器，包括 endpoint-controller（刷新服务和 pod 的关联信息）和 replication-controller（维护某个 pod 的复制为配置的数值）。
+* `controller-manager` 負責管理控制器，包括 endpoint-controller（重新整理服務和 pod 的關聯訊息）和 replication-controller（維護某個 pod 的複製為設定的數值）。
 
-#### 工作节点服务
+#### 工作節點服務
 
-* `proxy` 为 pod 上的服务提供访问的代理。
+* `proxy` 為 pod 上的服務提供訪問的代理。
 
-#### 其它服务
+#### 其它服務
 
-* Etcd 是所有状态的存储数据库；
+* Etcd 是所有狀態的儲存資料庫；
 
 ### 使用
 
-将 `/etc/kubernetes/admin.conf` 复制到 `~/.kube/config`
+將 `/etc/kubernetes/admin.conf` 複製到 `~/.kube/config`
 
-执行 `$ kubectl get all -A` 查看启动的服务。
+執行 `$ kubectl get all -A` 檢視啟動的服務。
 
-由于未部署 CNI 插件，CoreDNS 未正常启动。如何使用 Kubernetes，请参考后续章节。
+由於未部署 CNI 外掛，CoreDNS 未正常啟動。如何使用 Kubernetes，請參考後續章節。
 
 ### 部署 CNI
 
-这里以 `flannel` 为例进行介绍。
+這裡以 `flannel` 為例進行介紹。
 
 #### flannel
 
-检查 podCIDR 设置
+檢查 podCIDR 設定
 
 ```bash
 $ kubectl get node -o yaml | grep CIDR
 
-## 输出
+## 輸出
 
     podCIDR: 10.244.0.0/16
     podCIDRs:
@@ -408,22 +408,22 @@ $ kubectl get node -o yaml | grep CIDR
 $ kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/v0.26.1/Documentation/kube-flannel.yml
 ```
 
-### master 节点默认不能运行 pod
+### master 節點預設不能執行 pod
 
-如果用 `kubeadm` 部署一个单节点集群，默认情况下无法使用，请执行以下命令解除限制
+如果用 `kubeadm` 部署一個單節點叢集，預設情況下無法使用，請執行以下指令解除限制
 
 ```bash
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
 
-## 恢复默认值
+## 恢復預設值
 
 ## $ kubectl taint nodes NODE_NAME node-role.kubernetes.io/master=true:NoSchedule
 
-具体内容如下：
+具體內容如下：
 
 ```
 
-### 参考文档
+### 參考文件
 
-* [官方文档](https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+* [官方文件](https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 * [Container runtimes](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)

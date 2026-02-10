@@ -1,23 +1,23 @@
-# 网络配置
+# 網路設定
 
-## Docker 网络概述
+## Docker 網路概述
 
-Docker 容器需要网络来：
-- 与外部世界通信（访问互联网、被外部访问）
-- 容器之间相互通信
-- 与宿主机通信
+Docker 容器需要網路來：
+- 與外部世界通訊（訪問網際網路、被外部訪問）
+- 容器之間相互通訊
+- 與宿主機通訊
 
-Docker 在安装时会自动配置网络基础设施，大多数情况下开箱即用。
+Docker 在安裝時會自動設定網路基礎設施，大多數情況下開箱即用。
 
-## 默认网络架构
+## 預設網路架構
 
-Docker 启动时自动创建以下网络组件：
+Docker 啟動時自動建立以下網路元件：
 
 ```mermaid
 graph TD
-    subgraph Host [宿主机]
-        eth0[物理网卡 eth0<br>192.168.1.100]
-        docker0[docker0 网桥<br>172.17.0.1]
+    subgraph Host [宿主機]
+        eth0[物理網絡卡 eth0<br>192.168.1.100]
+        docker0[docker0 網橋<br>172.17.0.1]
         
         subgraph Containers
             subgraph ContainerA [容器 A]
@@ -33,33 +33,33 @@ graph TD
         docker0 <--> eth0_B
     end
     
-    Internet((互联网)) <--> eth0
+    Internet((網際網路)) <--> eth0
 ```
 
-### 核心组件
+### 核心元件
 
-| 组件 | 说明 |
+| 元件 | 說明 |
 |------|------|
-| **docker0** | 虚拟网桥，充当交换机角色 |
-| **veth pair** | 虚拟网卡对，一端在容器内，一端连接网桥 |
-| **容器 eth0** | 容器内的网卡 |
-| **IP 地址** | 自动从 172.17.0.0/16 网段分配 |
+| **docker0** | 虛擬網橋，充當交換機角色 |
+| **veth pair** | 虛擬網絡卡對，一端在容器內，一端連線網橋 |
+| **容器 eth0** | 容器內的網絡卡 |
+| **IP 地址** | 自動從 172.17.0.0/16 網段分配 |
 
-### 数据流向
+### 資料流向
 
-具体内容如下：
+具體內容如下：
 
 ```
-容器 A (172.17.0.2) → docker0 → 容器 B (172.17.0.3)  (容器间通信)
-容器 A (172.17.0.2) → docker0 → eth0 → 互联网        (访问外网)
-外部请求 → eth0 → docker0 → 容器 A                    (被外部访问，需端口映射)
+容器 A (172.17.0.2) → docker0 → 容器 B (172.17.0.3)  (容器間通訊)
+容器 A (172.17.0.2) → docker0 → eth0 → 網際網路        (訪問外網)
+外部請求 → eth0 → docker0 → 容器 A                    (被外部訪問，需連接埠對映)
 ```
 
 ---
 
-## Docker 网络类型
+## Docker 網路型別
 
-查看默认网络：
+檢視預設網路：
 
 ```bash
 $ docker network ls
@@ -69,53 +69,53 @@ def456...      host      host      local
 ghi789...      none      null      local
 ```
 
-| 网络类型 | 说明 | 适用场景 |
+| 網路型別 | 說明 | 適用場景 |
 |---------|------|---------|
-| **bridge** | 默认类型，容器连接到虚拟网桥 | 大多数单机场景 |
-| **host** | 容器直接使用宿主机网络栈 | 需要最高网络性能时 |
-| **none** | 禁用网络 | 完全隔离的容器 |
-| **overlay** | 跨主机网络 | Docker Swarm 集群 |
-| **macvlan** | 容器拥有独立 MAC 地址 | 需要直接接入物理网络 |
+| **bridge** | 預設類型，容器連線到虛擬網橋 | 大多數單機場景 |
+| **host** | 容器直接使用宿主機網路棧 | 需要最高網路效能時 |
+| **none** | 停用網路 | 完全隔離的容器 |
+| **overlay** | 跨主機網路 | Docker Swarm 叢集 |
+| **macvlan** | 容器擁有獨立 MAC 地址 | 需要直接接入物理網路 |
 
 ---
 
-## 用户自定义网络（推荐）
+## 使用者自定義網路（推薦）
 
-### 为什么要用自定义网络
+### 為什麼要用自定義網路
 
-默认 bridge 网络的局限：
+預設 bridge 網路的侷限：
 
-| 问题 | 自定义网络的优势 |
+| 問題 | 自定義網路的優勢 |
 |------|-----------------|
-| 只能用 IP 通信 | 支持容器名 DNS 解析 |
-| 所有容器在同一网络 | 更好的隔离性 |
-| 需要 --link（已废弃） | 原生支持服务发现 |
+| 只能用 IP 通訊 | 支援容器名 DNS 解析 |
+| 所有容器在同一網路 | 更好的隔離性 |
+| 需要 --link（已廢棄） | 原生支援服務發現 |
 
-### 创建自定义网络
+### 建立自定義網路
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 创建网络
+## 建立網路
 
 $ docker network create mynet
 
-## 查看网络详情
+## 檢視網路詳情
 
 $ docker network inspect mynet
 ```
 
-### 使用自定义网络
+### 使用自定義網路
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 启动容器并连接到自定义网络
+## 啟動容器並連線到自定義網路
 
 $ docker run -d --name web --network mynet nginx
 $ docker run -d --name db --network mynet postgres
 
-## 在 web 容器中可以直接用容器名访问 db
+## 在 web 容器中可以直接用容器名訪問 db
 
 $ docker exec web ping db
 PING db (172.18.0.3): 56 data bytes
@@ -124,73 +124,73 @@ PING db (172.18.0.3): 56 data bytes
 
 ### 容器名 DNS 解析
 
-自定义网络自动提供 DNS 服务：
+自定義網路自動提供 DNS 服務：
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    mynet 网络                           │
+│                    mynet 網路                           │
 │                                                         │
 │  ┌─────────┐          DNS          ┌─────────┐         │
 │  │   web   │ ──── "db" → 172.18.0.3 ───► │   db    │   │
 │  │172.18.0.2│                       │172.18.0.3│        │
 │  └─────────┘                        └─────────┘         │
 │                                                         │
-│  web 容器可以用 "db" 作为主机名访问 db 容器              │
+│  web 容器可以用 "db" 作為主機名訪問 db 容器              │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 容器互联
+## 容器互聯
 
-### 同一网络内的容器
+### 同一網路內的容器
 
-同一自定义网络内的容器可以直接通信：
+同一自定義網路內的容器可以直接通訊：
 
 ```bash
-## 创建网络
+## 建立網路
 
 $ docker network create app-net
 
-## 启动应用和数据库
+## 啟動應用和數據函式庫
 
 $ docker run -d --name redis --network app-net redis
 $ docker run -d --name app --network app-net myapp
 
-## app 容器中可以用 redis:6379 连接 Redis
+## app 容器中可以用 redis:6379 連線 Redis
 
-具体内容如下：
+具體內容如下：
 
 ```
 
-### 连接到多个网络
+### 連線到多個網路
 
-一个容器可以连接到多个网络：
+一個容器可以連線到多個網路：
 
 ```bash
-## 启动容器
+## 啟動容器
 
 $ docker run -d --name multi-net-container --network frontend nginx
 
-## 再连接到另一个网络
+## 再連線到另一個網路
 
 $ docker network connect backend multi-net-container
 
-## 查看容器的网络
+## 檢視容器的網路
 
 $ docker inspect multi-net-container --format '{{json .NetworkSettings.Networks}}'
 ```
 
-### ⚠️ --link 已废弃
+### ⚠️ --link 已廢棄
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 旧方式（不推荐）
+## 舊方式（不推薦）
 
 $ docker run --link db:database myapp
 
-## 新方式（推荐）
+## 新方式（推薦）
 
 $ docker network create mynet
 $ docker run --network mynet --name db postgres
@@ -199,49 +199,49 @@ $ docker run --network mynet --name app myapp
 
 ---
 
-## 端口映射
+## 連接埠對映
 
-容器默认只能在 Docker 网络内访问。要从外部访问容器，需要端口映射：
+容器預設只能在 Docker 網路內訪問。要從外部訪問容器，需要連接埠對映：
 
-### 基本语法
+### 基本語法
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## -p 宿主机端口:容器端口
+## -p 宿主機連接埠:容器連接埠
 
 $ docker run -d -p 8080:80 nginx
 ```
 
-### 映射方式
+### 對映方式
 
-| 参数 | 说明 | 示例 |
+| 引數 | 說明 | 範例 |
 |------|------|------|
-| `-p 8080:80` | 指定端口映射 | 宿主机 8080 → 容器 80 |
-| `-p 80` | 随机宿主机端口 | 随机端口 → 容器 80 |
-| `-P` | 自动映射所有暴露端口 | 随机端口 → 所有 EXPOSE 端口 |
-| `-p 127.0.0.1:8080:80` | 只绑定本地 | 仅本机可访问 |
-| `-p 8080:80/udp` | UDP 端口 | UDP 协议 |
+| `-p 8080:80` | 指定連接埠對映 | 宿主機 8080 → 容器 80 |
+| `-p 80` | 隨機宿主機連接埠 | 隨機連接埠 → 容器 80 |
+| `-P` | 自動對映所有暴露連接埠 | 隨機連接埠 → 所有 EXPOSE 連接埠 |
+| `-p 127.0.0.1:8080:80` | 只繫結本地 | 僅本機可訪問 |
+| `-p 8080:80/udp` | UDP 連接埠 | UDP 協定 |
 
-### 查看端口映射
+### 檢視連接埠對映
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ docker port mycontainer
 80/tcp -> 0.0.0.0:8080
 ```
 
-### 端口映射示意图
+### 連接埠對映示意圖
 
-具体内容如下：
+具體內容如下：
 
 ```
-外部请求 http://宿主机IP:8080
+外部請求 http://宿主機IP:8080
               │
               ▼
         ┌─────────────┐
-        │  宿主机:8080 │  ─── iptables NAT ───┐
+        │  宿主機:8080 │  ─── iptables NAT ───┐
         └─────────────┘                       │
                                               ▼
                                       ┌───────────────┐
@@ -251,12 +251,12 @@ $ docker port mycontainer
 
 ---
 
-## 网络隔离
+## 網路隔離
 
-不同网络之间默认隔离：
+不同網路之間預設隔離：
 
 ```bash
-## 创建两个网络
+## 建立兩個網路
 
 $ docker network create frontend
 $ docker network create backend
@@ -269,64 +269,64 @@ $ docker run -d --name web --network frontend nginx
 
 $ docker run -d --name db --network backend postgres
 
-## web 无法直接访问 db（不同网络）
+## web 無法直接訪問 db（不同網路）
 
 $ docker exec web ping db
 ping: db: Name or service not known
 ```
 
-这种隔离有助于安全：前端容器无法直接访问数据库网络。
+這種隔離有助於安全：前端容器無法直接訪問資料庫網路。
 
 ---
 
-## 常用命令
+## 常用指令
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 列出网络
+## 列出網路
 
 $ docker network ls
 
-## 创建网络
+## 建立網路
 
 $ docker network create mynet
 
-## 查看网络详情
+## 檢視網路詳情
 
 $ docker network inspect mynet
 
-## 连接容器到网络
+## 連線容器到網路
 
 $ docker network connect mynet mycontainer
 
-## 断开网络连接
+## 斷開網路連線
 
 $ docker network disconnect mynet mycontainer
 
-## 删除网络
+## 刪除網路
 
 $ docker network rm mynet
 
-## 清理未使用的网络
+## 清理未使用的網路
 
 $ docker network prune
 ```
 
 ---
 
-## 本章小结
+## 本章小結
 
-| 概念 | 要点 |
+| 概念 | 要點 |
 |------|------|
-| **默认网络** | docker0 网桥，172.17.0.0/16 网段 |
-| **自定义网络** | 推荐使用，支持容器名 DNS 解析 |
-| **端口映射** | `-p 宿主机端口:容器端口` 暴露服务 |
-| **网络隔离** | 不同网络默认隔离，增强安全性 |
-| **--link** | 已废弃，使用自定义网络替代 |
+| **預設網路** | docker0 網橋，172.17.0.0/16 網段 |
+| **自定義網路** | 推薦使用，支援容器名 DNS 解析 |
+| **連接埠對映** | `-p 宿主機連接埠:容器連接埠` 暴露服務 |
+| **網路隔離** | 不同網路預設隔離，增強安全性 |
+| **--link** | 已廢棄，使用自定義網路替代 |
 
-## 延伸阅读
+## 延伸閱讀
 
-- [配置 DNS](dns.md)：自定义 DNS 设置
-- [端口映射](port_mapping.md)：高级端口配置
-- [Compose 网络](../compose/10.5_compose_file.md)：Compose 中的网络配置
+- [設定 DNS](dns.md)：自定義 DNS 設定
+- [連接埠對映](port_mapping.md)：高階連接埠設定
+- [Compose 網路](../compose/10.5_compose_file.md)：Compose 中的網路設定

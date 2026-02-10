@@ -1,16 +1,16 @@
-## Kubernetes 实战练习
+## Kubernetes 實戰練習
 
-本章将通过一个具体的案例：部署一个 Nginx 网站，并为其配置 Service 和 Ingress，来串联前面学到的知识。
+本章將透過一個具體的案例：部署一個 Nginx 網站，併為其設定 Service 和 Ingress，來串聯前面學到的知識。
 
-### 目标
+### 目標
 
-1.  部署一个 Nginx Deployment。
-2.  创建一个 Service 暴露 Nginx。
-3.  （可选）通过 Ingress 访问服务。
+1.  部署一個 Nginx Deployment。
+2.  建立一個 Service 暴露 Nginx。
+3.  （可選）透過 Ingress 訪問服務。
 
-### 步骤 1：创建 Deployment
+### 步驟 1：建立 Deployment
 
-创建一个名为 `nginx-deployment.yaml` 的文件：
+建立一個名為 `nginx-deployment.yaml` 的檔案：
 
 ```yaml
 apiVersion: apps/v1
@@ -36,15 +36,15 @@ spec:
         - containerPort: 80
 ```
 
-应用配置：
+應用設定：
 
 ```bash
 kubectl apply -f nginx-deployment.yaml
 ```
 
-### 步骤 2：创建 Service
+### 步驟 2：建立 Service
 
-创建一个名为 `nginx-service.yaml` 的文件：
+建立一個名為 `nginx-service.yaml` 的檔案：
 
 ```yaml
 apiVersion: v1
@@ -58,40 +58,40 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: NodePort # 使用 NodePort 方便本地测试
+  type: NodePort # 使用 NodePort 方便本地測試
 ```
 
-应用配置：
+應用設定：
 
 ```bash
 kubectl apply -f nginx-service.yaml
 ```
 
-查看分配的端口：
+檢視分配的連接埠：
 
 ```bash
 kubectl get svc nginx-service
 ```
 
-如果输出端口是 `80:30080/TCP`，你可以通过 `http://<NodeIP>:30080` 访问 Nginx。
+如果輸出連接埠是 `80:30080/TCP`，你可以透過 `http://<NodeIP>:30080` 訪問 Nginx。
 
-### 步骤 3：模拟滚动更新（Rolling Update）
+### 步驟 3：模擬捲動更新（Rolling Update）
 
-修改 `nginx-deployment.yaml`，将镜像版本改为 `nginx:latest`。
+修改 `nginx-deployment.yaml`，將映象版本改為 `nginx:latest`。
 
 ```bash
 kubectl apply -f nginx-deployment.yaml
 ```
 
-观察更新过程：
+觀察更新過程：
 
 ```bash
 kubectl rollout status deployment/nginx-deployment
 ```
 
-### 步骤 4：清理资源
+### 步驟 4：清理資源
 
-练习结束后，记得清理资源：
+練習結束後，記得清理資源：
 
 ```bash
 kubectl delete -f nginx-service.yaml
