@@ -1,21 +1,21 @@
-## Docker Desktop 启用 Kubernetes
+## Docker Desktop 啟用 Kubernetes
 
-使用 Docker Desktop 可以很方便的启用 Kubernetes。
+使用 Docker Desktop 可以很方便的啟用 Kubernetes。
 
-### 启用 Kubernetes
+### 啟用 Kubernetes
 
-在 Docker Desktop 设置页面，点击 `Kubernetes`，选择 `Enable Kubernetes`，稍等片刻，看到左下方 `Kubernetes` 变为 `running`，Kubernetes 启动成功。
+在 Docker Desktop 設定頁面，點選 `Kubernetes`，選擇 `Enable Kubernetes`，稍等片刻，看到左下方 `Kubernetes` 變為 `running`，Kubernetes 啟動成功。
 
 ![](https://github.com/docker/docs/raw/main/assets/images/desktop/settings-kubernetes.png)
 
-> 注意：Kubernetes 的镜像存储在 `registry.k8s.io`，如果国内网络无法直接访问，可以在 Docker Desktop 配置中的 `Docker Engine` 处配置镜像加速器，或者利用国内云服务商的镜像仓库手动拉取镜像并 retag。
+> 注意：Kubernetes 的映象儲存在 `registry.k8s.io`，如果國內網路無法直接訪問，可以在 Docker Desktop 設定中的 `Docker Engine` 處設定映象加速器，或者利用國內雲服務商的映象倉庫手動拉取映象並 retag。
 
-### 测试
+### 測試
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ kubectl version
 ```
 
-如果正常输出信息，则证明 Kubernetes 成功启动。
+如果正常輸出訊息，則證明 Kubernetes 成功啟動。
