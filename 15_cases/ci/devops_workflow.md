@@ -1,25 +1,25 @@
-## DevOps 工作流完整示例
+## DevOps 工作流完整範例
 
-本章将演示一个基于 Docker, Kubernetes 和 Jenkins/GitLab CI 的完整 DevOps 工作流。
+本章將示範一個基於 Docker, Kubernetes 和 Jenkins/GitLab CI 的完整 DevOps 工作流。
 
-### 工作流概览
+### 工作流概覽
 
-1. **Code**: 开发人员提交代码到 GitLab。
-2. **Build**: GitLab CI 触发构建任务。
-3. **Test**: 运行单元测试和集成测试。
-4. **Package**: 构建 Docker 镜像并推送到 Harbor/Registry。
-5. **Deploy (Staging)**: 自动部署到测试环境 Kubernetes 集群。
-6. **Verify**: 人工或自动化验证。
-7. **Release (Production)**: 审批后自动部署到生产环境。
+1. **Code**: 開發人員送出程式碼到 GitLab。
+2. **Build**: GitLab CI 觸發建立任務。
+3. **Test**: 執行單元測試和整合測試。
+4. **Package**: 建立 Docker 映象並推送到 Harbor/Registry。
+5. **Deploy (Staging)**: 自動部署到測試環境 Kubernetes 叢集。
+6. **Verify**: 人工或自動化驗證。
+7. **Release (Production)**: 審批後自動部署到生產環境。
 
-### 关键配置示例
+### 關鍵設定範例
 
-#### 1. Dockerfile 多阶段构建
+#### 1. Dockerfile 多階段建立
 
-使用 Docker 多阶段构建可以有效减小镜像体积。
+使用 Docker 多階段建立可以有效減小映象體積。
 
 
-Dockerfile 内容如下：
+Dockerfile 內容如下：
 
 ```dockerfile
 ## Build stage
@@ -37,9 +37,9 @@ COPY --from=builder /app/main .
 CMD ["./main"]
 ```
 
-#### 2. GitLab CI 配置
+#### 2. GitLab CI 設定
 
-GitLab CI（.gitlab-ci.yml）配置如下：
+GitLab CI（.gitlab-ci.yml）設定如下：
 
 
 ```yaml
@@ -77,8 +77,8 @@ deploy_staging:
     - develop
 ```
 
-### 最佳实践
+### 最佳實踐
 
-1. **不可变基础设施**: 一旦镜像构建完成，在各个环境（Dev, Staging, Prod）中都应该使用同一个镜像 tag (通常是 commit hash)，而不是重新构建。
-2. **配置分离**: 使用 ConfigMap 和 Secret 管理环境特定的配置，不要打包进镜像。
-3. **GitOps**: 考虑引入 ArgoCD，将部署配置也作为代码存储在 Git 中，实现 Git 驱动的部署同步。
+1. **不可變基礎設施**: 一旦映象建立完成，在各個環境（Dev, Staging, Prod）中都應該使用同一個映象 tag (通常是 commit hash)，而不是重新建立。
+2. **設定分離**: 使用 ConfigMap 和 Secret 管理環境特定的設定，不要打包進映象。
+3. **GitOps**: 考慮引入 ArgoCD，將部署設定也作為程式碼儲存在 Git 中，實現 Git 驅動的部署同步。

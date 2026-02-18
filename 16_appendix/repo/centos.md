@@ -1,27 +1,27 @@
 ## [CentOS](https://hub.docker.com/_/centos)
 
-### 基本信息
+### 基本訊息
 
-[CentOS](https://en.wikipedia.org/wiki/CentOS) 是流行的 Linux 发行版，其软件包大多跟 RedHat 系列保持一致。
+[CentOS](https://en.wikipedia.org/wiki/CentOS) 是流行的 Linux 發行版，其軟體套件大多跟 RedHat 系列保持一致。
 
-> ⚠️ **重要提示**：CentOS 8 已于 2021 年 12 月 31 日停止维护（EOL），CentOS 7 也已于 2024 年 6 月 30 日**完全结束支持**。Docker Hub 上的 CentOS 官方镜像**已停止更新**且存在未修复的安全漏洞。
+> ⚠️ **重要提示**：CentOS 8 已於 2021 年 12 月 31 日停止維護（EOL），CentOS 7 也已於 2024 年 6 月 30 日**完全結束支援**。Docker Hub 上的 CentOS 官方映象**已停止更新**且存在未修復的安全漏洞。
 >
-> 2026 年了，对于任何新项目，**强烈建议**使用以下生产级替代方案：
-> - [Rocky Linux](https://hub.docker.com/_/rockylinux)：CentOS 原创始人发起的社区驱动项目，目前主流为 Rocky Linux 9。
-> - [AlmaLinux](https://hub.docker.com/_/almalinux)：由 CloudLinux 支持的企业级发行版，提供长期支持。
-> - [CentOS Stream](https://hub.docker.com/r/centos/centos)：RHEL 的上游开发分支（适合开发测试，不建议用于生产环境）。
+> 2026 年了，對於任何新專案，**強烈建議**使用以下生產級替代方案：
+> - [Rocky Linux](https://hub.docker.com/_/rockylinux)：CentOS 原創始人發起的社群驅動專案，目前主流為 Rocky Linux 9。
+> - [AlmaLinux](https://hub.docker.com/_/almalinux)：由 CloudLinux 支援的企業級發行版，提供長期支援。
+> - [CentOS Stream](https://hub.docker.com/r/centos/centos)：RHEL 的上游開發分支（適合開發測試，不建議用於生產環境）。
 
-该仓库位于 `https://hub.docker.com/_/centos`，提供了 CentOS 从 5 ~ 8 各个版本的镜像（仅作为历史归档，不再更新）。
+該倉庫位於 `https://hub.docker.com/_/centos`，提供了 CentOS 從 5 ~ 8 各個版本的映象（僅作為歷史歸檔，不再更新）。
 
 ### 使用方法
 
-使用 Rocky Linux 9 替代（**推荐**）：
+使用 Rocky Linux 9 替代（**推薦**）：
 
 ```bash
 $ docker run --name rocky -it rockylinux:9 bash
 ```
 
-使用旧版 CentOS 7（**仅用于维护旧项目，不推荐**）：
+使用舊版 CentOS 7（**僅用於維護舊專案，不推薦**）：
 
 ```bash
 $ docker run --name centos -it centos:7 bash
@@ -29,4 +29,4 @@ $ docker run --name centos -it centos:7 bash
 
 ### Dockerfile
 
-请到 https://github.com/docker-library/docs/tree/master/centos 查看。
+請到 https://github.com/docker-library/docs/tree/master/centos 檢視。
