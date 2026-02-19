@@ -17,8 +17,8 @@ This document serves as the single source of truth for all formatting, structure
   - Correct: `**Bold Text**`
   - Incorrect: `**Bold Text**`
 - **Context**: Ensure there is a space outside the bold markers if adjacent to other text (except punctuation).
-  - Correct: `这是 **加粗** 文字`
-  - Incorrect: `这是 **加粗** 文字`
+  - Correct: `這是 **加粗** 文字`
+  - Incorrect: `這是 **加粗** 文字`
 
 ### 1.2 Header Spacing
 
@@ -43,11 +43,11 @@ This document serves as the single source of truth for all formatting, structure
 
 ### 2.1 Chapter Hierarchy
 
-- **Level 1 (#)**: Chapter titles, e.g., `# 第一章：章标题`
-- **Level 2 (##)**: Section titles with numbering, e.g., `## 1.1 小节标题`
-- **Level 3 (###)**: Subsection titles with numbering, e.g., `### 1.1.1 子节标题`
+- **Level 1 (#)**: Chapter titles, e.g., `# 第一章：章標題`
+- **Level 2 (##)**: Section titles with numbering, e.g., `## 1.1 小節標題`
+- **Level 3 (###)**: Subsection titles with numbering, e.g., `### 1.1.1 子節標題`
 - **Level 4+ (####)**: No numbering allowed (can use ordinal: 1, 2, 3...)
-- **Exception**: `本章小结` does not require numbering.
+- **Exception**: `本章小結` does not require numbering.
 - **Exception**: Appendix files (13_appendix) have relaxed numbering rules:
   - `13.1_glossary`: Organized by alphabet, no X.X.X numbering required
   - `13.2_reading_list`: Organized by category
@@ -79,31 +79,31 @@ This document serves as the single source of truth for all formatting, structure
 - **Quality**: The introductory text must mention the sub-section topics, not just generic phrases.
 
 ```markdown
-# ❌ 错误
+# ❌ 錯誤
 
-### 2.1.1 子章节
+### 2.1.1 子章節
 
-# ❌ 错误
+# ❌ 錯誤
 
-本节包括以下几个方面。
+本節包括以下幾個方面。
 
-### 2.1.1 子章节A
+### 2.1.1 子章節A
 
-# ✅ 正确
+# ✅ 正確
 
-本节介绍 XXX 的相关内容，包括子章节A和子章节B两个方面。
+本節介紹 XXX 的相關內容，包括子章節A和子章節B兩個方面。
 
-### 2.1.1 子章节A
+### 2.1.1 子章節A
 ```
 
 ## 3. Content Rules
 
 ### 3.1 Figure Captions
 
-- **Format**: `图 X-Y：Title`
+- **Format**: `圖 X-Y：Title`
 - **Position**: Below the image.
-- **Numbering**: Chapter-Sequence (e.g., `图 7-1` for the first figure in Chapter 7).
-- **Example**: `图 7-1：成对比较法评估流程`
+- **Numbering**: Chapter-Sequence (e.g., `圖 7-1` for the first figure in Chapter 7).
+- **Example**: `圖 7-1：成對比較法評估流程`
 
 ### 3.2 Content Introduction
 

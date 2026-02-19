@@ -1,8 +1,8 @@
 # kubectl 使用
 
-[kubectl](https://github.com/kubernetes/kubernetes) 是 Kubernetes 自带的客户端，可以用它来直接操作 Kubernetes。
+[kubectl](https://github.com/kubernetes/kubernetes) 是 Kubernetes 自帶的用戶端，可以用它來直接操作 Kubernetes。
 
-使用格式有两种：
+使用格式有兩種：
 ```bash
 kubectl [flags]
 kubectl [command]
@@ -10,72 +10,72 @@ kubectl [command]
 
 ## get
 
-显示一个或多个资源
+顯示一個或多個資源
 
 ## describe
 
-显示资源详情
+顯示資源詳情
 
 ## create
 
-从文件或标准输入创建资源
+從檔案或標準輸入建立資源
 
 ## update
 
-从文件或标准输入更新资源
+從檔案或標準輸入更新資源
 
 ## delete
 
-通过文件名、标准输入、资源名或者 label selector 删除资源
+透過檔案名、標準輸入、資源名或者 label selector 刪除資源
 
 ## logs
 
-输出 pod 中一个容器的日志
+輸出 pod 中一個容器的日誌
 
 ## rollout
 
-对 Deployment 等资源执行滚动更新/回滚
+對 Deployment 等資源執行捲動更新/回滾
 
 ## exec
 
-在容器内部执行命令
+在容器內部執行指令
 
 ## port-forward
 
-将本地端口转发到Pod
+將本地連接埠轉發到Pod
 
 ## proxy
 
-为 Kubernetes API server 启动代理服务器
+為 Kubernetes API server 啟動代理伺服器
 
 ## run
 
-在集群中使用指定镜像启动容器
+在叢集中使用指定映象啟動容器
 
 ## expose
 
-将 replication controller service 或 pod 暴露为新的 kubernetes service
+將 replication controller service 或 pod 暴露為新的 kubernetes service
 
 ## label
 
-更新资源的 label
+更新資源的 label
 
 ## config
 
-修改 kubernetes 配置文件
+修改 kubernetes 設定檔案
 
 ## cluster-info
 
-显示集群信息
+顯示叢集訊息
 
 ## api-versions
 
-以 "组/版本" 的格式输出服务端支持的 API 版本
+以 "組/版本" 的格式輸出伺服器端支援的 API 版本
 
 ## version
 
-输出服务端和客户端的版本信息
+輸出伺服器端和用戶端的版本訊息
 
 ## help
 
-显示各个命令的帮助信息
+顯示各個指令的幫助訊息

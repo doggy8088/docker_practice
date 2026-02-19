@@ -1,13 +1,13 @@
-## 腾讯云
+## 騰訊雲
 
-腾讯云 示意图如下：
+騰訊雲 示意圖如下：
 
-![腾讯云](./_images/qcloud-logo.jpg)
+![騰訊雲](./_images/qcloud-logo.jpg)
 
-[腾讯云](https://cloud.tencent.com/act/cps/redirect?redirect=1040\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console) 在架构方面经过多年积累，并且有着多年对海量互联网服务的经验。不管是社交、游戏还是其他领域，都有多年的成熟产品来提供产品服务。腾讯在云端完成重要部署，为开发者及企业提供云服务、云数据、云运营等整体一站式服务方案。
+[騰訊雲](https://cloud.tencent.com/act/cps/redirect?redirect=1040\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console) 在架構方面經過多年積累，並且有著多年對海量網際網路服務的經驗。不管是社交、遊戲還是其他領域，都有多年的成熟產品來提供產品服務。騰訊在雲端完成重要部署，為開發者及企業提供雲服務、雲資料、雲運營等整體一站式服務方案。
 
-具体包括 [云服务器](https://cloud.tencent.com/act/cps/redirect?redirect=1001\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console)、[云存储](https://cloud.tencent.com/act/cps/redirect?redirect=1020\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console)、[云数据库](https://cloud.tencent.com/act/cps/redirect?redirect=1003\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console)、[视频与CDN](https://cloud.tencent.com/act/cps/redirect?redirect=1019\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console) 和 [域名注册](https://dnspod.cloud.tencent.com) 等基础云服务；腾讯云分析（MTA）、腾讯云推送（信鸽）等腾讯整体大数据能力；以及 QQ互联、QQ 空间、微云、微社区等云端链接社交体系。这些正是腾讯云可以提供给这个行业的差异化优势，造就了可支持各种互联网使用场景的高品质的腾讯云技术平台。
+具體包括 [雲服務器](https://cloud.tencent.com/act/cps/redirect?redirect=1001\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console)、[雲儲存](https://cloud.tencent.com/act/cps/redirect?redirect=1020\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console)、[雲資料庫](https://cloud.tencent.com/act/cps/redirect?redirect=1003\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console)、[影片與CDN](https://cloud.tencent.com/act/cps/redirect?redirect=1019\&cps_key=3a5255852d5db99dcd5da4c72f05df61\&from=console) 和 [域名註冊](https://dnspod.cloud.tencent.com) 等基礎雲服務；騰訊雲分析（MTA）、騰訊雲推送（信鴿）等騰訊整體大資料能力；以及 QQ互聯、QQ 空間、微雲、微社群等雲端連結社交體系。這些正是騰訊雲可以提供給這個行業的差異化優勢，造就了可支援各種網際網路使用場景的高品質的騰訊雲技術平台。
 
-[腾讯云容器服务 TKE](https://cloud.tencent.com/act/cps/redirect?redirect=10058\&cps_key=3a5255852d5db99dcd5da4c72f05df61) 是高度可扩展的高性能容器管理服务，用户可以在托管的云服务器实例集群上轻松运行应用程序。使用该服务，将无需安装、运维、扩展用户的集群管理基础设施，只需进行简单的 API 调用，便可启动和停止 Docker 应用程序，查询集群的完整状态，以及使用各种云服务。用户可以根据用户的资源需求和可用性要求在用户的集群中安排容器的置放，满足业务或应用程序的特定要求。
+[騰訊雲容器服務 TKE](https://cloud.tencent.com/act/cps/redirect?redirect=10058\&cps_key=3a5255852d5db99dcd5da4c72f05df61) 是高度可擴充套件的高效能容器管理服務，使用者可以在託管的雲服務器實例叢集上輕鬆執行應用程式。使用該服務，將無需安裝、運維、擴充套件使用者的叢集管理基礎設施，只需進行簡單的 API 呼叫，便可啟動和停止 Docker 應用程式，查詢叢集的完整狀態，以及使用各種雲服務。使用者可以根據使用者的資源需求和可用性要求在使用者的叢集中安排容器的置放，滿足業務或應用程式的特定要求。
 
 ![](https://mc.qcloudimg.com/static/img/0581dbeb97c869bbe6e62025dbc592d7/image.png)

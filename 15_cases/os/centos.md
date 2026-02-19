@@ -1,22 +1,22 @@
 ## CentOS 和 Fedora
 
-### CentOS 系统简介
+### CentOS 系統簡介
 
-`CentOS` 和 `Fedora` 都是基于 `Redhat` 的常见 Linux 分支。`CentOS` 是目前企业级服务器的常用操作系统；`Fedora` 则主要面向个人桌面用户。
+`CentOS` 和 `Fedora` 都是基於 `Redhat` 的常見 Linux 分支。`CentOS` 是目前企業級伺服器的常用作業系統；`Fedora` 則主要面向個人桌面使用者。
 
-![CentOS 操作系统](../../_images/centos-logo.png)
-
-
-CentOS（Community Enterprise Operating System，中文意思是：社区企业操作系统），它是基于 `Red Hat Enterprise Linux` 源代码编译而成。由于 `CentOS` 与 `Redhat Linux` 源于相同的代码基础，所以很多成本敏感且需要高稳定性的公司就使用 `CentOS` 来替代商业版 `Red Hat Enterprise Linux`。`CentOS` 自身不包含闭源软件。
-
-#### 使用 CentOS 官方镜像
-
-CentOS 官方镜像的使用非常简单。
+![CentOS 作業系統](../../_images/centos-logo.png)
 
 
-**注意：CentOS 8 已于 2021 年 12 月 31 日停止维护（EOL）。对于新部署，推荐使用 CentOS Stream，或 Rocky Linux、AlmaLinux 等替代发行版。**
+CentOS（Community Enterprise Operating System，中文意思是：社群企業作業系統），它是基於 `Red Hat Enterprise Linux` 原始碼編譯而成。由於 `CentOS` 與 `Redhat Linux` 源於相同的程式碼基礎，所以很多成本敏感且需要高穩定性的公司就使用 `CentOS` 來替代商業版 `Red Hat Enterprise Linux`。`CentOS` 自身不包含閉源軟體。
 
-使用 `docker run` 直接运行 `CentOS 7` 镜像，并登录 `bash`。
+#### 使用 CentOS 官方映象
+
+CentOS 官方映象的使用非常簡單。
+
+
+**注意：CentOS 8 已於 2021 年 12 月 31 日停止維護（EOL）。對於新部署，推薦使用 CentOS Stream，或 Rocky Linux、AlmaLinux 等替代發行版。**
+
+使用 `docker run` 直接執行 `CentOS 7` 映象，並登入 `bash`。
 
 ```bash
 $ docker run -it centos:7 bash
@@ -29,16 +29,16 @@ Status: Downloaded newer image for centos:7
 CentOS Linux release 7.9.2009 (Core)
 ```
 
-### Fedora 系统简介
+### Fedora 系統簡介
 
-![Fedora 操作系统](../../_images/fedora-logo.png)
+![Fedora 作業系統](../../_images/fedora-logo.png)
 
 
-`Fedora` 由 `Fedora Project` 社区开发，红帽公司赞助的 `Linux` 发行版。它的目标是创建一套新颖、多功能并且自由和开源的操作系统。`Fedora` 的功能对于用户而言，它是一套功能完备的，可以更新的免费操作系统，而对赞助商 `Red Hat` 而言，它是许多新技术的测试平台。被认为可用的技术最终会加入到 `Red Hat Enterprise Linux` 中。
+`Fedora` 由 `Fedora Project` 社群開發，紅帽公司贊助的 `Linux` 發行版。它的目標是建立一套新穎、多功能並且自由和開源的作業系統。`Fedora` 的功能對於使用者而言，它是一套功能完備的，可以更新的免費作業系統，而對贊助商 `Red Hat` 而言，它是許多新技術的測試平台。被認為可用的技術最終會加入到 `Red Hat Enterprise Linux` 中。
 
-#### 使用 Fedora 官方镜像
+#### 使用 Fedora 官方映象
 
-使用 `docker run` 命令直接运行 `Fedora` 官方镜像，并登录 `bash`。
+使用 `docker run` 指令直接執行 `Fedora` 官方映象，並登入 `bash`。
 
 ```bash
 $ docker run -it fedora bash
@@ -52,13 +52,13 @@ Fedora release 39 (Thirty Nine)
 ```
 
 
-### 相关资源
+### 相關資源
 
-* `Fedora` 官网：https://getfedora.org/
-* `Fedora` 官方仓库：https://github.com/fedora-infra
-* `Fedora` 官方镜像：https://hub.docker.com/\_/fedora/
-* `Fedora` 官方镜像仓库：https://github.com/fedora-cloud/docker-brew-fedora
-* `CentOS` 官网：https://www.centos.org
-* `CentOS` 官方仓库：https://github.com/CentOS
-* `CentOS` 官方镜像：https://hub.docker.com/\_/centos/
-* `CentOS` 官方镜像仓库：https://github.com/CentOS/CentOS-Dockerfiles
+* `Fedora` 官網：https://getfedora.org/
+* `Fedora` 官方倉庫：https://github.com/fedora-infra
+* `Fedora` 官方映象：https://hub.docker.com/\_/fedora/
+* `Fedora` 官方映象倉庫：https://github.com/fedora-cloud/docker-brew-fedora
+* `CentOS` 官網：https://www.centos.org
+* `CentOS` 官方倉庫：https://github.com/CentOS
+* `CentOS` 官方映象：https://hub.docker.com/\_/centos/
+* `CentOS` 官方映象倉庫：https://github.com/CentOS/CentOS-Dockerfiles
