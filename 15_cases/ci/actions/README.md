@@ -2,7 +2,7 @@
 
 GitHub [Actions](https://github.com/features/actions) 是 GitHub 推出的一款 CI/CD 工具。
 
-我们可以在每个 `job` 的 `step` 中使用 Docker 执行构建步骤。
+我們可以在每個 `job` 的 `step` 中使用 Docker 執行建立步驟。
 
 ```yaml
 on: push
@@ -25,8 +25,8 @@ jobs:
 
 ## 概述
 
-总体概述了以下内容。
+總體概述了以下內容。
 
-## 参考资料
+## 參考資料
 
 * [Actions Docs](https://docs.github.com/en/actions)

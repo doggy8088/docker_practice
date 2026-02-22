@@ -1,6 +1,6 @@
 # CI/CD
 
-**持续集成 (Continuous integration)** 是一种软件开发实践，每次集成都通过自动化的构建 (包括编译，发布，自动化测试) 来验证，从而尽早地发现集成错误。**持续部署 (continuous deployment)** 是通过自动化的构建、测试和部署循环来快速交付高质量的产品。
+**持續整合 (Continuous integration)** 是一種軟體開發實踐，每次整合都透過自動化的建立 (包括編譯，發布，自動化測試) 來驗證，從而儘早地發現整合錯誤。**持續部署 (continuous deployment)** 是透過自動化的建立、測試和部署迴圈來快速交付高質量的產品。
 
 
-与 `Jenkins` 不同的是，基于 Docker 的 CI/CD 每一步都运行在 Docker 容器中，所以理论上支持所有的编程语言。
+與 `Jenkins` 不同的是，基於 Docker 的 CI/CD 每一步都執行在 Docker 容器中，所以理論上支援所有的程式語言。

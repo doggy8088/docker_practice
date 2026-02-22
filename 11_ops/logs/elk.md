@@ -1,23 +1,23 @@
-## ELK/EFK 堆栈
+## ELK/EFK 堆疊
 
-ELK (Elasticsearch，Logstash，Kibana) 是目前业界最流行的开源日志解决方案。而在容器领域，由于 Fluentd 更加轻量级且对容器支持更好，EFK (Elasticsearch，Fluentd，Kibana) 组合也变得非常流行。
+ELK (Elasticsearch，Logstash，Kibana) 是目前業界最流行的開源日誌解決方案。而在容器領域，由於 Fluentd 更加輕量級且對容器支援更好，EFK (Elasticsearch，Fluentd，Kibana) 組合也變得非常流行。
 
-### 方案架构
+### 方案架構
 
-我们将采用以下架构：
+我們將採用以下架構：
 
-1. **Docker Container**：容器将日志输出到标准输出 (stdout/stderr)。
-2. **Fluentd**：作为 Docker 的 Logging Driver 或运行为守护容器，收集容器日志。
-3. **Elasticsearch**：存储从 Fluentd 接收到的日志数据。
-4. **Kibana**：从 Elasticsearch 读取数据并进行可视化展示。
+1. **Docker Container**：容器將日誌輸出到標準輸出 (stdout/stderr)。
+2. **Fluentd**：作為 Docker 的 Logging Driver 或執行為守護容器，收集容器日誌。
+3. **Elasticsearch**：儲存從 Fluentd 接收到的日誌資料。
+4. **Kibana**：從 Elasticsearch 讀取資料並進行視覺化展示。
 
 ### 部署流程
 
-我们将使用 Docker Compose 来一键部署整个日志堆栈。
+我們將使用 Docker Compose 來一鍵部署整個日誌堆疊。
 
-#### 1。编写 Compose 文件
+#### 1。編寫 Compose 檔案
 
-1. 编写 `compose.yaml` (或 `docker-compose.yml`) 配置如下：
+1. 編寫 `compose.yaml` (或 `docker-compose.yml`) 設定如下：
 
 ```yaml
 services:
@@ -71,9 +71,9 @@ networks:
   logging:
 ```
 
-#### 2。配置 Fluentd
+#### 2。設定 Fluentd
 
-创建 `fluentd/conf/fluent.conf`：
+建立 `fluentd/conf/fluent.conf`：
 
 ```ini
 <source>
@@ -102,9 +102,9 @@ networks:
 </match>
 ```
 
-#### 3。配置应用容器使用 fluentd 驱动
+#### 3。設定應用容器使用 fluentd 驅動
 
-启动一个测试容器，指定日志驱动为 `fluentd`：
+啟動一個測試容器，指定日誌驅動為 `fluentd`：
 
 ```bash
 docker run -d \
@@ -115,16 +115,16 @@ docker run -d \
   nginx
 ```
 
-**注意**：确保 `fluentd` 容器已经启动并监听在 `localhost:24224`。在生产环境中，如果你是在不同机器上，需要将 `localhost` 替换为运行 fluentd 的主机 IP。
+**注意**：確保 `fluentd` 容器已經啟動並監聽在 `localhost:24224`。在生產環境中，如果你是在不同機器上，需要將 `localhost` 替換為執行 fluentd 的主機 IP。
 
-#### 4。在 Kibana 中查看日志
+#### 4。在 Kibana 中檢視日誌
 
-1. 访问 `http://localhost:5601`。
-2. 进入 **Management**->**Kibana**->**Index Patterns**。
-3. 创建新的 Index Pattern，输入 `docker-*` (我们在 fluent.conf 中配置的前缀)。
-4. 选择 `@timestamp` 作为时间字段。
-5. 去 **Discover** 页面，你就能看到 Nginx 容器的日志了。
+1. 訪問 `http://localhost:5601`。
+2. 進入 **Management**->**Kibana**->**Index Patterns**。
+3. 建立新的 Index Pattern，輸入 `docker-*` (我們在 fluent.conf 中設定的字首)。
+4. 選擇 `@timestamp` 作為時間欄位。
+5. 去 **Discover** 頁面，你就能看到 Nginx 容器的日誌了。
 
-### 总结
+### 總結
 
-通过 Docker 的日志驱动机制，结合 ELK/EFK 强大的收集和分析能力，我们可以轻松构建一个能够处理海量日志的监控平台，这对于排查生产问题至关重要。
+透過 Docker 的日誌驅動機制，結合 ELK/EFK 強大的收集和分析能力，我們可以輕鬆建立一個能夠處理海量日誌的監控平台，這對於排查生產問題至關重要。

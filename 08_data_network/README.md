@@ -1,6 +1,6 @@
-# 第八章数据与网络管理
+# 第八章資料與網路管理
 
-本章将介绍 Docker 中的数据管理与网络配置。
+本章將介紹 Docker 中的資料管理與網路設定。
 
-* [数据管理](data/README.md)
-* [网络配置](network/README.md)
+* [資料管理](data/README.md)
+* [網路設定](network/README.md)

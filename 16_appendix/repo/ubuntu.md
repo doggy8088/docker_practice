@@ -1,16 +1,16 @@
 ## [Ubuntu]
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-### 基本信息
+### 基本訊息
 
-[Ubuntu](https://en.wikipedia.org/wiki/Ubuntu) 是流行的 Linux 发行版，其自带软件版本往往较新一些。
+[Ubuntu](https://en.wikipedia.org/wiki/Ubuntu) 是流行的 Linux 發行版，其自帶軟體版本往往較新一些。
 
-该仓库位于 `https://hub.docker.com/_/ubuntu/`。具体可用版本以 Docker Hub 上的 tags 列表为准。
+該倉庫位於 `https://hub.docker.com/_/ubuntu/`。具體可用版本以 Docker Hub 上的 tags 清單為準。
 
 ### 使用方法
 
-默认会启动一个最小化的 Ubuntu 环境。
+預設會啟動一個最小化的 Ubuntu 環境。
 
 ```bash
 $ docker run --name some-ubuntu -it ubuntu:20.04
@@ -19,4 +19,4 @@ root@523c70904d54:/#
 
 ### Dockerfile
 
-请到 https://github.com/docker-library/docs/tree/master/ubuntu 查看。
+請到 https://github.com/docker-library/docs/tree/master/ubuntu 檢視。

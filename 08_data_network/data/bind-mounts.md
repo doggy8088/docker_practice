@@ -1,21 +1,21 @@
-## 挂载主机目录
+## 掛載主機目錄
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-### 什么是绑定挂载
+### 什麼是繫結掛載
 
-Bind Mount (绑定挂载) 将 **宿主机的目录或文件** 直接挂载到容器中。容器可以读写宿主机的文件系统。
+Bind Mount (繫結掛載) 將 **宿主機的目錄或檔案** 直接掛載到容器中。容器可以讀寫宿主機的檔案系統。
 
 ```mermaid
 flowchart LR
-    subgraph Host ["宿主机"]
+    subgraph Host ["宿主機"]
         direction TB
         Dir1["/home/user/code/<br/>├── index.html<br/>├── style.css<br/>└── app.js"]
     end
     
     subgraph Container ["容器"]
         direction TB
-        Dir2["/usr/share/nginx/html/<br/>(同一份文件)"]
+        Dir2["/usr/share/nginx/html/<br/>(同一份檔案)"]
     end
     
     Dir1 <-->|Bind Mount| Dir2
@@ -25,126 +25,126 @@ flowchart LR
 
 ### Bind Mount vs Volume
 
-相关信息如下表：
+相關訊息如下表：
 
-| 特性 | Bind Mount | Volume |
+| 屬性 | Bind Mount | Volume |
 |------|------------|--------|
-| **数据位置** | 宿主机任意路径 | Docker 管理的目录 |
-| **路径指定** | 必须是绝对路径 | 卷名 |
-| **可移植性** | 依赖宿主机路径 | 更好 (Docker 管理)|
-| **性能** | 依赖宿主机文件系统 | 优化的存储驱动 |
-| **适用场景** | 开发环境、配置文件 | 生产数据持久化 |
-| **备份** | 直接访问文件 | 需要通过 Docker |
+| **資料位置** | 宿主機任意路徑 | Docker 管理的目錄 |
+| **路徑指定** | 必須是絕對路徑 | 卷名 |
+| **可移植性** | 依賴宿主機路徑 | 更好 (Docker 管理)|
+| **效能** | 依賴宿主機檔案系統 | 最佳化的儲存驅動 |
+| **適用場景** | 開發環境、設定檔案 | 生產資料持久化 |
+| **備份** | 直接訪問檔案 | 需要透過 Docker |
 
 #### 概述
 
-总体概述了以下内容。
+總體概述了以下內容。
 
-#### 选择建议
+#### 選擇建議
 
-相关信息如下表：
+相關訊息如下表：
 
-| 需求 | 推荐方案 |
+| 需求 | 推薦方案 |
 |------|----------|
-| 开发时同步代码 | Bind Mount |
-| 持久化数据库数据 | Volume |
-| 共享配置文件 | Bind Mount |
-| 容器间共享数据 | Volume |
-| 备份方便 | Bind Mount (直接访问)|
-| 生产环境 | Volume |
+| 開發時同步程式碼 | Bind Mount |
+| 持久化資料庫資料 | Volume |
+| 共享設定檔案 | Bind Mount |
+| 容器間共享資料 | Volume |
+| 備份方便 | Bind Mount (直接訪問)|
+| 生產環境 | Volume |
 
 ---
 
-### 基本语法
+### 基本語法
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-#### 使用 --mount (推荐)
+#### 使用 --mount (推薦)
 
-运行以下命令：
-
-```bash
-$ docker run -d \
-    --mount type=bind,source=/宿主机路径,target=/容器路径 \
-    nginx
-```
-
-#### 使用 -v (简写)
-
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ docker run -d \
-    -v /宿主机路径:/容器路径 \
+    --mount type=bind,source=/宿主機路徑,target=/容器路徑 \
     nginx
 ```
 
-#### 两种语法对比
+#### 使用 -v (簡寫)
 
-相关信息如下表：
+執行以下指令：
 
-| 特性 | --mount | -v |
+```bash
+$ docker run -d \
+    -v /宿主機路徑:/容器路徑 \
+    nginx
+```
+
+#### 兩種語法對比
+
+相關訊息如下表：
+
+| 屬性 | --mount | -v |
 |------|---------|-----|
-| 语法 | 键值对，更清晰 | 冒号分隔，更简洁 |
-| 路径不存在时 | 报错 | 自动创建目录 |
-| 推荐程度 | ✅ 推荐 | 常用 |
+| 語法 | 鍵值對，更清晰 | 冒號分隔，更簡潔 |
+| 路徑不存在時 | 報錯 | 自動建立目錄 |
+| 推薦程度 | ✅ 推薦 | 常用 |
 
 ---
 
-### 使用场景
+### 使用場景
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-#### 场景一：开发环境代码同步
+#### 場景一：開發環境程式碼同步
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 将本地代码目录挂载到容器
+## 將本地程式碼目錄掛載到容器
 
 $ docker run -d \
     -p 8080:80 \
     --mount type=bind,source=$(pwd)/src,target=/usr/share/nginx/html \
     nginx
 
-## 修改本地文件，容器内立即生效（热更新）
+## 修改本地檔案，容器內立即生效（熱更新）
 
 $ echo "Hello" > src/index.html
-## 浏览器刷新即可看到变化
+## 瀏覽器重新整理即可看到變化
 
 ...
 ```
 
-#### 场景二：配置文件挂载
+#### 場景二：設定檔案掛載
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 挂载自定义 nginx 配置
+## 掛載自定義 nginx 設定
 
 $ docker run -d \
     --mount type=bind,source=/path/to/nginx.conf,target=/etc/nginx/nginx.conf,readonly \
     nginx
 ```
 
-#### 场景三：日志收集
+#### 場景三：日誌收集
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 将容器日志输出到宿主机目录
+## 將容器日誌輸出到宿主機目錄
 
 $ docker run -d \
     --mount type=bind,source=/var/log/myapp,target=/app/logs \
     myapp
 ```
 
-#### 场景四：共享 SSH 密钥
+#### 場景四：共享 SSH 金鑰
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 挂载 SSH 密钥（只读）
+## 掛載 SSH 金鑰（只讀）
 
 $ docker run --rm -it \
     --mount type=bind,source=$HOME/.ssh,target=/root/.ssh,readonly \
@@ -153,25 +153,25 @@ $ docker run --rm -it \
 
 ---
 
-### 只读挂载
+### 只讀掛載
 
-防止容器修改宿主机文件：
+防止容器修改宿主機檔案：
 
 ```bash
-## --mount 语法
+## --mount 語法
 
 $ docker run -d \
     --mount type=bind,source=/config,target=/app/config,readonly \
     myapp
 
-## -v 语法
+## -v 語法
 
 $ docker run -d \
     -v /config:/app/config:ro \
     myapp
 ```
 
-容器内尝试写入会报错：
+容器內嘗試寫入會報錯：
 
 ```bash
 $ touch /app/config/new.txt
@@ -180,37 +180,37 @@ touch: /app/config/new.txt: Read-only file system
 
 ---
 
-### 挂载单个文件
+### 掛載單個檔案
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 挂载 bash 历史记录
+## 掛載 bash 歷史記錄
 
 $ docker run --rm -it \
     --mount type=bind,source=$HOME/.bash_history,target=/root/.bash_history \
     ubuntu bash
 
-## 挂载自定义配置文件
+## 掛載自定義設定檔案
 
 $ docker run -d \
     --mount type=bind,source=/path/to/my.cnf,target=/etc/mysql/my.cnf \
     mysql
 ```
 
-> ⚠️ **注意**：挂载单个文件时，如果宿主机上的文件被编辑器替换 (而非原地修改)，容器内仍是旧文件的 inode。建议重启容器或挂载目录。
+> ⚠️ **注意**：掛載單個檔案時，如果宿主機上的檔案被編輯器替換 (而非原地修改)，容器內仍是舊檔案的 inode。建議重啟容器或掛載目錄。
 
 ---
 
-### 查看挂载信息
+### 檢視掛載訊息
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ docker inspect mycontainer --format '{{json .Mounts}}' | jq
 ```
 
-输出：
+輸出：
 
 ```json
 [
@@ -225,23 +225,23 @@ $ docker inspect mycontainer --format '{{json .Mounts}}' | jq
 ]
 ```
 
-| 字段 | 说明 |
+| 欄位 | 說明 |
 |------|------|
-| `Type` | 挂载类型 (bind)|
-| `Source` | 宿主机路径 |
-| `Destination` | 容器内路径 |
-| `RW` | 是否可读写 |
-| `Propagation` | 挂载传播模式 |
+| `Type` | 掛載型別 (bind)|
+| `Source` | 宿主機路徑 |
+| `Destination` | 容器內路徑 |
+| `RW` | 是否可讀寫 |
+| `Propagation` | 掛載傳播模式 |
 
 ---
 
-### 常见问题
+### 常見問題
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-#### Q：路径不存在报错
+#### Q：路徑不存在報錯
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ docker run --mount type=bind,source=/not/exist,target=/app nginx
@@ -249,18 +249,18 @@ docker: Error response from daemon: invalid mount config for type "bind":
 bind source path does not exist: /not/exist
 ```
 
-**解决**：确保源路径存在，或改用 `-v` (会自动创建)
+**解決**：確保源路徑存在，或改用 `-v` (會自動建立)
 
-#### Q：权限问题
+#### Q：許可權問題
 
-容器内用户可能无权访问挂载的文件：
+容器內用戶可能無權訪問掛載的檔案：
 
 ```bash
-## 方法1：确保宿主机文件权限允许容器用户访问
+## 方法1：確保宿主機檔案許可權允許容器使用者訪問
 
 $ chmod -R 755 /path/to/data
 
-## 方法2：以 root 运行容器
+## 方法2：以 root 執行容器
 
 $ docker run -u root ...
 
@@ -269,66 +269,66 @@ $ docker run -u root ...
 $ docker run -u $(id -u):$(id -g) ...
 ```
 
-#### Q：macOS/Windows 性能问题
+#### Q：macOS/Windows 效能問題
 
-在 Docker Desktop 上，Bind Mount 性能较差 (需要跨文件系统同步)：
+在 Docker Desktop 上，Bind Mount 效能較差 (需要跨檔案系統同步)：
 
 ```bash
-## 使用 :cached 或 :delegated 提高性能（macOS）
+## 使用 :cached 或 :delegated 提高效能（macOS）
 
 $ docker run -v /host/path:/container/path:cached myapp
 ```
 
-| 选项 | 说明 |
+| 選項 | 說明 |
 |------|------|
-| `:cached` | 宿主机权威，容器读取可能延迟 |
-| `:delegated` | 容器权威，宿主机读取可能延迟 |
-| `:consistent` | 默认，完全一致 (最慢)|
+| `:cached` | 宿主機權威，容器讀取可能延遲 |
+| `:delegated` | 容器權威，宿主機讀取可能延遲 |
+| `:consistent` | 預設，完全一致 (最慢)|
 
 ---
 
-### 最佳实践
+### 最佳實踐
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-#### 1。开发环境使用 Bind Mount
+#### 1。開發環境使用 Bind Mount
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 代码热更新
+## 程式碼熱更新
 
 $ docker run -v $(pwd):/app -p 3000:3000 node npm run dev
 ```
 
-#### 2。生产环境使用 Volume
+#### 2。生產環境使用 Volume
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## 数据持久化
+## 資料持久化
 
 $ docker run -v mysql_data:/var/lib/mysql mysql
 ```
 
-#### 3。配置文件使用只读挂载
+#### 3。設定檔案使用只讀掛載
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ docker run -v /config/nginx.conf:/etc/nginx/nginx.conf:ro nginx
 ```
 
-#### 4。注意路径安全
+#### 4。注意路徑安全
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-## ❌ 危险：挂载根目录或敏感目录
+## ❌ 危險：掛載根目錄或敏感目錄
 
 $ docker run -v /:/host ...
 
-## ✅ 只挂载必要的目录
+## ✅ 只掛載必要的目錄
 
 $ docker run -v /app/data:/data ...
 ```

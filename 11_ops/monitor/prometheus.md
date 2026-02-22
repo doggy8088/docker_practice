@@ -1,25 +1,25 @@
 ## Prometheus + Grafana
 
-Prometheus 和 Grafana 是目前最流行的开源监控组合，前者负责数据采集与存储，后者负责数据可视化。
+Prometheus 和 Grafana 是目前最流行的開源監控組合，前者負責資料採集與儲存，後者負責資料視覺化。
 
-[Prometheus](https://prometheus.io/) 是一个开源的系统监控和报警工具包。它受 Google Borgmon 的启发，由 SoundCloud 在 2012 年创建。
+[Prometheus](https://prometheus.io/) 是一個開源的系統監控和報警工具包。它受 Google Borgmon 的啟發，由 SoundCloud 在 2012 年建立。
 
-### 架构简介
+### 架構簡介
 
-Prometheus 的主要组件包括：
+Prometheus 的主要元件包括：
 
-* **Prometheus Server**：核心组件，负责收集和存储时间序列数据。
-* **Exporters**：负责向 Prometheus 暴露监控数据 (如 Node Exporter，cAdvisor)。
-* **Alertmanager**：处理报警发送。
-* **Pushgateway**：用于支持短生命周期的 Job 推送数据。
+* **Prometheus Server**：核心元件，負責收集和儲存時間序列資料。
+* **Exporters**：負責向 Prometheus 暴露監控資料 (如 Node Exporter，cAdvisor)。
+* **Alertmanager**：處理報警傳送。
+* **Pushgateway**：用於支援短生命週期的 Job 推送資料。
 
 ### 快速部署
 
-我们可以使用 Docker Compose 快速部署一套 Prometheus + Grafana 监控环境。
+我們可以使用 Docker Compose 快速部署一套 Prometheus + Grafana 監控環境。
 
-#### 1。准备配置文件
+#### 1。準備設定檔案
 
-创建 `prometheus.yml`：
+建立 `prometheus.yml`：
 
 ```yaml
 global:
@@ -39,9 +39,9 @@ scrape_configs:
       - targets: ['cadvisor:8080']
 ```
 
-#### 2。编写 Docker Compose 文件
+#### 2。編寫 Docker Compose 檔案
 
-创建 `compose.yaml` (或 `docker-compose.yml`)：
+建立 `compose.yaml` (或 `docker-compose.yml`)：
 
 ```yaml
 services:
@@ -88,22 +88,22 @@ networks:
   monitoring:
 ```
 
-#### 3。启动服务
+#### 3。啟動服務
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ docker compose up -d
 ```
 
-启动后，访问以下地址：
+啟動後，訪問以下地址：
 
 * Prometheus: `http://localhost:9090`
-* Grafana：`http://localhost:3000` (默认账号密码：admin/admin)
+* Grafana：`http://localhost:3000` (預設賬號密碼：admin/admin)
 
-### 配置 Grafana 面板
+### 設定 Grafana 面板
 
-1. 在 Grafana 中添加 Prometheus 数据源，URL 填写 `http://prometheus:9090`。
-2. 导入现成的 Dashboard 模板，例如 [Node Exporter Full](https://grafana.com/grafana/dashboards/1860) (ID：1860) 和 [Docker Container](https://grafana.com/grafana/dashboards/193) (ID：193)。
+1. 在 Grafana 中新增 Prometheus 資料來源，URL 填寫 `http://prometheus:9090`。
+2. 匯入現成的 Dashboard 樣板，例如 [Node Exporter Full](https://grafana.com/grafana/dashboards/1860) (ID：1860) 和 [Docker Container](https://grafana.com/grafana/dashboards/193) (ID：193)。
 
-这样，你就拥有了一个直观的容器监控大屏。
+這樣，你就擁有了一個直觀的容器監控大屏。

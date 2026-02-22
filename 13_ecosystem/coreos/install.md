@@ -1,14 +1,14 @@
-## 安装 Fedora CoreOS
+## 安裝 Fedora CoreOS
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-### 下载 ISO
+### 下載 ISO
 
-在[下载页面](https://getfedora.org/coreos/download/) `Bare Metal & Virtualized` 标签页下载 ISO。
+在[下載頁面](https://getfedora.org/coreos/download/) `Bare Metal & Virtualized` 標籤頁下載 ISO。
 
-### 编写 FCC
+### 編寫 FCC
 
-FCC 是 Fedora CoreOS Configuration (Fedora CoreOS 配置) 的简称。
+FCC 是 Fedora CoreOS Configuration (Fedora CoreOS 設定) 的簡稱。
 
 ```yaml
 ## example.fcc
@@ -22,38 +22,38 @@ passwd:
         - ssh-rsa AAAA...
 ```
 
-将 `ssh-rsa AAAA...` 替换为自己的 SSH 公钥 (位于 `~/.ssh/id_rsa.pub`)。
+將 `ssh-rsa AAAA...` 替換為自己的 SSH 公鑰 (位於 `~/.ssh/id_rsa.pub`)。
 
-### 转换 FCC 为 Ignition
+### 轉換 FCC 為 Ignition
 
-运行以下命令：
+執行以下指令：
 
 ```bash
 $ docker run -i --rm quay.io/coreos/fcct:v0.5.0 --pretty --strict < example.fcc > example.ign
 ```
 
-### 挂载 ISO 启动虚拟机并安装
+### 掛載 ISO 啟動虛擬機並安裝
 
-> 虚拟机需要分配 3GB 以上内存，否则会无法启动。
+> 虛擬機需要分配 3GB 以上記憶體，否則會無法啟動。
 
-在虚拟机终端执行以下命令安装：
+在虛擬機終端執行以下指令安裝：
 
 ```bash
 $ sudo coreos-installer install /dev/sda --ignition-file example.ign
 ```
 
-安装之后重新启动即可使用。
+安裝之後重新啟動即可使用。
 
 ### 使用
 
-运行以下命令：
+執行以下指令：
 
 ```bash
-$ ssh core@虚拟机IP
+$ ssh core@虛擬機IP
 
 $ docker --version
 ```
 
-### 参考链接
+### 參考連結
 
-* [官方文档](https://docs.fedoraproject.org/en-US/fedora-coreos/bare-metal/)
+* [官方文件](https://docs.fedoraproject.org/en-US/fedora-coreos/bare-metal/)

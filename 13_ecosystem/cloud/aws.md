@@ -1,26 +1,26 @@
-## 亚马逊云
+## 亞馬遜雲
 
-如图 13-1 所示，AWS 是全球主流云服务平台之一。
+如圖 13-1 所示，AWS 是全球主流雲服務平台之一。
 
 ![AWS](./_images/aws-logo.jpg)
 
-图 13-1 AWS 标识
+圖 13-1 AWS 標識
 
-[AWS](https://www.amazonaws.cn)，即 Amazon Web Services，是亚马逊 (Amazon) 公司的 IaaS 和 PaaS 平台服务。AWS 提供了一整套基础设施和应用程序服务，使用户几乎能够在云中运行一切应用程序：从企业应用程序和大数据项目，到社交游戏和移动应用程序。AWS 面向用户提供包括弹性计算、存储、数据库、应用程序在内的一整套云计算服务，能够帮助企业降低 IT 投入成本和维护成本。
+[AWS](https://www.amazonaws.cn)，即 Amazon Web Services，是亞馬遜 (Amazon) 公司的 IaaS 和 PaaS 平台服務。AWS 提供了一整套基礎設施和應用程式服務，使用戶幾乎能夠在雲中執行一切應用程式：從企業應用程式和大資料專案，到社交遊戲和行動應用程式。AWS 面向使用者提供包括彈性計算、儲存、資料庫、應用程式在內的一整套雲端運算服務，能夠幫助企業降低 IT 投入成本和維護成本。
 
-在容器领域，AWS 目前主流能力可以按场景分为四类：
+在容器領域，AWS 目前主流能力可以按場景分為四類：
 
-1. `Amazon EKS`：托管 Kubernetes 控制平面，适合标准云原生工作负载。
-2. `Amazon ECS`：AWS 原生容器编排服务，适合深度集成 AWS 生态 (IAM、ALB、CloudWatch) 场景。
-3. `AWS Fargate`：无服务器容器运行时，可与 EKS/ECS 结合使用，减少节点运维。
-4. `Amazon ECR`：镜像仓库服务，提供私有镜像管理、扫描与访问控制。
+1. `Amazon EKS`：託管 Kubernetes 控制平面，適合標準雲原生工作負載。
+2. `Amazon ECS`：AWS 原生容器編排服務，適合深度整合 AWS 生態 (IAM、ALB、CloudWatch) 場景。
+3. `AWS Fargate`：無伺服器容器執行時，可與 EKS/ECS 結合使用，減少節點運維。
+4. `Amazon ECR`：映象倉庫服務，提供私有映象管理、掃描與訪問控制。
 
-实践建议：
+實踐建議：
 
-* 团队已具备 Kubernetes 经验，优先选择 EKS；
-* 追求更低运维复杂度且业务主要运行在 AWS，可优先 ECS + Fargate；
-* 无论编排方案如何，都建议使用 ECR 统一管理镜像生命周期。
+* 團隊已具備 Kubernetes 經驗，優先選擇 EKS；
+* 追求更低運維複雜度且業務主要執行在 AWS，可優先 ECS + Fargate；
+* 無論編排方案如何，都建議使用 ECR 統一管理映象生命週期。
 
-![AWS 容器服务](./_images/ECS.jpg)
+![AWS 容器服務](./_images/ECS.jpg)
 
-图 13-2 AWS 容器服务示意图
+圖 13-2 AWS 容器服務示意圖
