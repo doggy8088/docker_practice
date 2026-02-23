@@ -1,16 +1,16 @@
-# 网络配置
+# 網路設定
 
-Docker 容器需要网络来与外部世界通信、容器之间相互通信以及与宿主机通信。Docker 在安装时会自动配置网络基础设施，大多数情况下开箱即用。
+Docker 容器需要網路來與外部世界通訊、容器之間相互通訊以及與宿主機通訊。Docker 在安裝時會自動設定網路基礎設施，大多數情況下開箱即用。
 
 ## 概述
 
-Docker 启动时自动创建以下网络组件：
+Docker 啟動時自動建立以下網路元件：
 
 ```mermaid
 graph TD
-    subgraph Host [宿主机]
-        eth0[物理网卡 eth0<br>192.168.1.100]
-        docker0[docker0 网桥<br>172.17.0.1]
+    subgraph Host [宿主機]
+        eth0[物理網絡卡 eth0<br>192.168.1.100]
+        docker0[docker0 網橋<br>172.17.0.1]
         
         subgraph Containers
             subgraph ContainerA [容器 A]
@@ -26,16 +26,16 @@ graph TD
         docker0 <--> eth0_B
     end
     
-    Internet((互联网)) <--> eth0
+    Internet((網際網路)) <--> eth0
 ```
 
-本章将详细介绍 Docker 网络配置的各个方面。
+本章將詳細介紹 Docker 網路設定的各個方面。
 
-## 本章内容
+## 本章內容
 
-* [配置 DNS](9.1_dns.md)
-* [外部访问容器](9.5_port_mapping.md)
-* [网络类型](9.2_network_types.md)
-* [自定义网络](9.3_custom_network.md)
-* [容器互联](9.4_container_linking.md)
-* [网络隔离](9.6_network_isolation.md)
+* [設定 DNS](9.1_dns.md)
+* [外部訪問容器](9.5_port_mapping.md)
+* [網路型別](9.2_network_types.md)
+* [自定義網路](9.3_custom_network.md)
+* [容器互聯](9.4_container_linking.md)
+* [網路隔離](9.6_network_isolation.md)

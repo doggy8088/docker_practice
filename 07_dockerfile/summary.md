@@ -1,210 +1,210 @@
-## 7.19 本章小结
+## 7.19 本章小結
 
-相关信息如下表：
+相關訊息如下表：
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 设置后续指令的工作目录 |
-| **语法** | `WORKDIR /path` |
-| **自动创建** | 目录不存在会自动创建 |
-| **持久性** | 影响后续所有指令，直到下次 WORKDIR |
-| **不要用** | `RUN cd /path` (无效)|
+| **作用** | 設定後續指令的工作目錄 |
+| **語法** | `WORKDIR /path` |
+| **自動建立** | 目錄不存在會自動建立 |
+| **持久性** | 影響後續所有指令，直到下次 WORKDIR |
+| **不要用** | `RUN cd /path` (無效)|
 
-### 7.19.1 延伸阅读
+### 7.19.1 延伸閱讀
 
-- [COPY 复制文件](7.2_copy.md)：文件复制
-- [RUN 执行命令](../04_image/4.5_build.md)：执行构建命令
-- [最佳实践](../appendix/20.1_best_practices.md)：Dockerfile 编写指南
+- [COPY 複製檔案](7.2_copy.md)：檔案複製
+- [RUN 執行指令](../04_image/4.5_build.md)：執行建立指令
+- [最佳實踐](../appendix/20.1_best_practices.md)：Dockerfile 編寫指南
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 切换后续指令的执行用户 |
-| **语法** | `USER username` 或 `USER UID:GID` |
-| **前提** | 用户必须已存在 |
-| **运行时覆盖** | `docker run -u` |
-| **切换工具** | 使用 gosu，不用 su/sudo |
+| **作用** | 切換後續指令的執行使用者 |
+| **語法** | `USER username` 或 `USER UID:GID` |
+| **前提** | 使用者必須已存在 |
+| **執行時覆蓋** | `docker run -u` |
+| **切換工具** | 使用 gosu，不用 su/sudo |
 
-### 7.19.2 延伸阅读
+### 7.19.2 延伸閱讀
 
-- [安全](../18_security/README.md)：容器安全实践
-- [ENTRYPOINT](7.5_entrypoint.md)：入口脚本中的用户切换
-- [最佳实践](../appendix/20.1_best_practices.md)：Dockerfile 安全
+- [安全](../18_security/README.md)：容器安全實踐
+- [ENTRYPOINT](7.5_entrypoint.md)：入口指令碼中的使用者切換
+- [最佳實踐](../appendix/20.1_best_practices.md)：Dockerfile 安全
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 检测容器应用是否真实可用 |
-| **命令** | `HEALTHCHECK [选项] CMD command` |
-| **状态** | starting, healthy, unhealthy |
-| **Compose** | 支持 `condition: service_healthy` 依赖 |
-| **注意** | 避免副作用，节省资源 |
+| **作用** | 檢測容器應用是否真實可用 |
+| **指令** | `HEALTHCHECK [選項] CMD command` |
+| **狀態** | starting, healthy, unhealthy |
+| **Compose** | 支援 `condition: service_healthy` 依賴 |
+| **注意** | 避免副作用，節省資源 |
 
-### 7.19.3 延伸阅读
+### 7.19.3 延伸閱讀
 
-- [CMD 容器启动命令](7.4_cmd.md)：启动主进程
-- [Compose 模板文件](../11_compose/11.5_compose_file.md)：Compose 中的健康检查
-- [Docker 调试](../appendix/20.2_debug.md)：容器排障
+- [CMD 容器啟動指令](7.4_cmd.md)：啟動主程序
+- [Compose 樣板檔案](../11_compose/11.5_compose_file.md)：Compose 中的健康檢查
+- [Docker 除錯](../appendix/20.2_debug.md)：容器排障
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 定义在子镜像构建时执行的指令 |
-| **语法** | `ONBUILD INSTRUCTION` |
-| **适用** | 基础架构镜像 (Node, Python, Go 等)|
-| **限制** | 只继承一次，不可级联 |
-| **规范** | 建议使用 `-onbuild` 标签后缀 |
+| **作用** | 定義在子映象建立時執行的指令 |
+| **語法** | `ONBUILD INSTRUCTION` |
+| **適用** | 基礎架構映象 (Node, Python, Go 等)|
+| **限制** | 只繼承一次，不可級聯 |
+| **規範** | 建議使用 `-onbuild` 標籤字尾 |
 
-### 7.19.4 延伸阅读
+### 7.19.4 延伸閱讀
 
-- [COPY 指令](7.2_copy.md)：文件复制
-- [Dockerfile 最佳实践](../appendix/20.1_best_practices.md)：基础镜像设计
+- [COPY 指令](7.2_copy.md)：檔案複製
+- [Dockerfile 最佳實踐](../appendix/20.1_best_practices.md)：基礎映象設計
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 添加 key-value 元数据 |
-| **语法** | `LABEL k=v k=v ...` |
-| **规范** | 推荐使用 OCI 标准标签 |
-| **弃用** | 不要再使用 `MAINTAINER` |
-| **查看** | `docker inspect` |
+| **作用** | 新增 key-value 元資料 |
+| **語法** | `LABEL k=v k=v ...` |
+| **規範** | 推薦使用 OCI 標準標籤 |
+| **棄用** | 不要再使用 `MAINTAINER` |
+| **檢視** | `docker inspect` |
 
-### 7.19.5 延伸阅读
+### 7.19.5 延伸閱讀
 
-- [OCI 标签规范](https://github.com/opencontainers/image-spec/blob/main/annotations.md)
-- [Dockerfile 最佳实践](../appendix/20.1_best_practices.md)
+- [OCI 標籤規範](https://github.com/opencontainers/image-spec/blob/main/annotations.md)
+- [Dockerfile 最佳實踐](../appendix/20.1_best_practices.md)
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 更改 RUN/CMD/ENTRYPOINT 的默认 shell |
-| **Linux 默认** | `["/bin/sh", "-c"]` |
-| **Windows 默认** | `["cmd", "/S", "/C"]` |
-| **推荐用法** | `SHELL ["/bin/bash", "-o", "pipefail", "-c"]` |
-| **影响范围** | 后续所有使用 shell 格式的指令 |
+| **作用** | 更改 RUN/CMD/ENTRYPOINT 的預設 shell |
+| **Linux 預設** | `["/bin/sh", "-c"]` |
+| **Windows 預設** | `["cmd", "/S", "/C"]` |
+| **推薦用法** | `SHELL ["/bin/bash", "-o", "pipefail", "-c"]` |
+| **影響範圍** | 後續所有使用 shell 格式的指令 |
 
-### 7.19.6 延伸阅读
+### 7.19.6 延伸閱讀
 
-- [RUN 指令](../04_image/4.5_build.md)：执行命令
-- [Dockerfile 最佳实践](../appendix/20.1_best_practices.md)：错误处理与调试
+- [RUN 指令](../04_image/4.5_build.md)：執行指令
+- [Dockerfile 最佳實踐](../appendix/20.1_best_practices.md)：錯誤處理與除錯
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 在新层执行命令 |
-| **原则** | 合并命令，清理缓存 |
+| **作用** | 在新層執行指令 |
+| **原則** | 合併指令，清理快取 |
 | **格式** | Shell (常用) vs Exec |
-| **陷阱** | `cd` 不持久，环境变量不持久 |
-| **进阶** | 使用 Cache Mount 加速构建 |
+| **陷阱** | `cd` 不持久，環境變數不持久 |
+| **進階** | 使用 Cache Mount 加速建立 |
 
-### 7.19.7 延伸阅读
+### 7.19.7 延伸閱讀
 
-- [CMD 容器启动命令](7.4_cmd.md)：容器启动时的命令
-- [WORKDIR 指定工作目录](7.10_workdir.md)：改变目录
-- [Dockerfile 最佳实践](../appendix/20.1_best_practices.md)
+- [CMD 容器啟動指令](7.4_cmd.md)：容器啟動時的指令
+- [WORKDIR 指定工作目錄](7.10_workdir.md)：改變目錄
+- [Dockerfile 最佳實踐](../appendix/20.1_best_practices.md)
 
-| 操作 | 示例 |
+| 操作 | 範例 |
 |------|------|
-| 复制文件 | `COPY app.js /app/` |
-| 复制多个文件 | `COPY *.json /app/` |
-| 复制目录内容 | `COPY src/ /app/src/` |
+| 複製檔案 | `COPY app.js /app/` |
+| 複製多個檔案 | `COPY *.json /app/` |
+| 複製目錄內容 | `COPY src/ /app/src/` |
 | 修改所有者 | `COPY --chown=node:node . /app/` |
-| 从构建阶段复制 | `COPY --from=builder /app/dist ./` |
+| 從建立階段複製 | `COPY --from=builder /app/dist ./` |
 
-### 7.19.8 延伸阅读
+### 7.19.8 延伸閱讀
 
-- [ADD 指令](7.3_add.md)：复制和解压
-- [WORKDIR 指令](7.10_workdir.md)：设置工作目录
-- [多阶段构建](7.17_multistage_builds.md)：优化镜像大小
-- [最佳实践](../appendix/20.1_best_practices.md)：Dockerfile 编写指南
+- [ADD 指令](7.3_add.md)：複製和解壓
+- [WORKDIR 指令](7.10_workdir.md)：設定工作目錄
+- [多階段建立](7.17_multistage_builds.md)：最佳化映象大小
+- [最佳實踐](../appendix/20.1_best_practices.md)：Dockerfile 編寫指南
 
-| 场景 | 推荐指令 |
+| 場景 | 推薦指令 |
 |------|---------|
-| 复制普通文件 | `COPY` |
-| 复制目录 | `COPY` |
-| 自动解压 tar | `ADD` |
-| 从 URL 下载 | `RUN curl` |
-| 保持 tar 不解压 | `COPY` |
+| 複製普通檔案 | `COPY` |
+| 複製目錄 | `COPY` |
+| 自動解壓 tar | `ADD` |
+| 從 URL 下載 | `RUN curl` |
+| 保持 tar 不解壓 | `COPY` |
 
-### 7.19.9 延伸阅读
+### 7.19.9 延伸閱讀
 
-- [COPY 复制文件](7.2_copy.md)：基本复制操作
-- [多阶段构建](7.17_multistage_builds.md)：减少镜像体积
-- [最佳实践](../appendix/20.1_best_practices.md)：Dockerfile 编写指南
+- [COPY 複製檔案](7.2_copy.md)：基本複製操作
+- [多階段建立](7.17_multistage_builds.md)：減少映象體積
+- [最佳實踐](../appendix/20.1_best_practices.md)：Dockerfile 編寫指南
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 指定容器启动时的默认命令 |
-| **推荐格式** | exec 格式 `CMD ["程序", "参数"]` |
-| **覆盖方式** | `docker run image 新命令` |
-| **与 ENTRYPOINT** | CMD 作为 ENTRYPOINT 的默认参数 |
-| **核心原则** | 应用必须在前台运行 |
+| **作用** | 指定容器啟動時的預設指令 |
+| **推薦格式** | exec 格式 `CMD ["程式", "引數"]` |
+| **覆蓋方式** | `docker run image 新指令` |
+| **與 ENTRYPOINT** | CMD 作為 ENTRYPOINT 的預設引數 |
+| **核心原則** | 應用必須在前台執行 |
 
-### 7.19.10 延伸阅读
+### 7.19.10 延伸閱讀
 
-- [ENTRYPOINT 入口点](7.5_entrypoint.md)：固定的启动命令
-- [后台运行](../05_container/5.2_daemon.md)：容器前台/后台概念
-- [最佳实践](../appendix/20.1_best_practices.md)：Dockerfile 编写指南
+- [ENTRYPOINT 入口點](7.5_entrypoint.md)：固定的啟動指令
+- [後台執行](../05_container/5.2_daemon.md)：容器前台/後台概念
+- [最佳實踐](../appendix/20.1_best_practices.md)：Dockerfile 編寫指南
 
-| ENTRYPOINT | CMD | 适用场景 |
+| ENTRYPOINT | CMD | 適用場景 |
 |------------|-----|---------|
-| ✓ | ✗ | 镜像作为固定命令使用 |
-| ✗ | ✓ | 简单的默认命令 |
-| ✓ | ✓ | **推荐**：固定命令 + 可配置参数 |
+| ✓ | ✗ | 映象作為固定指令使用 |
+| ✗ | ✓ | 簡單的預設指令 |
+| ✓ | ✓ | **推薦**：固定指令 + 可設定引數 |
 
-### 7.19.11 延伸阅读
+### 7.19.11 延伸閱讀
 
-- [CMD 容器启动命令](7.4_cmd.md)：默认命令
-- [最佳实践](../appendix/20.1_best_practices.md)：启动命令设计
-- [后台运行](../05_container/5.2_daemon.md)：前台/后台概念
+- [CMD 容器啟動指令](7.4_cmd.md)：預設指令
+- [最佳實踐](../appendix/20.1_best_practices.md)：啟動指令設計
+- [後台執行](../05_container/5.2_daemon.md)：前台/後台概念
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **语法** | `ENV KEY=value` |
-| **作用范围** | 构建时 + 运行时 |
-| **覆盖方式** | `docker run -e KEY=value` |
-| **与 ARG** | ARG 仅构建时，ENV 持久化到运行时 |
-| **安全** | 不要存储敏感信息 |
+| **語法** | `ENV KEY=value` |
+| **作用範圍** | 建立時 + 執行時 |
+| **覆蓋方式** | `docker run -e KEY=value` |
+| **與 ARG** | ARG 僅建立時，ENV 持久化到執行時 |
+| **安全** | 不要儲存敏感訊息 |
 
-### 7.19.12 延伸阅读
+### 7.19.12 延伸閱讀
 
-- [ARG 构建参数](7.7_arg.md)：构建时变量
-- [Compose 环境变量](../11_compose/11.5_compose_file.md)：Compose 中的环境变量
-- [最佳实践](../appendix/20.1_best_practices.md)：Dockerfile 编写指南
+- [ARG 建立引數](7.7_arg.md)：建立時變數
+- [Compose 環境變數](../11_compose/11.5_compose_file.md)：Compose 中的環境變數
+- [最佳實踐](../appendix/20.1_best_practices.md)：Dockerfile 編寫指南
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 定义构建时变量 |
-| **语法** | `ARG NAME=value` |
-| **覆盖** | `docker build --build-arg NAME=value` |
-| **作用域** | FROM 之后需要重新声明 |
-| **vs ENV** | ARG 仅构建时，ENV 构建+运行时 |
-| **安全** | 不要存储敏感信息 |
+| **作用** | 定義建立時變數 |
+| **語法** | `ARG NAME=value` |
+| **覆蓋** | `docker build --build-arg NAME=value` |
+| **作用域** | FROM 之後需要重新宣告 |
+| **vs ENV** | ARG 僅建立時，ENV 建立+執行時 |
+| **安全** | 不要儲存敏感訊息 |
 
-### 7.19.13 延伸阅读
+### 7.19.13 延伸閱讀
 
-- [ENV 设置环境变量](7.6_env.md)：运行时环境变量
-- [FROM 指令](../04_image/4.5_build.md)：基础镜像指定
-- [多阶段构建](7.17_multistage_builds.md)：复杂构建场景
+- [ENV 設定環境變數](7.6_env.md)：執行時環境變數
+- [FROM 指令](../04_image/4.5_build.md)：基礎映象指定
+- [多階段建立](7.17_multistage_builds.md)：複雜建立場景
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 创建挂载点，标记为外部卷 |
-| **语法** | `VOLUME /path` |
-| **默认行为** | 自动创建匿名卷 |
-| **覆盖方式** | `docker run -v name:/path` |
-| **注意** | VOLUME 之后的修改会丢失 |
+| **作用** | 建立掛載點，標記為外部卷 |
+| **語法** | `VOLUME /path` |
+| **預設行為** | 自動建立匿名卷 |
+| **覆蓋方式** | `docker run -v name:/path` |
+| **注意** | VOLUME 之後的修改會丟失 |
 
-### 7.19.14 延伸阅读
+### 7.19.14 延伸閱讀
 
-- [数据卷](../08_data/8.1_volume.md)：卷的管理和使用
-- [挂载主机目录](../08_data/8.2_bind-mounts.md)：Bind Mount
-- [Compose 数据管理](../11_compose/11.5_compose_file.md)：Compose 中的卷配置
+- [資料卷](../08_data/8.1_volume.md)：卷的管理和使用
+- [掛載主機目錄](../08_data/8.2_bind-mounts.md)：Bind Mount
+- [Compose 資料管理](../11_compose/11.5_compose_file.md)：Compose 中的卷設定
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 声明容器提供服务的端口 (文档)|
-| **不会** | 自动映射端口或开放外部访问 |
-| **配合** | `docker run -P` 自动映射 |
-| **外部访问** | 需要 `-p 宿主机端口:容器端口` |
-| **语法** | `EXPOSE 80` 或 `EXPOSE 80/tcp` |
+| **作用** | 宣告容器提供服務的連接埠 (文件)|
+| **不會** | 自動對映連接埠或開放外部訪問 |
+| **配合** | `docker run -P` 自動對映 |
+| **外部訪問** | 需要 `-p 宿主機連接埠:容器連接埠` |
+| **語法** | `EXPOSE 80` 或 `EXPOSE 80/tcp` |
 
-### 7.19.15 延伸阅读
+### 7.19.15 延伸閱讀
 
-- [网络配置](../09_network/README.md)：Docker 网络详解
-- [端口映射](../09_network/9.5_port_mapping.md)：-p 参数详解
-- [Compose 端口](../11_compose/11.5_compose_file.md)：Compose 中的端口配置
+- [網路設定](../09_network/README.md)：Docker 網路詳解
+- [連接埠對映](../09_network/9.5_port_mapping.md)：-p 引數詳解
+- [Compose 連接埠](../11_compose/11.5_compose_file.md)：Compose 中的連接埠設定
