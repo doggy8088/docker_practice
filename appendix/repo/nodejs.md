@@ -1,16 +1,16 @@
 ## [Node.js]
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
-### 基本信息
+### 基本訊息
 
-[Node.js](https://en.wikipedia.org/wiki/Node.js) 是基于 JavaScript 的可扩展服务端和网络软件开发平台。
+[Node.js](https://en.wikipedia.org/wiki/Node.js) 是基於 JavaScript 的可擴充套件伺服器端和網路軟體開發平台。
 
-该仓库位于 `https://hub.docker.com/_/node/`。具体可用版本以 Docker Hub 上的 tags 列表为准。
+該倉庫位於 `https://hub.docker.com/_/node/`。具體可用版本以 Docker Hub 上的 tags 清單為準。
 
 ### 使用方法
 
-在项目中创建一个 Dockerfile。
+在專案中建立一個 Dockerfile。
 
 ```docker
 FROM node:12
@@ -19,14 +19,14 @@ FROM node:12
 EXPOSE 8888
 ```
 
-然后创建镜像，并启动容器。
+然後建立映象，並啟動容器。
 
 ```bash
 $ docker build -t my-nodejs-app
 $ docker run -it --rm --name my-running-app my-nodejs-app
 ```
 
-也可以直接运行一个简单容器。
+也可以直接執行一個簡單容器。
 
 ```bash
 $ docker run -it --rm \
@@ -41,4 +41,4 @@ $ docker run -it --rm \
 
 ### Dockerfile
 
-请到 https://github.com/docker-library/docs/tree/master/node 查看。
+請到 https://github.com/docker-library/docs/tree/master/node 檢視。
