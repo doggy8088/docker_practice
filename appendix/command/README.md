@@ -1,19 +1,19 @@
-# Docker 命令查询
+# Docker 指令查詢
 
-本节涵盖了相关内容与详细描述，主要探讨以下几个方面：
+本節涵蓋了相關內容與詳細描述，主要探討以下幾個方面：
 
 ## 概述
 
-总体概述了以下内容。
+總體概述了以下內容。
 
-## 基本语法
+## 基本語法
 
-Docker 命令有两大类，客户端命令和服务端命令。前者是主要的操作接口，后者用来启动 Docker Daemon。
+Docker 指令有兩大類，用戶端指令和伺服器端指令。前者是主要的操作介面，後者用來啟動 Docker Daemon。
 
-* 客户端命令：基本命令格式为 `docker [OPTIONS] COMMAND [arg...]`；
+* 用戶端指令：基本指令格式為 `docker [OPTIONS] COMMAND [arg...]`；
 
-* 服务端命令：基本命令格式为 `dockerd [OPTIONS]`。
+* 伺服器端指令：基本指令格式為 `dockerd [OPTIONS]`。
 
-可以通过 `man docker` 或 `docker help` 来查看这些命令。
+可以透過 `man docker` 或 `docker help` 來檢視這些指令。
 
-接下来的小节对这两个命令进行介绍。
+接下來的小節對這兩個指令進行介紹。

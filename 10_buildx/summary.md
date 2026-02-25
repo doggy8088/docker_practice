@@ -1,19 +1,19 @@
-## 10.4 本章小结
+## 10.4 本章小結
 
-Docker Buildx 是 Docker 构建系统的重要进化，提供了高效、安全且支持多平台的镜像构建能力。
+Docker Buildx 是 Docker 建立系統的重要進化，提供了高效、安全且支援多平臺的映象建立能力。
 
-| 概念 | 要点 |
+| 概念 | 要點 |
 |------|------|
-| **BuildKit** | 下一代构建引擎，Docker 23.0+ 默认启用 |
-| **缓存挂载** | `RUN --mount=type=cache` 加速依赖安装 |
-| **Secret 挂载** | `RUN --mount=type=secret` 安全传递密钥 |
-| **buildx build** | 替代 `docker build`，支持更多构建功能 |
-| **多架构构建** | `--platform` 参数一键构建多种架构镜像 |
-| **Manifest List** | 多架构镜像的索引文件 |
-| **SBOM** | 通过 `--sbom=true` 生成软件物料清单 |
+| **BuildKit** | 下一代建立引擎，Docker 23.0+ 預設啟用 |
+| **快取掛載** | `RUN --mount=type=cache` 加速依賴安裝 |
+| **Secret 掛載** | `RUN --mount=type=secret` 安全傳遞金鑰 |
+| **buildx build** | 替代 `docker build`，支援更多建立功能 |
+| **多架構建立** | `--platform` 引數一鍵建立多種架構映象 |
+| **Manifest List** | 多架構映象的索引檔案 |
+| **SBOM** | 透過 `--sbom=true` 生成軟體物料清單 |
 
-### 10.4.1 延伸阅读
+### 10.4.1 延伸閱讀
 
-- [Dockerfile 指令详解](../07_dockerfile/README.md)：Dockerfile 编写基础
-- [多阶段构建](../07_dockerfile/7.17_multistage_builds.md)：优化镜像体积
-- [Dockerfile 最佳实践](../appendix/20.1_best_practices.md)：编写高效 Dockerfile
+- [Dockerfile 指令詳解](../07_dockerfile/README.md)：Dockerfile 編寫基礎
+- [多階段建立](../07_dockerfile/7.17_multistage_builds.md)：最佳化映象體積
+- [Dockerfile 最佳實踐](../appendix/20.1_best_practices.md)：編寫高效 Dockerfile
