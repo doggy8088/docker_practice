@@ -1,13 +1,13 @@
 # 第十章 Docker Buildx
 
-Docker Buildx 是一个 docker CLI 插件，其扩展了 docker 命令，支持 [Moby BuildKit](10.1_buildkit.md) 提供的功能。提供了与 docker build 相同的用户体验，并增加了许多新功能。
+Docker Buildx 是一個 docker CLI 外掛，其擴充套件了 docker 指令，支援 [Moby BuildKit](10.1_buildkit.md) 提供的功能。提供了與 docker build 相同的使用者體驗，並增加了許多新功能。
 
-> Buildx 需要 Docker v19.03+。在较新版本中已更常用且功能更完整。
+> Buildx 需要 Docker v19.03+。在較新版本中已更常用且功能更完整。
 
-## 本章内容
+## 本章內容
 
-本章将详细介绍 Docker Buildx 的使用，包括：
+本章將詳細介紹 Docker Buildx 的使用，包括：
 
-* [使用 BuildKit 构建镜像](10.1_buildkit.md)
-* [使用 Buildx 构建镜像](10.2_buildx.md)
-* [构建多种系统架构支持的 Docker 镜像](10.3_multi-arch-images.md)
+* [使用 BuildKit 建立映象](10.1_buildkit.md)
+* [使用 Buildx 建立映象](10.2_buildx.md)
+* [建立多種系統架構支援的 Docker 映象](10.3_multi-arch-images.md)

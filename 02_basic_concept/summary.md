@@ -1,51 +1,51 @@
-## 2.4 本章小结
+## 2.4 本章小結
 
-| 概念 | 要点 |
+| 概念 | 要點 |
 |------|------|
-| **镜像是什么** | 只读的应用模板，包含运行所需的一切 |
-| **分层存储** | 多层叠加，共享基础层，节省空间 |
-| **只读特性** | 构建后不可修改，保证一致性 |
-| **层的陷阱** | 删除操作只是标记，不减小体积 |
+| **映象是什麼** | 只讀的應用樣板，包含執行所需的一切 |
+| **分層儲存** | 多層疊加，共享基礎層，節省空間 |
+| **只讀屬性** | 建立後不可修改，保證一致性 |
+| **層的陷阱** | 刪除操作只是標記，不減小體積 |
 
-理解了镜像，接下来让我们学习[容器](2.2_container.md)——镜像的运行实例。
+理解了映象，接下來讓我們學習[容器](2.2_container.md)——映象的執行實例。
 
-### 2.4.1 延伸阅读
+### 2.4.1 延伸閱讀
 
-- [获取镜像](../04_image/4.1_pull.md)：从 Registry 下载镜像
-- [使用 Dockerfile 定制镜像](../04_image/4.5_build.md)：创建自己的镜像
-- [Dockerfile 最佳实践](../appendix/20.1_best_practices.md)：构建高质量镜像的技巧
-- [底层实现 - 联合文件系统](../12_implementation/12.4_ufs.md)：深入理解分层存储的技术原理
+- [獲取映象](../04_image/4.1_pull.md)：從 Registry 下載映象
+- [使用 Dockerfile 定製映象](../04_image/4.5_build.md)：建立自己的映象
+- [Dockerfile 最佳實踐](../appendix/20.1_best_practices.md)：建立高質量映象的技巧
+- [底層實現 - 聯合檔案系統](../12_implementation/12.4_ufs.md)：深入理解分層儲存的技術原理
 
-| 概念 | 要点 |
+| 概念 | 要點 |
 |------|------|
-| **容器是什么** | 镜像的运行实例，本质是隔离的进程 |
-| **容器 vs 虚拟机** | 共享内核，更轻量，但隔离性较弱 |
-| **存储层** | 可写层随容器删除而消失 |
-| **数据持久化** | 使用 Volume 或 Bind Mount |
-| **生命周期** | 与主进程 (PID 1) 绑定 |
+| **容器是什麼** | 映象的執行實例，本質是隔離的程序 |
+| **容器 vs 虛擬機** | 共享核心，更輕量，但隔離性較弱 |
+| **儲存層** | 可寫層隨容器刪除而消失 |
+| **資料持久化** | 使用 Volume 或 Bind Mount |
+| **生命週期** | 與主程序 (PID 1) 繫結 |
 
-理解了镜像和容器，接下来让我们学习[仓库](2.3_repository.md)——存储和分发镜像的服务。
+理解了映象和容器，接下來讓我們學習[倉庫](2.3_repository.md)——儲存和分發映象的服務。
 
-### 2.4.2 延伸阅读
+### 2.4.2 延伸閱讀
 
-- [启动容器](../05_container/5.1_run.md)：详细的容器启动选项
-- [后台运行](../05_container/5.2_daemon.md)：理解容器为什么会 “立即退出”
-- [进入容器](../05_container/5.4_attach_exec.md)：如何操作运行中的容器
-- [数据管理](../08_data/README.md)：Volume 和数据持久化详解
+- [啟動容器](../05_container/5.1_run.md)：詳細的容器啟動選項
+- [後台執行](../05_container/5.2_daemon.md)：理解容器為什麼會 『立即退出』
+- [進入容器](../05_container/5.4_attach_exec.md)：如何操作執行中的容器
+- [資料管理](../08_data/README.md)：Volume 和數據持久化詳解
 
-| 概念 | 要点 |
+| 概念 | 要點 |
 |------|------|
-| **Registry** | 存储和分发镜像的服务 |
-| **仓库 (Repository)** | 同一软件的镜像集合 |
-| **标签 (Tag)** | 版本标识，默认为 latest |
-| **Docker Hub** | 默认的公共 Registry |
-| **私有 Registry** | 企业内部使用，推荐 Harbor |
+| **Registry** | 儲存和分發映象的服務 |
+| **倉庫 (Repository)** | 同一軟體的映象集合 |
+| **標籤 (Tag)** | 版本標識，預設為 latest |
+| **Docker Hub** | 預設的公共 Registry |
+| **私有 Registry** | 企業內部使用，推薦 Harbor |
 
-现在你已经了解了 Docker 的三个核心概念：[镜像](2.1_image.md)、[容器](2.2_container.md)和仓库。接下来，让我们开始[安装 Docker](../03_install/README.md)，动手实践！
+現在你已經瞭解了 Docker 的三個核心概念：[映象](2.1_image.md)、[容器](2.2_container.md)和倉庫。接下來，讓我們開始[安裝 Docker](../03_install/README.md)，動手實踐！
 
-### 2.4.3 延伸阅读
+### 2.4.3 延伸閱讀
 
-- [Docker Hub](../06_repository/6.1_dockerhub.md)：Docker Hub 的详细使用
-- [私有仓库](../06_repository/6.2_registry.md)：搭建私有 Registry
-- [私有仓库高级配置](../06_repository/6.3_registry_auth.md)：认证、TLS 配置
-- [镜像加速器](../03_install/3.9_mirror.md)：配置镜像加速
+- [Docker Hub](../06_repository/6.1_dockerhub.md)：Docker Hub 的詳細使用
+- [私有倉庫](../06_repository/6.2_registry.md)：搭建私有 Registry
+- [私有倉庫高階設定](../06_repository/6.3_registry_auth.md)：認證、TLS 設定
+- [映象加速器](../03_install/3.9_mirror.md)：設定映象加速

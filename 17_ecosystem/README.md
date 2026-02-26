@@ -1,6 +1,6 @@
-# 第十七章 容器其它生态
+# 第十七章 容器其它生態
 
-本章将介绍 Docker 和 Kubernetes 之外的容器生态技术。
+本章將介紹 Docker 和 Kubernetes 之外的容器生態技術。
 
-- **Fedora CoreOS**：专为容器化工作负载设计的操作系统。
-- **Podman**：兼容 Docker CLI 的下一代无守护进程容器引擎。
+- **Fedora CoreOS**：專為容器化工作負載設計的作業系統。
+- **Podman**：相容 Docker CLI 的下一代無守護程序容器引擎。
