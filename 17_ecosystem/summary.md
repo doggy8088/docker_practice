@@ -1,25 +1,25 @@
-## 本章小结
+## 本章小結
 
-Docker 并非容器生态的唯一选择，了解其他工具有助于根据场景做出合适的技术选型。
+Docker 並非容器生態的唯一選擇，瞭解其他工具有助於根據場景做出合適的技術選型。
 
-| 项目 | 定位 | 特点 |
+| 專案 | 定位 | 特點 |
 |------|------|------|
-| **Fedora CoreOS** | 容器化操作系统 | 自动更新、不可变基础设施、专为运行容器设计 |
-| **Podman** | 容器引擎 | 无守护进程、兼容 Docker CLI、支持 Rootless 模式 |
+| **Fedora CoreOS** | 容器化作業系統 | 自動更新、不可變基礎設施、專為執行容器設計 |
+| **Podman** | 容器引擎 | 無守護程序、相容 Docker CLI、支援 Rootless 模式 |
 
 ### 17.4.1 Podman vs Docker
 
-两者的主要区别：
+兩者的主要區別：
 
-| 对比项 | Docker | Podman |
+| 對比項 | Docker | Podman |
 |--------|--------|--------|
-| **守护进程** | 需要 dockerd | 无需守护进程 |
-| **权限** | 默认需要 root | 原生支持 Rootless |
-| **CLI 兼容** | - | 与 Docker 命令兼容 |
-| **Pod 支持** | 不支持 | 原生支持 Pod 概念 |
-| **Compose** | docker compose | podman-compose 或兼容模式 |
+| **守護程序** | 需要 dockerd | 無需守護程序 |
+| **許可權** | 預設需要 root | 原生支援 Rootless |
+| **CLI 相容** | - | 與 Docker 指令相容 |
+| **Pod 支援** | 不支援 | 原生支援 Pod 概念 |
+| **Compose** | docker compose | podman-compose 或相容模式 |
 
-### 17.4.2 延伸阅读
+### 17.4.2 延伸閱讀
 
-- [底层实现](../12_implementation/README.md)：容器技术的内核基础
-- [安全](../18_security/README.md)：容器安全实践
+- [底層實現](../12_implementation/README.md)：容器技術的核心基礎
+- [安全](../18_security/README.md)：容器安全實踐
