@@ -1,24 +1,24 @@
-## 本章小结
+## 本章小結
 
-本章介绍了 Docker 网络配置的各个方面：
+本章介紹了 Docker 網路設定的各個方面：
 
-| 概念 | 要点 |
+| 概念 | 要點 |
 |------|------|
-| **DNS 配置** | 自定义网络支持嵌入式 DNS，可通过容器名解析 |
-| **网络类型** | bridge (默认)、host、none、overlay、macvlan |
-| **自定义网络** | 推荐使用，支持容器名 DNS 解析和更好的隔离 |
-| **容器互联** | 同一自定义网络内容器可直接通过容器名通信 |
-| **端口映射** | `-p 宿主机端口:容器端口` 暴露服务到外部 |
-| **网络隔离** | 不同网络默认隔离，增强安全性 |
-| **--link** | 已废弃，使用自定义网络替代 |
+| **DNS 設定** | 自定義網路支援嵌入式 DNS，可透過容器名解析 |
+| **網路型別** | bridge (預設)、host、none、overlay、macvlan |
+| **自定義網路** | 推薦使用，支援容器名 DNS 解析和更好的隔離 |
+| **容器互聯** | 同一自定義網路內容器可直接透過容器名通訊 |
+| **連接埠對映** | `-p 宿主機連接埠:容器連接埠` 暴露服務到外部 |
+| **網路隔離** | 不同網路預設隔離，增強安全性 |
+| **--link** | 已廢棄，使用自定義網路替代 |
 
-### 9.8.1 延伸阅读
+### 9.8.1 延伸閱讀
 
-- [配置 DNS](9.1_dns.md)：自定义 DNS 设置
-- [网络类型](9.2_network_types.md)：Bridge、Host、None 等网络模式
-- [自定义网络](9.3_custom_network.md)：创建和管理自定义网络
-- [容器互联](9.4_container_linking.md)：容器间通信方式
-- [端口映射](9.5_port_mapping.md)：高级端口配置
-- [网络隔离](9.6_network_isolation.md)：网络安全与隔离策略
-- [EXPOSE 指令](../07_dockerfile/7.9_expose.md)：在 Dockerfile 中声明端口
-- [Compose 网络](../11_compose/11.5_compose_file.md)：Compose 中的网络配置
+- [設定 DNS](9.1_dns.md)：自定義 DNS 設定
+- [網路型別](9.2_network_types.md)：Bridge、Host、None 等網路模式
+- [自定義網路](9.3_custom_network.md)：建立和管理自定義網路
+- [容器互聯](9.4_container_linking.md)：容器間通訊方式
+- [連接埠對映](9.5_port_mapping.md)：高階連接埠設定
+- [網路隔離](9.6_network_isolation.md)：網路安全與隔離策略
+- [EXPOSE 指令](../07_dockerfile/7.9_expose.md)：在 Dockerfile 中宣告連接埠
+- [Compose 網路](../11_compose/11.5_compose_file.md)：Compose 中的網路設定

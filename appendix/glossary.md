@@ -1,82 +1,82 @@
-# 附录七：术语表
+# 附錄七：術語表
 
-本附录整理了本书中常见的一些专业术语及其解释。
+本附錄整理了本書中常見的一些專業術語及其解釋。
 
 ## A
 
-* **Alpine**：一个轻量级的 Linux 发行版，常作为基础镜像用于构建体积较小的 Docker 镜像。
-* **API (Application Programming Interface)**：应用程序编程接口，Docker Daemon 提供 RESTful API 供客户端或外部程序与之交互。
+* **Alpine**：一個輕量級的 Linux 發行版，常作為基礎映象用於建立體積較小的 Docker 映象。
+* **API (Application Programming Interface)**：應用程式程式設計介面，Docker Daemon 提供 RESTful API 供用戶端或外部程式與之互動。
 
 ## B
 
-* **Base Image (基础镜像)**：没有父镜像的镜像，通常是操作系统的最小安装集合（如 `ubuntu` 或 `alpine`）。
-* **BuildKit**：Docker 下一代的构建引擎，提供了更高的构建性能、更好的缓存处理和并发构建支持。
-* **Buildx**：Docker CLI 的一个插件，扩展了构建功能，支持 BuildKit 的所有高级特性，例如多系统架构镜像构建。
+* **Base Image (基礎映象)**：沒有父映象的映象，通常是作業系統的最小安裝集合（如 `ubuntu` 或 `alpine`）。
+* **BuildKit**：Docker 下一代的建立引擎，提供了更高的建立效能、更好的快取處理和併發建立支援。
+* **Buildx**：Docker CLI 的一個外掛，擴充套件了建立功能，支援 BuildKit 的所有高階屬性，例如多系統架構映象建立。
 
 ## C
 
-* **Cgroups (Control Groups)**：控制组，Linux 内核特性，用于限制、记录、隔离进程组使用的物理资源（如 CPU、内存、磁盘 I/O 等）。
-* **Cluster (集群)**：一组协同工作的节点（如主机、虚拟机等），在容器领域常指 Kubernetes 集群。
-* **Compose (Docker Compose)**：用于定义和运行多容器 Docker 应用程序的工具，通过 YAML 文件配置应用服务。
-* **Container (容器)**：镜像的运行实例，带有额外的可写文件层，具有独立性。
-* **Containerd**：行业标准的容器运行时，核心功能是管理宿主机上容器的生命周期（创建、启动、停止、销毁）。
+* **Cgroups (Control Groups)**：控制組，Linux 核心屬性，用於限制、記錄、隔離程序組使用的物理資源（如 CPU、記憶體、磁碟 I/O 等）。
+* **Cluster (叢集)**：一組協同工作的節點（如主機、虛擬機等），在容器領域常指 Kubernetes 叢集。
+* **Compose (Docker Compose)**：用於定義和執行多容器 Docker 應用程式的工具，透過 YAML 檔案設定應用服務。
+* **Container (容器)**：映象的執行實例，帶有額外的可寫檔案層，具有獨立性。
+* **Containerd**：行業標準的容器執行時，核心功能是管理宿主機上容器的生命週期（建立、啟動、停止、銷燬）。
 
 ## D
 
-* **Daemon (守护进程)**：Docker 的后台守护进程，负责接收和处理 Docker API 请求，并管理镜像、容器、网络和数据卷等对象。
-* **Docker**：开源的应用容器引擎，让开发者可以打包应用程序及其依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 或 Windows 机器上。
-* **Docker Desktop**：包含 Docker Engine、Docker CLI 客户端、Docker Compose 和 Kubernetes 等的桌面应用程序，适用于 macOS 和 Windows。
-* **Docker Hub**：Docker 官方的公共镜像仓库服务，提供容器镜像的存储和分发。
-* **Dockerfile**：包含用于组合镜像的命令的文本文件，Docker 通过读取 `Dockerfile` 中的指令即可自动完成镜像构建。
+* **Daemon (守護程序)**：Docker 的後台守護程序，負責接收和處理 Docker API 請求，並管理映象、容器、網路和數據卷等物件。
+* **Docker**：開源的應用容器引擎，讓開發者可以打包應用程式及其依賴套件到一個可移植的容器中，然後發布到任何流行的 Linux 或 Windows 機器上。
+* **Docker Desktop**：包含 Docker Engine、Docker CLI 用戶端、Docker Compose 和 Kubernetes 等的桌面應用程式，適用於 macOS 和 Windows。
+* **Docker Hub**：Docker 官方的公共映象倉庫服務，提供容器映象的儲存和分發。
+* **Dockerfile**：包含用於組合映象的指令的文字檔案，Docker 透過讀取 `Dockerfile` 中的指令即可自動完成映象建立。
 
 ## E
 
-* **Etcd**：一个高可用、强一致性的分布式键值存储系统，常用于容器集群（如 Kubernetes）的服务发现和状态配置管理。
+* **Etcd**：一個高可用、強一致性的分散式鍵值儲存系統，常用於容器叢集（如 Kubernetes）的服務發現和狀態設定管理。
 
 ## I
 
-* **Image (镜像)**：Docker 镜像是一个只读模板，带有创建 Docker 容器的说明。
+* **Image (映象)**：Docker 映象是一個只讀樣板，帶有建立 Docker 容器的說明。
 
 ## K
 
-* **Kubernetes (K8s)**：开源的容器编排引擎，用于自动化容器化应用程序的部署、扩展和管理。
+* **Kubernetes (K8s)**：開源的容器編排引擎，用於自動化容器化應用程式的部署、擴充套件和管理。
 
 ## L
 
-* **Layer (镜像层)**：Docker 镜像由多个只读层叠合而成，每一层通常代表 Dockerfile 中的一条指令的操作结果，通过联合文件系统（UFS）叠加在一起形成完整的文件系统。
+* **Layer (映象層)**：Docker 映象由多個只讀層疊合而成，每一層通常代表 Dockerfile 中的一條指令的操作結果，透過聯合檔案系統（UFS）疊加在一起形成完整的檔案系統。
 
 ## M
 
-* **Multistage Build (多阶段构建)**：Dockerfile 中的特性，允许在同一个 Dockerfile 中使用多个 `FROM` 语句，从一个阶段复制所需的构建产物到另一个阶段，从而大幅减小最终镜像的体积。
+* **Multistage Build (多階段建立)**：Dockerfile 中的屬性，允許在同一個 Dockerfile 中使用多個 `FROM` 語句，從一個階段複製所需的建立產物到另一個階段，從而大幅減小最終映象的體積。
 
 ## N
 
-* **Namespace (命名空间)**：Linux 内核特性，用于隔离各种系统资源，如进程、网络、挂载点等，使容器看起来就像是一个独立的操作系统。
-* **Node (节点)**：容器集群（如 Kubernetes）中的一台工作机器，可以是物理机或虚拟机。
+* **Namespace (命名空間)**：Linux 核心屬性，用於隔離各種系統資源，如程序、網路、掛載點等，使容器看起來就像是一個獨立的作業系統。
+* **Node (節點)**：容器叢集（如 Kubernetes）中的一台工作機器，可以是物理機或虛擬機。
 
 ## O
 
-* **OCI (Open Container Initiative)**：开放容器规范，由多家行业领头企业共同制定的容器运行时和镜像格式的行业标准。
-* **Orchestration (编排)**：自动化部署、管理、扩展和网络配置容器的系统和技术（如 Kubernetes）。
+* **OCI (Open Container Initiative)**：開放容器規範，由多家行業領頭企業共同制定的容器執行時和映象格式的行業標準。
+* **Orchestration (編排)**：自動化部署、管理、擴充套件和網路設定容器的系統和技術（如 Kubernetes）。
 
 ## P
 
-* **Pod**：Kubernetes 中最小的、可部署的计算单元，包含一个或多个紧密相关的容器，共享相同的网络命名空间和存储。
-* **Prometheus**：开源的系统监控和告警工具包，广泛应用于云原生的监控体系中。
+* **Pod**：Kubernetes 中最小的、可部署的計算單元，包含一個或多個緊密相關的容器，共享相同的網路命名空間和儲存。
+* **Prometheus**：開源的系統監控和告警工具包，廣泛應用於雲原生的監控體系中。
 
 ## R
 
-* **Registry (注册服务器)**：提供 Docker 镜像下载和上传等存储分发服务的服务器。
-* **Repository (仓库)**：集中存放某个应用的所有镜像的地方，通常由镜像名定义。一个 Registry 中可以包含多个 Repository。
+* **Registry (註冊伺服器)**：提供 Docker 映象下載和上傳等儲存分發服務的伺服器。
+* **Repository (倉庫)**：集中存放某個應用的所有映象的地方，通常由映象名定義。一個 Registry 中可以包含多個 Repository。
 
 ## S
 
-* **Swarm (Docker Swarm)**：Docker 原生的集群和编排管理工具，可将多个 Docker 主机组合成一个统一的虚拟 Docker 主机池。
+* **Swarm (Docker Swarm)**：Docker 原生的叢集和編排管理工具，可將多個 Docker 主機組合成一個統一的虛擬 Docker 主機池。
 
 ## U
 
-* **UFS (Union File System)**：联合文件系统，一种分层、轻量级并且高性能的文件系统，它支持对文件系统的修改一层层叠加。
+* **UFS (Union File System)**：聯合檔案系統，一種分層、輕量級並且高效能的檔案系統，它支援對檔案系統的修改一層層疊加。
 
 ## V
 
-* **Volume (数据卷)**：专为绕过联合文件系统而设计的特殊目录，用于实现容器数据的持久化，或在多个容器之间提供文件共享。
+* **Volume (資料卷)**：專為繞過聯合檔案系統而設計的特殊目錄，用於實現容器資料的持久化，或在多個容器之間提供檔案共享。
