@@ -1,30 +1,30 @@
-## 本章小结
+## 本章小結
 
-| 要点 | 说明 |
+| 要點 | 說明 |
 |------|------|
-| **作用** | 将宿主机目录挂载到容器 |
-| **语法** | `-v /宿主机:/容器` 或 `--mount type=bind,...` |
-| **只读** | 添加 `readonly` 或 `:ro` |
-| **适用场景** | 开发环境、配置文件、日志 |
-| **vs Volume** | Bind 更灵活，Volume 更适合生产 |
+| **作用** | 將宿主機目錄掛載到容器 |
+| **語法** | `-v /宿主機:/容器` 或 `--mount type=bind,...` |
+| **只讀** | 新增 `readonly` 或 `:ro` |
+| **適用場景** | 開發環境、設定檔案、日誌 |
+| **vs Volume** | Bind 更靈活，Volume 更適合生產 |
 
-### 8.4.1 延伸阅读
+### 8.4.1 延伸閱讀
 
-- [数据卷](8.1_volume.md)：Docker 管理的持久化存储
-- [tmpfs 挂载](8.3_tmpfs.md)：内存临时存储
-- [Compose 数据管理](../11_compose/11.5_compose_file.md)：Compose 中的挂载配置
+- [資料卷](8.1_volume.md)：Docker 管理的持久化儲存
+- [tmpfs 掛載](8.3_tmpfs.md)：記憶體臨時儲存
+- [Compose 資料管理](../11_compose/11.5_compose_file.md)：Compose 中的掛載設定
 
-| 操作 | 命令 |
+| 操作 | 指令 |
 |------|------|
-| 创建数据卷 | `docker volume create name` |
-| 列出数据卷 | `docker volume ls` |
-| 查看详情 | `docker volume inspect name` |
-| 删除数据卷 | `docker volume rm name` |
+| 建立資料卷 | `docker volume create name` |
+| 列出資料卷 | `docker volume ls` |
+| 檢視詳情 | `docker volume inspect name` |
+| 刪除資料卷 | `docker volume rm name` |
 | 清理未用 | `docker volume prune` |
-| 挂载数据卷 | `-v name:/path` 或 `--mount source=name,target=/path` |
+| 掛載資料卷 | `-v name:/path` 或 `--mount source=name,target=/path` |
 
-### 8.4.2 延伸阅读
+### 8.4.2 延伸閱讀
 
-- [绑定挂载](8.2_bind-mounts.md)：挂载宿主机目录
-- [tmpfs 挂载](8.3_tmpfs.md)：内存中的临时存储
-- [存储驱动](../12_implementation/12.4_ufs.md)：Docker 存储的底层原理
+- [繫結掛載](8.2_bind-mounts.md)：掛載宿主機目錄
+- [tmpfs 掛載](8.3_tmpfs.md)：記憶體中的臨時儲存
+- [儲存驅動](../12_implementation/12.4_ufs.md)：Docker 儲存的底層原理
