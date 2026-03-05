@@ -1,11 +1,11 @@
-# 第十七章 容器其它生态
+# 第十七章 容器其它生態
 
-本章将介绍 Docker 和 Kubernetes 之外的容器生态技术。
+本章將介紹 Docker 和 Kubernetes 之外的容器生態技術。
 
-- **Fedora CoreOS**：专为容器化工作负载设计的操作系统。
-- **Podman**：兼容 Docker CLI 的下一代无守护进程容器引擎。
-- **Buildah**：无需守护进程的 OCI 容器镜像构建工具。
-- **Skopeo**：远程检查和管理容器镜像的利器。
-- **containerd**：作为现代容器生态基石的核心容器运行时。
-- **安全容器运行时**：通过提供更强隔离性来保证安全的技术方案（如 Kata Containers、gVisor）。
-- **WebAssembly**：一种极具潜力的轻量级跨平台二进制指令格式。
+- **Fedora CoreOS**：專為容器化工作負載設計的作業系統。
+- **Podman**：相容 Docker CLI 的下一代無守護程序容器引擎。
+- **Buildah**：無需守護程序的 OCI 容器映象建立工具。
+- **Skopeo**：遠端檢查和管理容器映象的利器。
+- **containerd**：作為現代容器生態基石的核心容器執行時。
+- **安全容器執行時**：透過提供更強隔離性來保證安全的技術方案（如 Kata Containers、gVisor）。
+- **WebAssembly**：一種極具潛力的輕量級跨平臺二進位指令格式。
