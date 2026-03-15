@@ -1,10 +1,10 @@
-# 第十五章 Etcd 项目
+# 第十五章 Etcd 專案
 
-`etcd` 是 `CoreOS` 团队发起的一个管理配置信息和服务发现 (`Service Discovery`) 的项目，在这一章里面，我们将基于 `etcd 3.x` 版本介绍该项目的目标，安装和使用，以及实现的技术。
+`etcd` 是 `CoreOS` 團隊發起的一個管理設定訊息和服務發現 (`Service Discovery`) 的專案，在這一章裡面，我們將基於 `etcd 3.x` 版本介紹該專案的目標，安裝和使用，以及實現的技術。
 
-## 本章内容
+## 本章內容
 
-* [简介](15.1_intro.md)
-* [安装](15.2_install.md)
-* [集群](15.3_cluster.md)
+* [簡介](15.1_intro.md)
+* [安裝](15.2_install.md)
+* [叢集](15.3_cluster.md)
 * [使用 etcdctl](15.4_etcdctl.md)
