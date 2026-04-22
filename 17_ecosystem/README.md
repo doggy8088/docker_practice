@@ -1,29 +1,29 @@
-# 第十七章 容器其它生态
+# 第十七章 容器其它生態
 
-本章将介绍 Docker 和 Kubernetes 之外的容器生态技术。
+本章將介紹 Docker 和 Kubernetes 之外的容器生態技術。
 
-## 本章内容
+## 本章內容
 
-* [Fedora CoreOS 简介](17.1_coreos_intro.md)
-  * 专为容器化工作负载设计的操作系统。
+* [Fedora CoreOS 簡介](17.1_coreos_intro.md)
+  * 專為容器化工作負載設計的作業系統。
 
-* [Fedora CoreOS 安装与配置](17.2_coreos_install.md)
-  * CoreOS 的安装方式与基本配置。
+* [Fedora CoreOS 安裝與設定](17.2_coreos_install.md)
+  * CoreOS 的安裝方式與基本設定。
 
 * [Podman](17.3_podman.md)
-  * 兼容 Docker CLI 的下一代无守护进程容器引擎。
+  * 相容 Docker CLI 的下一代無守護程序容器引擎。
 
 * [Buildah](17.4_buildah.md)
-  * 无需守护进程的 OCI 容器镜像构建工具。
+  * 無需守護程序的 OCI 容器映象建立工具。
 
 * [Skopeo](17.5_skopeo.md)
-  * 远程检查和管理容器镜像的利器。
+  * 遠端檢查和管理容器映象的利器。
 
 * [containerd](17.6_containerd.md)
-  * 作为现代容器生态基石的核心容器运行时。
+  * 作為現代容器生態基石的核心容器執行時。
 
-* [安全容器运行时](17.7_secure_runtime.md)
-  * 通过提供更强隔离性来保证安全的技术方案（如 Kata Containers、gVisor）。
+* [安全容器執行時](17.7_secure_runtime.md)
+  * 透過提供更強隔離性來保證安全的技術方案（如 Kata Containers、gVisor）。
 
 * [WebAssembly](17.8_wasm.md)
-  * 一种极具潜力的轻量级跨平台二进制指令格式。
+  * 一種極具潛力的輕量級跨平臺二進位指令格式。
