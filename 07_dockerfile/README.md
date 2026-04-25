@@ -1,77 +1,77 @@
-# 第七章 Dockerfile 指令详解
+# 第七章 Dockerfile 指令詳解
 
-## 什么是 Dockerfile
+## 什麼是 Dockerfile
 
-Dockerfile 是一个文本文件，其内包含了一条条的 **指令 (Instruction)**，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。
+Dockerfile 是一個文字檔案，其內包含了一條條的 **指令 (Instruction)**，每一條指令建立一層，因此每一條指令的內容，就是描述該層應當如何建立。
 
-在[第四章](../04_image/README.md)中，我们通过 `docker commit` 学习了镜像的构成。但是，手动 `commit` 只能作为临时修补，并不适合作为生产环境镜像的构建方式。
+在[第四章](../04_image/README.md)中，我們透過 `docker commit` 學習了映象的構成。但是，手動 `commit` 只能作為臨時修補，並不適合作為生產環境映象的建立方式。
 
-使用 Dockerfile 构建镜像有以下优势：
+使用 Dockerfile 建立映象有以下優勢：
 
-*   **自动化**：可以通过 `docker build` 命令自动构建镜像。
-*   **可重复性**：由于 Dockerfile 是文本文件，可以确保每次构建的结果一致。
-*   **版本控制**：Dockerfile 可以纳入版本控制系统 (如 Git)，便于追踪变更。
-*   **透明性**：任何人都可以通过阅读 Dockerfile 了解镜像的构建过程。
+*   **自動化**：可以透過 `docker build` 指令自動建立映象。
+*   **可重複性**：由於 Dockerfile 是文字檔案，可以確保每次建立的結果一致。
+*   **版本控制**：Dockerfile 可以納入版本控制系統 (如 Git)，便於追蹤變更。
+*   **透明性**：任何人都可以透過閱讀 Dockerfile 瞭解映象的建立過程。
 
-## Dockerfile 编写哲学
+## Dockerfile 編寫哲學
 
-在深入每个指令的细节之前，笔者想强调一个至关重要的原则：**Dockerfile 不是脚本，而是镜像的“设计图”**。这个区别决定了你如何思考每条指令的作用。
+在深入每個指令的細節之前，筆者想強調一個至關重要的原則：**Dockerfile 不是指令碼，而是映象的『設計圖』**。這個區別決定了你如何思考每條指令的作用。
 
-相比编写 Bash 脚本的思维（“按顺序执行这些命令”），Dockerfile 的思维应该是（“这一层镜像应该如何构建，下一层如何分层”）。这个思维转变会影响你的决策：
+相比編寫 Bash 指令碼的思維（『按順序執行這些指令』），Dockerfile 的思維應該是（『這一層映象應該如何建立，下一層如何分層』）。這個思維轉變會影響你的決策：
 
-- **合并命令**：一个 `RUN apt-get update && apt-get install ...` 应该写在一起，而不是分开成多个 `RUN` 指令，因为它们是同一个“层”的逻辑
-- **选择合适的指令**：`COPY` vs `ADD`、`CMD` vs `ENTRYPOINT` 这些选择不是随意的，而是根据镜像分层的语义来决定的
-- **优化镜像大小**：最后才清理缓存、删除临时文件，让这些“瘦身”操作在同一层完成
+- **合併指令**：一個 `RUN apt-get update && apt-get install ...` 應該寫在一起，而不是分開成多個 `RUN` 指令，因為它們是同一個『層』的邏輯
+- **選擇合適的指令**：`COPY` vs `ADD`、`CMD` vs `ENTRYPOINT` 這些選擇不是隨意的，而是根據映象分層的語義來決定的
+- **最佳化映象大小**：最後才清理快取、刪除臨時檔案，讓這些『瘦身』操作在同一層完成
 
-这个章节将详细介绍各个指令。在学习指令语法时，请始终思考：“这个指令为什么要以这样的方式工作？如果我是 Docker，我应该如何设计它？”
+這個章節將詳細介紹各個指令。在學習指令語法時，請始終思考：『這個指令為什麼要以這樣的方式工作？如果我是 Docker，我應該如何設計它？』
 
-## Dockerfile 基本结构
+## Dockerfile 基本結構
 
-Dockerfile 一般分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。
+Dockerfile 一般分為四部分：基礎映象訊息、維護者訊息、映象操作指令和容器啟動時執行指令。
 
-### 指令详解
+### 指令詳解
 
-本章将详细讲解 Dockerfile 中的各个指令：
+本章將詳細講解 Dockerfile 中的各個指令：
 
-*   [RUN 执行命令](7.1_run.md)
-*   [COPY 复制文件](7.2_copy.md)
-*   [ADD 更高级的复制文件](7.3_add.md)
-*   [CMD 容器启动命令](7.4_cmd.md)
-*   [ENTRYPOINT 入口点](7.5_entrypoint.md)
-*   [ENV 设置环境变量](7.6_env.md)
-*   [ARG 构建参数](7.7_arg.md)
-*   [VOLUME 定义匿名卷](7.8_volume.md)
-*   [EXPOSE 暴露端口](7.9_expose.md)
-*   [WORKDIR 指定工作目录](7.10_workdir.md)
-*   [USER 指定当前用户](7.11_user.md)
-*   [HEALTHCHECK 健康检查](7.12_healthcheck.md)
-*   [ONBUILD 为他人作嫁衣裳](7.13_onbuild.md)
-*   [LABEL 为镜像添加元数据](7.14_label.md)
+*   [RUN 執行指令](7.1_run.md)
+*   [COPY 複製檔案](7.2_copy.md)
+*   [ADD 更高階的複製檔案](7.3_add.md)
+*   [CMD 容器啟動指令](7.4_cmd.md)
+*   [ENTRYPOINT 入口點](7.5_entrypoint.md)
+*   [ENV 設定環境變數](7.6_env.md)
+*   [ARG 建立引數](7.7_arg.md)
+*   [VOLUME 定義匿名卷](7.8_volume.md)
+*   [EXPOSE 暴露連接埠](7.9_expose.md)
+*   [WORKDIR 指定工作目錄](7.10_workdir.md)
+*   [USER 指定當前使用者](7.11_user.md)
+*   [HEALTHCHECK 健康檢查](7.12_healthcheck.md)
+*   [ONBUILD 為他人作嫁衣裳](7.13_onbuild.md)
+*   [LABEL 為映象新增元資料](7.14_label.md)
 *   [SHELL 指令](7.15_shell.md)
 
-### 高级特性
+### 高階屬性
 
-本章还将介绍 Dockerfile 的高级特性：
+本章還將介紹 Dockerfile 的高階屬性：
 
-*   [多阶段构建](7.17_multistage_builds.md)
-*   [多阶段构建实战：Laravel 应用](7.18_multistage_builds_laravel.md)
+*   [多階段建立](7.17_multistage_builds.md)
+*   [多階段建立實戰：Laravel 應用](7.18_multistage_builds_laravel.md)
 
-### 参考与最佳实践
+### 參考與最佳實踐
 
-此外，我们还将介绍 Dockerfile 的最佳实践和常见问题。
+此外，我們還將介紹 Dockerfile 的最佳實踐和常見問題。
 
-*   [参考文档](7.16_references.md)
+*   [參考文件](7.16_references.md)
 
-## 使用 Dockerfile 构建镜像
+## 使用 Dockerfile 建立映象
 
-构建镜像的基本命令格式为：
+建立映象的基本指令格式為：
 
 ```bash
-docker build [选项] <上下文路径/URL/->
+docker build [選項] <上下文路徑/URL/->
 ```
-例如，在 Dockerfile 所在目录执行：
+例如，在 Dockerfile 所在目錄執行：
 
 ```bash
 docker build -t my-image:v1 .
 ```
-更多关于 `docker build` 的用法，我们在实战中会结合具体指令进行演示。
+更多關於 `docker build` 的用法，我們在實戰中會結合具體指令進行示範。
