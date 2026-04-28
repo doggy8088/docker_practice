@@ -47,7 +47,7 @@ RUN set -x ; cd ${LARAVEL_PATH} \
       && chmod -R 777 storage \
       && php artisan package:discover
 
-FROM nginx:1.30-alpine as nginx
+FROM nginx:1.28-alpine as nginx
 
 ARG LARAVEL_PATH=/app/laravel
 
