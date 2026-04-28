@@ -1,490 +1,490 @@
-## 附录八：Docker 学习路线图与知识体系
+## 附錄八：Docker 學習路線圖與知識體系
 
-本附录为学习者提供清晰的学习路线、知识点依赖关系、认证指南和常见面试题，帮助快速成长为 Docker 和 DevOps 专家。
+本附錄為學習者提供清晰的學習路線、知識點依賴關係、認證指南和常見面試題，幫助快速成長為 Docker 和 DevOps 專家。
 
-### 学习阶段划分
+### 學習階段劃分
 
-Docker 学习可分为四个递进阶段，每个阶段都有明确的学习目标和时间投入。
+Docker 學習可分為四個遞進階段，每個階段都有明確的學習目標和時間投入。
 
-#### 第一阶段：基础入门（0-2 周）
+#### 第一階段：基礎入門（0-2 周）
 
-**学习目标：**
+**學習目標：**
 
 - 理解容器化的基本概念
-- 能够运行、管理基本的容器
-- 了解镜像和仓库的基本操作
+- 能夠執行、管理基本的容器
+- 瞭解映象和倉庫的基本操作
 
-**核心内容：**
+**核心內容：**
 ```text
-Docker 简介
-├── 为什么需要 Docker
-├── 容器 vs 虚拟机 vs 云计算
+Docker 簡介
+├── 為什麼需要 Docker
+├── 容器 vs 虛擬機 vs 雲端運算
 └── Docker 的三大核心概念
-    ├── 镜像（Image）
+    ├── 映象（Image）
     ├── 容器（Container）
-    └── 仓库（Repository）
+    └── 倉庫（Repository）
 
-基础命令
+基礎指令
 ├── docker run / create / start / stop / rm
 ├── docker ps / logs / exec / inspect
 ├── docker pull / push / tag
 └── docker build -t
 
-Docker 安装配置
-├── Linux 平台安装
-├── macOS 和 Windows 安装
-├── 镜像加速器配置
-└── 权限和用户配置
+Docker 安裝設定
+├── Linux 平台安裝
+├── macOS 和 Windows 安裝
+├── 映象加速器設定
+└── 許可權和使用者設定
 ```
-**学习资源：**
+**學習資源：**
 
 - [官方教程](https://docs.docker.com/get-started/)
-- 本书第 1-3 章：入门篇基础概念
-- [Docker CLI 参考](https://docs.docker.com/engine/reference/commandline/)
+- 本書第 1-3 章：入門篇基礎概念
+- [Docker CLI 參考](https://docs.docker.com/engine/reference/commandline/)
 
-**时间投入：**
+**時間投入：**
 
-- 理论学习：3-4 小时
-- 实操练习：8-10 小时
-- 总计：2 周
+- 理論學習：3-4 小時
+- 實操練習：8-10 小時
+- 總計：2 周
 
-**验证学习成果：**
+**驗證學習成果：**
 ```bash
-# 完成以下任务说明基础入门完成
-1. 运行官方 nginx 镜像，访问 http://localhost
-2. 使用 docker exec 进入容器修改首页
-3. 提交修改为新镜像
-4. 推送镜像到 Docker Hub（需创建账户）
+# 完成以下任務說明基礎入門完成
+1. 執行官方 nginx 映象，訪問 http://localhost
+2. 使用 docker exec 進入容器修改首頁
+3. 送出修改為新映象
+4. 推送映象到 Docker Hub（需建立賬戶）
 ```
 
-#### 第二阶段：核心开发（2-6 周）
+#### 第二階段：核心開發（2-6 周）
 
-**学习目标：**
+**學習目標：**
 
-- 掌握 Dockerfile 编写
-- 能够构建自己的应用镜像
-- 理解数据管理和网络配置
-- 熟悉 Docker Compose 编排
+- 掌握 Dockerfile 編寫
+- 能夠建立自己的應用映象
+- 理解資料管理和網路設定
+- 熟悉 Docker Compose 編排
 
-**核心内容：**
+**核心內容：**
 ```text
-Dockerfile 指令详解
+Dockerfile 指令詳解
 ├── FROM / RUN / COPY / ADD
 ├── WORKDIR / ENV / ARG
 ├── EXPOSE / CMD / ENTRYPOINT
 ├── VOLUME / USER / HEALTHCHECK
-└── 最佳实践和性能优化
-    ├── 分层缓存机制
-    ├── 减少镜像体积
-    ├── 多阶段构建
-    └── 安全最佳实践
+└── 最佳實踐和效能最佳化
+    ├── 分層快取機制
+    ├── 減少映象體積
+    ├── 多階段建立
+    └── 安全最佳實踐
 
-容器数据管理
-├── 数据卷（Volume）
+容器資料管理
+├── 資料卷（Volume）
 │   ├── 命名卷
 │   ├── 匿名卷
-│   └── 卷挂载最佳实践
-├── 绑定挂载（Bind Mount）
-│   ├── 宿主机路径映射
-│   └── 权限和隔离
-└── tmpfs 挂载
-    └── 临时文件系统
+│   └── 卷掛載最佳實踐
+├── 繫結掛載（Bind Mount）
+│   ├── 宿主機路徑對映
+│   └── 許可權和隔離
+└── tmpfs 掛載
+    └── 臨時檔案系統
 
-容器网络
-├── 网络类型
-│   ├── bridge（默认）
+容器網路
+├── 網路型別
+│   ├── bridge（預設）
 │   ├── host
 │   ├── overlay
 │   └── macvlan
-├── 端口映射
-├── 容器互联
-├── DNS 配置
-└── 自定义网络
+├── 連接埠對映
+├── 容器互聯
+├── DNS 設定
+└── 自定義網路
 
 Docker Compose
-├── compose.yml/docker-compose.yml 编写
-├── services 定义
-├── volumes 配置
-├── networks 配置
-├── 依赖关系
-├── 环境变量
-└── 命令操作
+├── compose.yml/docker-compose.yml 編寫
+├── services 定義
+├── volumes 設定
+├── networks 設定
+├── 依賴關係
+├── 環境變數
+└── 指令操作
     ├── up / down / ps / logs
     ├── exec / run
     └── build / push
 ```
-**学习资源：**
+**學習資源：**
 
-- 本书第 4-11 章：进阶篇
-- [Docker 官方最佳实践](https://docs.docker.com/develop/dev-best-practices/)
-- [Dockerfile 参考](https://docs.docker.com/engine/reference/builder/)
+- 本書第 4-11 章：進階篇
+- [Docker 官方最佳實踐](https://docs.docker.com/develop/dev-best-practices/)
+- [Dockerfile 參考](https://docs.docker.com/engine/reference/builder/)
 
-**时间投入：**
+**時間投入：**
 
-- 理论学习：8-10 小时
-- 实操练习：30-40 小时（多个实战项目）
-- 总计：4-6 周
+- 理論學習：8-10 小時
+- 實操練習：30-40 小時（多個實戰專案）
+- 總計：4-6 周
 
-**项目实战：**
+**專案實戰：**
 ```text
-项目 1: Python Web 应用（Flask/Django）
-- 编写多阶段 Dockerfile
-- 使用 Compose 配置数据库
-- 实现热重载开发环境
+專案 1: Python Web 應用（Flask/Django）
+- 編寫多階段 Dockerfile
+- 使用 Compose 設定資料庫
+- 實現熱過載開發環境
 
-项目 2: Node.js 微服务
-- 优化镜像大小
-- 配置 Compose 多个服务
-- 设置网络和环保境变量
+專案 2: Node.js 微服務
+- 最佳化映象大小
+- 設定 Compose 多個服務
+- 設定網路和環保境變數
 
-项目 3: 数据库容器化
-- PostgreSQL/MySQL 配置
-- 数据持久化
-- 备份恢复策略
+專案 3: 資料庫容器化
+- PostgreSQL/MySQL 設定
+- 資料持久化
+- 備份恢復策略
 ```
 
-#### 第三阶段：生产优化（6-12 周）
+#### 第三階段：生產最佳化（6-12 周）
 
-**学习目标：**
+**學習目標：**
 
-- 掌握容器安全最佳实践
-- 理解性能监控和优化
-- 学会容器编排（Kubernetes 基础）
-- 熟悉 CI/CD 集成
+- 掌握容器安全最佳實踐
+- 理解性能監控和最佳化
+- 學會容器編排（Kubernetes 基礎）
+- 熟悉 CI/CD 整合
 
-**核心内容：**
+**核心內容：**
 ```text
 容器安全
-├── 镜像安全
-│   ├── 漏洞扫描（Trivy/Grype/Snyk）
-│   ├── 镜像签名和验证（Cosign）
+├── 映象安全
+│   ├── 漏洞掃描（Trivy/Grype/Snyk）
+│   ├── 映象簽名和驗證（Cosign）
 │   ├── SBOM 生成和管理
-│   └── 供应链安全
-├── 运行时安全
-│   ├── 用户和权限
-│   ├── Linux 能力机制
+│   └── 供應鏈安全
+├── 執行時安全
+│   ├── 使用者和許可權
+│   ├── Linux 能力機制
 │   ├── AppArmor 和 SELinux
 │   ├── Rootless 容器
-│   └── 安全的 Docker socket 访问
-└── 宿主机安全
-    ├── API 访问控制
-    ├── TLS 认证
-    └── 审计日志
+│   └── 安全的 Docker socket 訪問
+└── 宿主機安全
+    ├── API 訪問控制
+    ├── TLS 認證
+    └── 審計日誌
 
-性能监控和优化
-├── 监控指标体系
-│   ├── CPU / 内存 / 网络 / I/O
-│   └── 应用级指标
-├── 监控工具
+效能監控和最佳化
+├── 監控指標體系
+│   ├── CPU / 記憶體 / 網路 / I/O
+│   └── 應用級指標
+├── 監控工具
 │   ├── docker stats
 │   ├── cAdvisor
 │   ├── Prometheus
 │   └── Grafana
-├── 性能优化
-│   ├── 镜像大小优化
-│   ├── 内存和 CPU 限制
-│   ├── OOM 诊断和处理
-│   └── 网络性能优化
-└── 日志管理
-    ├── 日志驱动配置
+├── 效能最佳化
+│   ├── 映象大小最佳化
+│   ├── 記憶體和 CPU 限制
+│   ├── OOM 診斷和處理
+│   └── 網路效能最佳化
+└── 日誌管理
+    ├── 日誌驅動設定
     ├── ELK Stack
-    └── 日志聚合
+    └── 日誌聚合
 
-容器编排基础
+容器編排基礎
 ├── Kubernetes 核心概念
 │   ├── Pod / Deployment / Service
 │   ├── ConfigMap / Secret
-│   └── 健康检查和自动恢复
-├── 容器执行环境
+│   └── 健康檢查和自動恢復
+├── 容器執行環境
 │   ├── containerd
 │   ├── CRI-O
 │   └── Docker
-├── 网络插件
-│   ├── CNI 标准
+├── 網路外掛
+│   ├── CNI 標準
 │   ├── Calico / Flannel / Cilium
-│   └── 网络策略
-└── 存储和有状态应用
+│   └── 網路策略
+└── 儲存和有狀態應用
     ├── PV / PVC
     ├── StorageClass
     └── StatefulSet
 
-CI/CD 集成
+CI/CD 整合
 ├── GitHub Actions
-│   ├── 镜像构建和推送
-│   ├── 安全扫描
-│   └── 自动化测试
+│   ├── 映象建立和推送
+│   ├── 安全掃描
+│   └── 自動化測試
 ├── GitLab CI
-├── Jenkins Docker 集成
+├── Jenkins Docker 整合
 └── Drone
 
-生态工具
-├── Buildx（多架构构建）
-├── Skopeo（镜像管理）
+生態工具
+├── Buildx（多架構建立）
+├── Skopeo（映象管理）
 ├── Podman（替代方案）
-├── Buildah（镜像构建）
+├── Buildah（映象建立）
 └── Kollabot
 ```
-**学习资源：**
+**學習資源：**
 
-- 本书第 12-21 章：深入篇和实战篇
-- [Kubernetes 官方文档](https://kubernetes.io/docs/)
-- [CNCF 学习路线](https://landscape.cncf.io/)
+- 本書第 12-21 章：深入篇和實戰篇
+- [Kubernetes 官方文件](https://kubernetes.io/docs/)
+- [CNCF 學習路線](https://landscape.cncf.io/)
 
-**时间投入：**
+**時間投入：**
 
-- 理论学习：15-20 小时
-- 实操练习：60-80 小时（多个生产级项目）
-- 总计：6-12 周
+- 理論學習：15-20 小時
+- 實操練習：60-80 小時（多個生產級專案）
+- 總計：6-12 周
 
-**项目实战：**
+**專案實戰：**
 ```text
-项目 1: 安全镜像构建流程
-- 集成 Trivy 扫描
-- 镜像签名和验证
-- 生成 SBOM 文档
+專案 1: 安全映象建立流程
+- 整合 Trivy 掃描
+- 映象簽名和驗證
+- 生成 SBOM 文件
 
-项目 2: 完整监控栈
+專案 2: 完整監控棧
 - 搭建 Prometheus + Grafana
-- 配置告警规则
-- 性能数据采集和分析
+- 設定告警規則
+- 效能資料採集和分析
 
-项目 3: CI/CD 流程
-- GitHub Actions 或 GitLab CI 配置
-- 自动化镜像构建
-- 安全扫描和合规检查
-- 自动化部署到 Kubernetes
+專案 3: CI/CD 流程
+- GitHub Actions 或 GitLab CI 設定
+- 自動化映象建立
+- 安全掃描和合規檢查
+- 自動化部署到 Kubernetes
 
-项目 4: Kubernetes 集群部署
-- 本地 K3s/Kind 集群
-- 部署有状态应用
-- 配置持久化存储
+專案 4: Kubernetes 叢集部署
+- 本地 K3s/Kind 叢集
+- 部署有狀態應用
+- 設定持久化儲存
 ```
 
-#### 第四阶段：专家深造（12+ 周）
+#### 第四階段：專家深造（12+ 周）
 
-**学习目标：**
+**學習目標：**
 
-- 掌握 Kubernetes 高级特性
-- 理解容器运行时底层实现
-- 能够设计和优化大规模容器平台
-- 贡献开源社区
+- 掌握 Kubernetes 高階屬性
+- 理解容器執行時底層實現
+- 能夠設計和最佳化大規模容器平台
+- 貢獻開源社群
 
-**核心内容：**
+**核心內容：**
 ```text
-Kubernetes 高级特性
-├── 集群管理
-│   ├── 节点管理和驱逐
-│   ├── 集群自动扩缩容
-│   └── 节点亲和性和污点容忍
-├── 存储编排
-│   ├── 动态存储配置
-│   ├── 有状态应用管理（StatefulSet）
-│   └── 备份和灾难恢复
-├── 服务网格（Service Mesh）
+Kubernetes 高階屬性
+├── 叢集管理
+│   ├── 節點管理和驅逐
+│   ├── 叢集自動擴縮容
+│   └── 節點親和性和汙點容忍
+├── 儲存編排
+│   ├── 動態儲存設定
+│   ├── 有狀態應用管理（StatefulSet）
+│   └── 備份和災難恢復
+├── 服務網格（Service Mesh）
 │   ├── Istio / Linkerd / Cilium
 │   ├── 流量管理
-│   └── 可观测性增强
-├── 安全和多租户
-│   ├── RBAC（角色访问控制）
+│   └── 可觀測性增強
+├── 安全和多租戶
+│   ├── RBAC（角色訪問控制）
 │   ├── Network Policy 深入
 │   ├── Pod Security Policy
 │   └── 准入控制器（Admission Controller）
-└── 性能和扩展性
-    ├── 大规模集群优化
-    ├── 自定义 Operator
-    └── 集群联邦
+└── 效能和擴充套件性
+    ├── 大規模叢集最佳化
+    ├── 自定義 Operator
+    └── 叢集聯邦
 
-容器运行时底层
-├── Linux 内核机制
-│   ├── Namespace 详解
+容器執行時底層
+├── Linux 核心機制
+│   ├── Namespace 詳解
 │   ├── Cgroup v1 和 v2
 │   ├── OverlayFS 和 UnionFS
 │   └── SELinux 和 AppArmor
-├── 容器运行时
-│   ├── containerd 源码阅读
-│   ├── runc 实现
+├── 容器執行時
+│   ├── containerd 原始碼閱讀
+│   ├── runc 實現
 │   ├── gVisor 和 Kata
 │   └── Firecracker
-└── OCI 标准
+└── OCI 標準
     ├── Image Spec
     └── Runtime Spec
 
 DevOps 工程化
-├── 大规模集群管理
+├── 大規模叢集管理
 │   ├── Helm / Kustomize
 │   ├── GitOps（Flux / ArgoCD）
-│   └── 配置管理
-├── 灾难恢复和高可用
-│   ├── 多集群部署
-│   ├── 故障转移
-│   └── 备份策略
-├── 成本优化
-│   ├── 资源申请和限制
-│   ├── 自动扩缩容
-│   └── 成本监控
-└── 团队协作
+│   └── 設定管理
+├── 災難恢復和高可用
+│   ├── 多叢集部署
+│   ├── 故障轉移
+│   └── 備份策略
+├── 成本最佳化
+│   ├── 資源申請和限制
+│   ├── 自動擴縮容
+│   └── 成本監控
+└── 團隊協作
     ├── GitFlow 工作流
-    ├── 代码审查
-    └── 文档和最佳实践传播
+    ├── 程式碼審查
+    └── 文件和最佳實踐傳播
 ```
-**贡献机会：**
+**貢獻機會：**
 
 - [Kubernetes](https://github.com/kubernetes/kubernetes)
 - [Cilium](https://github.com/cilium/cilium)
 - [Prometheus](https://github.com/prometheus/prometheus)
 - [Docker/Moby](https://github.com/moby/moby)
 
-### 知识点依赖关系
+### 知識點依賴關係
 
 ```text
-基础概念 (Week 0-2)
-├── 容器 vs 虚拟机
+基礎概念 (Week 0-2)
+├── 容器 vs 虛擬機
 ├── Docker 三大概念
-└── 基础命令
+└── 基礎指令
     ↓
-Dockerfile 和镜像构建 (Week 2-4)
+Dockerfile 和映象建立 (Week 2-4)
 ├── Dockerfile 指令
-├── 多阶段构建
-└── 镜像优化
+├── 多階段建立
+└── 映象最佳化
     ↓ ↓ ↓
-数据管理 ← 网络配置 ← Docker Compose (Week 4-6)
-├── Volume    ├── Bridge    ├── YAML 编写
-├── Bind Mount├── Overlay   ├── 多容器编排
-└── tmpfs     └── 自定义网络└── 开发工作流
+資料管理 ← 網路設定 ← Docker Compose (Week 4-6)
+├── Volume    ├── Bridge    ├── YAML 編寫
+├── Bind Mount├── Overlay   ├── 多容器編排
+└── tmpfs     └── 自定義網路└── 開發工作流
     ↓            ↓            ↓
     └─────────────────────────┘
-          实战项目开发 (Week 6-10)
-          ├── Web 应用容器化
-          ├── 数据库容器化
-          ├── 微服务架构
-          └── 本地开发环境
+          實戰專案開發 (Week 6-10)
+          ├── Web 應用容器化
+          ├── 資料庫容器化
+          ├── 微服務架構
+          └── 本地開發環境
               ↓
-容器安全 ← 性能优化 ← 监控和日志 (Week 10-14)
-├── 镜像扫描  ├── 大小优化  ├── Prometheus
-├── 漏洞管理  ├── 内存优化  ├── Grafana
-├── 镜像签名  ├── CPU 优化  └── ELK Stack
-└── SBOM    └── 诊断工具
+容器安全 ← 效能最佳化 ← 監控和日誌 (Week 10-14)
+├── 映象掃描  ├── 大小最佳化  ├── Prometheus
+├── 漏洞管理  ├── 記憶體最佳化  ├── Grafana
+├── 映象簽名  ├── CPU 最佳化  └── ELK Stack
+└── SBOM    └── 診斷工具
     ↓          ↓          ↓
     └─────────────────────┘
-          安全生产环境 (Week 14-18)
+          安全生產環境 (Week 14-18)
           ├── CI/CD 流程
-          ├── 镜像仓库
-          ├── 日志集中
-          └── 告警系统
+          ├── 映象倉庫
+          ├── 日誌集中
+          └── 告警系統
               ↓
-Kubernetes 基础 (Week 18-24)
+Kubernetes 基礎 (Week 18-24)
 ├── Pod / Service / Deployment
-├── 资源管理
-├── 存储管理
-└── 网络策略
+├── 資源管理
+├── 儲存管理
+└── 網路策略
     ↓
-Kubernetes 进阶 (Week 24-36)
+Kubernetes 進階 (Week 24-36)
 ├── StatefulSet / DaemonSet
-├── Operator 开发
-├── 集群管理
-└── 服务网格
+├── Operator 開發
+├── 叢集管理
+└── 服務網格
     ↓
-企业级平台设计 (Week 36+)
-├── 多集群管理
+企業級平台設計 (Week 36+)
+├── 多叢集管理
 ├── GitOps 工作流
-├── 成本优化
-└── 开源贡献
+├── 成本最佳化
+└── 開源貢獻
 ```
 
-### 推荐学习资源
+### 推薦學習資源
 
-#### 官方文档
+#### 官方文件
 
-| 资源 | URL | 推荐程度 |
+| 資源 | URL | 推薦程度 |
 |------|-----|--------|
-| Docker 官方文档 | [docs.docker.com](https://docs.docker.com) | ⭐⭐⭐⭐⭐ |
+| Docker 官方文件 | [docs.docker.com](https://docs.docker.com) | ⭐⭐⭐⭐⭐ |
 | Docker Hub | [hub.docker.com](https://hub.docker.com) | ⭐⭐⭐⭐⭐ |
 | Kubernetes 官方 | [kubernetes.io/docs](https://kubernetes.io/docs) | ⭐⭐⭐⭐⭐ |
-| CNCF 景观 | [landscape.cncf.io](https://landscape.cncf.io) | ⭐⭐⭐⭐ |
+| CNCF 景觀 | [landscape.cncf.io](https://landscape.cncf.io) | ⭐⭐⭐⭐ |
 
-#### 在线课程
+#### 線上課程
 
-- **Udemy**：Docker 和 Kubernetes 完整课程（70-100 小时）
+- **Udemy**：Docker 和 Kubernetes 完整課程（70-100 小時）
 - **Linux Academy**：Linux 和容器管理
-- **A Cloud Guru**：AWS/Azure 容器服务
-- **Pluralsight**：Docker 和容器生态系统
+- **A Cloud Guru**：AWS/Azure 容器服務
+- **Pluralsight**：Docker 和容器生態系統
 
-#### 书籍推荐
+#### 書籍推薦
 
-- 《Docker 深入浅出》- 本书的原版
-- 《Kubernetes 权威指南》- 深入 Kubernetes 的必读书
-- 《容器技术核心技术与应用》- 理解底层实现
-- 《SRE Google 运维之道》- 生产环境最佳实践
+- 《Docker 深入淺出》- 本書的原版
+- 《Kubernetes 權威指南》- 深入 Kubernetes 的必讀書
+- 《容器技術核心技術與應用》- 理解底層實現
+- 《SRE Google 運維之道》- 生產環境最佳實踐
 
-#### 博客和社区
+#### 部落格和社群
 
-- [Docker 官方博客](https://www.docker.com/blog/)
-- [Kubernetes 官方博客](https://kubernetes.io/blog/)
-- [CNCF 博客](https://www.cncf.io/blog/)
+- [Docker 官方部落格](https://www.docker.com/blog/)
+- [Kubernetes 官方部落格](https://kubernetes.io/blog/)
+- [CNCF 部落格](https://www.cncf.io/blog/)
 - [DZone](https://dzone.com/containers-cloud)
 
-### 认证指南
+### 認證指南
 
-#### Docker 认证
+#### Docker 認證
 
 **Docker Certified Associate (DCA)**
 
-考试信息：
+考試訊息：
 
-- 题目数：55 道
-- 时间限制：90 分钟
-- 及格分数：73%（约 41 道题）
-- 费用：$165 USD
+- 題目數：55 道
+- 時間限制：90 分鐘
+- 及格分數：73%（約 41 道題）
+- 費用：$165 USD
 - 有效期：3 年
 
-考试内容比例：
+考試內容比例：
 ```text
-镜像和仓库（20%）
-- 镜像构建和管理
-- 镜像层和缓存
-- 私有仓库配置
+映象和倉庫（20%）
+- 映象建立和管理
+- 映象層和緩存
+- 私有倉庫設定
 
-容器运行（15%）
-- 容器生命周期
-- 资源限制
-- 容器隔离
+容器執行（15%）
+- 容器生命週期
+- 資源限制
+- 容器隔離
 
-网络（15%）
-- 网络驱动
-- 容器通信
-- 端口映射
+網路（15%）
+- 網路驅動
+- 容器通訊
+- 連接埠對映
 
-存储（10%）
+儲存（10%）
 - Volume 管理
-- 数据持久化
-- 绑定挂载
+- 資料持久化
+- 繫結掛載
 
-编排（20%）
+編排（20%）
 - Docker Compose
-- Docker Swarm 基础
+- Docker Swarm 基礎
 
 安全（15%）
-- 用户和权限
-- 密钥管理
-- 镜像安全
-- 守护进程安全
+- 使用者和許可權
+- 金鑰管理
+- 映象安全
+- 守護程序安全
 
-和日志（5%）
+和日誌（5%）
 - Logging drivers
-- 事件处理
+- 事件處理
 ```
-准备建议：
+準備建議：
 ```bash
-# 1. 学习本书第 1-11 章（基础到中级）
-# 2. 完成 20+ 个实战项目
-# 3. 参考官方学习指南
+# 1. 學習本書第 1-11 章（基礎到中級）
+# 2. 完成 20+ 個實戰專案
+# 3. 參考官方學習指南
 curl https://docker.training.kodekloud.com/dca-guide
 
-# 4. 模拟考试
-- Linux Academy DCA 练习题
-- Whizlabs DCA 模拟考试
+# 4. 模擬考試
+- Linux Academy DCA 練習題
+- Whizlabs DCA 模擬考試
 
-# 5. 重点掌握的命令
+# 5. 重點掌握的指令
 docker build / push / pull / tag
 docker run / exec / logs / inspect / ps
 docker volume / network / service
@@ -492,384 +492,384 @@ docker compose up / down / logs / ps
 docker stats / events / inspect
 ```
 
-#### Kubernetes 认证
+#### Kubernetes 認證
 
-**认证路径：**
+**認證路徑：**
 
 1. **CKA - Certified Kubernetes Administrator**
-   - 难度：高
-   - 时间：3 小时（实操）
-   - 费用：$395
-   - 内容：集群安装、管理、故障排查
+   - 難度：高
+   - 時間：3 小時（實操）
+   - 費用：$395
+   - 內容：叢集安裝、管理、故障排查
 
 2. **CKAD - Certified Kubernetes Application Developer**
-   - 难度：中
-   - 时间：2 小时（实操）
-   - 费用：$395
-   - 内容：应用开发和部署
+   - 難度：中
+   - 時間：2 小時（實操）
+   - 費用：$395
+   - 內容：應用開發和部署
 
 3. **CKS - Certified Kubernetes Security Specialist**
-   - 难度：很高
-   - 时间：2 小时（实操）
-   - 费用：$395
-   - 内容：安全最佳实践
+   - 難度：很高
+   - 時間：2 小時（實操）
+   - 費用：$395
+   - 內容：安全最佳實踐
 
-### 常见面试题与答案要点
+### 常見面試題與答案要點
 
-#### 基础概念面试题
+#### 基礎概念面試題
 
-**Q1: Docker 容器和虚拟机有什么区别？**
+**Q1: Docker 容器和虛擬機有什麼區別？**
 
-A（要点）：
+A（要點）：
 ```text
-虚拟机：
-- 完整的操作系统环境（GB 级）
-- 启动时间：分钟级
-- 隔离级别：完全硬件隔离
-- 性能开销：高（5-20%）
+虛擬機：
+- 完整的作業系統環境（GB 級）
+- 啟動時間：分鐘級
+- 隔離級別：完全硬體隔離
+- 效能開銷：高（5-20%）
 
 容器：
-- 共享内核，包含应用和依赖（MB 级）
-- 启动时间：秒级
-- 隔离级别：进程级隔离（Namespace/Cgroup）
-- 性能开销：低（1-5%）
+- 共享核心，包含應用和依賴（MB 級）
+- 啟動時間：秒級
+- 隔離級別：程序級隔離（Namespace/Cgroup）
+- 效能開銷：低（1-5%）
 
-总结：容器更轻量、更快、密度更高
+總結：容器更輕量、更快、密度更高
 ```
-**Q2: 什么是 Docker 镜像？它如何存储的？**
+**Q2: 什麼是 Docker 映象？它如何儲存的？**
 
-A（要点）：
+A（要點）：
 ```text
-镜像本质：
-- 只读的文件系统快照
-- 分层存储结构
-- 每一层是前一层的增量
+映象本質：
+- 只讀的檔案系統快照
+- 分層儲存結構
+- 每一層是前一層的增量
 
-存储方式：
-- Union FS：多个只读层 + 一个可写层
-- 每个 RUN/COPY/ADD 指令创建一层
-- 层之间通过 diff 增量存储，节省空间
+儲存方式：
+- Union FS：多個只讀層 + 一個可寫層
+- 每個 RUN/COPY/ADD 指令建立一層
+- 層之間透過 diff 增量儲存，節省空間
 
-优点：
-- 共享基础层减少存储
-- 层级缓存加快构建
-- 支持高效分发
+優點：
+- 共享基礎層減少儲存
+- 層級快取加快建立
+- 支援高效分發
 ```
-**Q3: 容器如何实现隔离？**
+**Q3: 容器如何實現隔離？**
 
-A（要点）：
+A（要點）：
 ```text
-技术手段：
-1. Namespace（资源隔离）：
-   - PID Namespace：进程隔离
-   - Network Namespace：网络隔离
-   - Mount Namespace：文件系统隔离
-   - UTS Namespace：主机名隔离
-   - IPC Namespace：进程间通信隔离
+技術手段：
+1. Namespace（資源隔離）：
+   - PID Namespace：程序隔離
+   - Network Namespace：網路隔離
+   - Mount Namespace：檔案系統隔離
+   - UTS Namespace：主機名隔離
+   - IPC Namespace：程序間通訊隔離
 
-2. Cgroup（资源限制）：
+2. Cgroup（資源限制）：
    - 限制 CPU 使用
-   - 限制内存使用
-   - 限制磁盘 I/O
-   - 限制网络带宽
+   - 限制記憶體使用
+   - 限制磁碟 I/O
+   - 限制網路頻寬
 
-3. Linux 能力机制（权限控制）：
-   - 削减不必要的 root 权限
+3. Linux 能力機制（許可權控制）：
+   - 削減不必要的 root 許可權
    - 限制容器能力
 
-4. SELinux / AppArmor（强制访问控制）
+4. SELinux / AppArmor（強制訪問控制）
 ```
 
-#### Dockerfile 面试题
+#### Dockerfile 面試題
 
-**Q4: 如何优化 Docker 镜像大小？**
+**Q4: 如何最佳化 Docker 映象大小？**
 
-A（要点）：
+A（要點）：
 ```text
-1. 选择合适的基础镜像：
+1. 選擇合適的基礎映象：
    scratch < alpine:3.17 < python:3.14-slim < python:3.14
 
-2. 多阶段构建：
-   - 构建阶段只保留编译工具
-   - 运行阶段只包含最终二进制
-   - 典型场景：Go、Node.js、Java
+2. 多階段建立：
+   - 建立階段只保留編譯工具
+   - 執行階段只包含最終二進位
+   - 典型場景：Go、Node.js、Java
 
-3. 清理包管理器缓存：
+3. 清理套件管理器快取：
    apt-get clean && rm -rf /var/lib/apt/lists/*
    yum clean all && rm -rf /var/cache/yum
    pip install --no-cache-dir
 
-4. 合并 RUN 指令：
-   减少镜像层数
+4. 合併 RUN 指令：
+   減少映象層數
 
 5. 使用 .dockerignore：
-   排除不必要的构建上下文
+   排除不必要的建立上下文
 
-6. 去除调试符号：
+6. 去除除錯符號：
    Go: -ldflags="-w -s"
    C/C++: strip binary
 
-7. 压缩资源：
-   gzip 静态文件，压缩图片
+7. 壓縮資源：
+   gzip 靜態檔案，壓縮圖片
 ```
-**Q5: CMD 和 ENTRYPOINT 有什么区别？**
+**Q5: CMD 和 ENTRYPOINT 有什麼區別？**
 
-A（要点）：
+A（要點）：
 ```text
 CMD：
-- 定义容器默认命令
-- 容器运行时可被覆盖：docker run image_name custom_cmd
-- 可以有多个 CMD，只有最后一个生效
+- 定義容器預設指令
+- 容器執行時可被覆蓋：docker run image_name custom_cmd
+- 可以有多個 CMD，只有最後一個生效
 
 ENTRYPOINT：
-- 定义容器的可执行程序
-- 容器运行时参数追加而非覆盖
-- 与 CMD 配合使用
+- 定義容器的可執行程式
+- 容器執行時引數追加而非覆蓋
+- 與 CMD 配合使用
 
-推荐用法：
+推薦用法：
 ENTRYPOINT ["python", "app.py"]
 CMD ["--port", "8000"]
 
-# 运行 docker run image --debug 会执行：
+# 執行 docker run image --debug 會執行：
 # python app.py --debug
 ```
 
-#### 网络和存储面试题
+#### 網路和儲存面試題
 
-**Q6: Docker 网络驱动的区别？**
+**Q6: Docker 網路驅動的區別？**
 
-A（要点）：
+A（要點）：
 ```text
-Bridge（默认）：
-- 虚拟网桥，容器间通过网桥通信
-- 支持端口映射
-- 隔离性好，性能适中
+Bridge（預設）：
+- 虛擬網橋，容器間透過網橋通訊
+- 支援連接埠對映
+- 隔離性好，效能適中
 
 Host：
-- 使用宿主机网络栈
-- 性能最优，隔离性最差
-- 容器端口直接映射到宿主机
+- 使用宿主機網路棧
+- 效能最優，隔離性最差
+- 容器連接埠直接對映到宿主機
 
 Overlay：
-- 跨主机通信，基于 VXLAN
-- Swarm 和 Kubernetes 标准
-- 性能略低，支持分布式
+- 跨主機通訊，基於 VXLAN
+- Swarm 和 Kubernetes 標準
+- 效能略低，支援分散式
 
 macvlan：
-- 容器获得 MAC 地址
-- 表现为物理机，性能好
-- 用于物理网络集成
+- 容器獲得 MAC 地址
+- 表現為物理機，效能好
+- 用於物理網路整合
 
 None：
-- 无网络，完全隔离
+- 無網路，完全隔離
 ```
-**Q7: Volume 和 Bind Mount 有什么区别？**
+**Q7: Volume 和 Bind Mount 有什麼區別？**
 
-A（要点）：
+A（要點）：
 ```text
 Volume：
-- Docker 管理，存储位置：/var/lib/docker/volumes/
-- 跨平台兼容，隔离性好
-- 支持驱动，可扩展
-- 推荐在生产环境使用
+- Docker 管理，儲存位置：/var/lib/docker/volumes/
+- 跨平臺相容，隔離性好
+- 支援驅動，可擴充套件
+- 推薦在生產環境使用
 
 Bind Mount：
-- 宿主机管理，任意位置
-- 跨平台兼容性一般
-- 性能好，用于开发环境
-- 权限管理复杂
+- 宿主機管理，任意位置
+- 跨平臺相容性一般
+- 效能好，用於開發環境
+- 許可權管理複雜
 
 tmpfs：
-- 内存文件系统，不持久化
-- 用于临时文件、敏感数据
-- 性能最好，重启丢失
+- 記憶體檔案系統，不持久化
+- 用於臨時檔案、敏感資料
+- 效能最好，重啟丟失
 ```
 
-#### 安全和生产面试题
+#### 安全和生產面試題
 
 **Q8: 如何提高 Docker 安全性？**
 
-A（要点）：
+A（要點）：
 ```text
-镜像安全：
-- 使用官方镜像或可信镜像源
-- 定期扫描漏洞（Trivy/Grype）
-- 镜像签名验证（Cosign）
+映象安全：
+- 使用官方映象或可信映象源
+- 定期掃描漏洞（Trivy/Grype）
+- 映象簽名驗證（Cosign）
 - 生成和管理 SBOM
 
-容器运行：
-- 以非 root 用户运行
-- 使用 read-only 文件系统
+容器執行：
+- 以非 root 使用者執行
+- 使用 read-only 檔案系統
 - 限制 Linux 能力
 - 使用 AppArmor 或 SELinux
 
-宿主机安全：
-- 启用 TLS 认证 API
+宿主機安全：
+- 啟用 TLS 認證 API
 - 不暴露 /var/run/docker.sock
 - 使用 Rootless 容器
 - 定期更新 Docker
 
-网络安全：
-- 使用自定义网络隔离
-- 配置网络策略
+網路安全：
+- 使用自定義網路隔離
+- 設定網路策略
 - 限制出入站流量
 ```
-**Q9: 容器被 OOM 杀死，如何诊断和解决？**
+**Q9: 容器被 OOM 殺死，如何診斷和解決？**
 
-A（要点）：
+A（要點）：
 ```text
-诊断：
-1. 检查容器是否被 OOM 杀死：
+診斷：
+1. 檢查容器是否被 OOM 殺死：
    docker inspect <container> | grep OOMKilled
 
-2. 查看宿主机日志：
+2. 檢視宿主機日誌：
    dmesg | grep -i oom
    journalctl -u docker | grep -i oom
 
-3. 监控内存使用：
+3. 監控記憶體使用：
    docker stats <container>
    docker exec <container> ps aux --sort=-%mem
 
-解决：
-1. 增加内存限制：
+解決：
+1. 增加記憶體限制：
    docker update -m 2g <container>
 
-2. 检查内存泄漏：
-   使用内存分析工具（heapdump、pprof）
+2. 檢查記憶體洩漏：
+   使用記憶體分析工具（heapdump、pprof）
 
-3. 优化应用：
-   - 增加垃圾回收频率
-   - 减少缓存大小
-   - 使用对象池模式
+3. 最佳化應用：
+   - 增加垃圾回收頻率
+   - 減少快取大小
+   - 使用物件池模式
 
-4. 使用内存交换（最后手段）：
+4. 使用記憶體交換（最後手段）：
    docker run -m 512m --memory-swap 1g
 ```
-**Q10: 如何在 CI/CD 中集成 Docker？**
+**Q10: 如何在 CI/CD 中整合 Docker？**
 
-A（要点）：
+A（要點）：
 ```text
-构建阶段：
-- 触发器：Push / PR 事件
-- 构建镜像：docker build
-- 标记：git sha、版本号
-- 扫描：Trivy 漏洞扫描
-- 签名：Cosign 镜像签名
+建立階段：
+- 觸發器：Push / PR 事件
+- 建立映象：docker build
+- 標記：git sha、版本號
+- 掃描：Trivy 漏洞掃描
+- 簽名：Cosign 映象簽名
 
-存储阶段：
-- 推送到镜像仓库：docker push
-- 记录 SBOM 和扫描报告
+儲存階段：
+- 推送到映象倉庫：docker push
+- 記錄 SBOM 和掃描報告
 
-部署阶段：
-- 验证镜像签名
-- 获取镜像摘要
-- 更新部署配置
-- 触发 GitOps 工作流
+部署階段：
+- 驗證映象簽名
+- 獲取映象摘要
+- 更新部署設定
+- 觸發 GitOps 工作流
 
-监控阶段：
-- 收集应用日志
-- 监控性能指标
-- 告警异常情况
+監控階段：
+- 收集應用日誌
+- 監控效能指標
+- 告警異常情況
 
-示例工作流：
-1. GitHub Actions / GitLab CI 监听 push
-2. 运行单元测试
-3. 构建 Docker 镜像
+範例工作流：
+1. GitHub Actions / GitLab CI 監聽 push
+2. 執行單元測試
+3. 建立 Docker 映象
 4. 推送到 Docker Hub / ECR
-5. 触发 ArgoCD / Flux 自动部署
-6. 监控部署状态
+5. 觸發 ArgoCD / Flux 自動部署
+6. 監控部署狀態
 ```
 
-### 学习进度跟踪模板
+### 學習進度跟蹤樣板
 
 ```markdown
-# Docker 学习进度跟踪
+# Docker 學習進度跟蹤
 
-## 第一阶段：基础入门（目标：2 周）
-- [ ] 学完第 1-3 章（6 小时）
-- [ ] 完成基础命令练习（10 小时）
-- [ ] 运行官方镜像
-- [ ] 创建和推送第一个镜像到 Docker Hub
+## 第一階段：基礎入門（目標：2 周）
+- [ ] 學完第 1-3 章（6 小時）
+- [ ] 完成基礎指令練習（10 小時）
+- [ ] 執行官方映象
+- [ ] 建立和推送第一個映象到 Docker Hub
 - [ ] 完成度：___%
 
-## 第二阶段：核心开发（目标：4-6 周）
-- [ ] 学完第 4-11 章（15 小时）
-- [ ] 完成 3 个 Dockerfile 最佳实践项目
-- [ ] 掌握 Docker Compose（5 个项目）
-- [ ] 学习数据管理和网络（8 小时）
+## 第二階段：核心開發（目標：4-6 周）
+- [ ] 學完第 4-11 章（15 小時）
+- [ ] 完成 3 個 Dockerfile 最佳實踐專案
+- [ ] 掌握 Docker Compose（5 個專案）
+- [ ] 學習資料管理和網路（8 小時）
 - [ ] 完成度：___%
 
-## 第三阶段：生产优化（目标：6-12 周）
-- [ ] 学完第 12-21 章（25 小时）
-- [ ] 镜像安全扫描和签名
-- [ ] 搭建完整监控栈
-- [ ] 配置 CI/CD 流程
-- [ ] Kubernetes 基础（30 小时）
+## 第三階段：生產最佳化（目標：6-12 周）
+- [ ] 學完第 12-21 章（25 小時）
+- [ ] 映象安全掃描和簽名
+- [ ] 搭建完整監控棧
+- [ ] 設定 CI/CD 流程
+- [ ] Kubernetes 基礎（30 小時）
 - [ ] 完成度：___%
 
-## 第四阶段：专家深造（目标：12+ 周）
-- [ ] Kubernetes 高级特性
-- [ ] 服务网格学习
-- [ ] 底层实现研究
-- [ ] 贡献开源项目
+## 第四階段：專家深造（目標：12+ 周）
+- [ ] Kubernetes 高階屬性
+- [ ] 服務網格學習
+- [ ] 底層實現研究
+- [ ] 貢獻開源專案
 - [ ] 完成度：___%
 
-## 证书目标
-- [ ] Docker DCA 认证
-- [ ] CKA 认证
-- [ ] CKAD 认证
+## 證書目標
+- [ ] Docker DCA 認證
+- [ ] CKA 認證
+- [ ] CKAD 認證
 
-## 实战项目清单
-- [ ] Python Web 应用容器化
-- [ ] Node.js 微服务
-- [ ] 数据库容器化
-- [ ] 完整微服务架构
-- [ ] 监控和日志系统
-- [ ] CI/CD 流程实现
+## 實戰專案清單
+- [ ] Python Web 應用容器化
+- [ ] Node.js 微服務
+- [ ] 資料庫容器化
+- [ ] 完整微服務架構
+- [ ] 監控和日誌系統
+- [ ] CI/CD 流程實現
 ```
 
-### 快速参考速查表
+### 快速參考速查表
 
-**常用命令速查：**
+**常用指令速查：**
 
 ```bash
-# 镜像管理
-docker build -t image:tag .              # 构建镜像
-docker images                             # 列出镜像
-docker rmi image:tag                      # 删除镜像
-docker tag source:tag target:tag          # 标记镜像
-docker push registry/image:tag            # 推送镜像
-docker pull image:tag                     # 拉取镜像
-docker history image:tag                  # 查看镜像历史
-docker inspect image:tag                  # 查看镜像详情
+# 映象管理
+docker build -t image:tag .              # 建立映象
+docker images                             # 列出映象
+docker rmi image:tag                      # 刪除映象
+docker tag source:tag target:tag          # 標記映象
+docker push registry/image:tag            # 推送映象
+docker pull image:tag                     # 拉取映象
+docker history image:tag                  # 檢視映象歷史
+docker inspect image:tag                  # 檢視映象詳情
 
 # 容器管理
-docker run [OPTIONS] image                # 运行容器
+docker run [OPTIONS] image                # 執行容器
 docker ps [-a]                            # 列出容器
-docker stop/start/restart container       # 容器生命周期
-docker rm container                       # 删除容器
-docker logs [-f] container                # 查看日志
-docker exec -it container cmd             # 进入容器
-docker inspect container                  # 查看容器详情
-docker stats [container]                  # 查看资源使用
+docker stop/start/restart container       # 容器生命週期
+docker rm container                       # 刪除容器
+docker logs [-f] container                # 檢視日誌
+docker exec -it container cmd             # 進入容器
+docker inspect container                  # 檢視容器詳情
+docker stats [container]                  # 檢視資源使用
 
-# 网络管理
-docker network ls                         # 列出网络
-docker network create name                # 创建网络
-docker network connect/disconnect         # 连接/断开网络
-docker network inspect name               # 查看网络详情
+# 網路管理
+docker network ls                         # 列出網路
+docker network create name                # 建立網路
+docker network connect/disconnect         # 連線/斷開網路
+docker network inspect name               # 檢視網路詳情
 
 # 卷管理
 docker volume ls                          # 列出卷
-docker volume create name                 # 创建卷
-docker volume rm name                     # 删除卷
-docker volume inspect name                # 查看卷详情
+docker volume create name                 # 建立卷
+docker volume rm name                     # 刪除卷
+docker volume inspect name                # 檢視卷詳情
 
 # Docker Compose
-docker compose up [-d]                    # 启动服务
-docker compose down                       # 停止服务
-docker compose ps                         # 列出服务
-docker compose logs [-f] [service]        # 查看日志
-docker compose exec service cmd           # 在服务中执行命令
-docker compose build                      # 构建服务镜像
+docker compose up [-d]                    # 啟動服務
+docker compose down                       # 停止服務
+docker compose ps                         # 列出服務
+docker compose logs [-f] [service]        # 檢視日誌
+docker compose exec service cmd           # 在服務中執行指令
+docker compose build                      # 建立服務映象
 ```
