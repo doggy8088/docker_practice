@@ -1,33 +1,33 @@
-## 本章小结
+## 本章小結
 
-本章详细介绍了 Dockerfile 的所有核心指令，以下是各指令要点的速查表。
+本章詳細介紹了 Dockerfile 的所有核心指令，以下是各指令要點的速查表。
 
-| 指令 | 作用 | 关键要点 |
+| 指令 | 作用 | 關鍵要點 |
 |------|------|---------|
-| **FROM** | 指定基础镜像 | 必须是第一条指令 |
-| **RUN** | 在新层执行命令 | 合并命令、清理缓存以减小体积 |
-| **COPY** | 复制文件 | 优先使用，支持 `--from` |
-| **ADD** | 更高级的复制 | 自动解压 tar，不推荐用于下载 |
-| **CMD** | 容器启动默认命令 | 可被 `docker run` 参数覆盖 |
-| **ENTRYPOINT** | 容器入口点 | 固定启动命令，CMD 作为默认参数 |
-| **ENV** | 设置环境变量 | 构建时 + 运行时均生效 |
-| **ARG** | 构建参数 | 仅构建时生效，FROM 后需重新声明 |
-| **VOLUME** | 定义匿名卷 | VOLUME 之后的修改会丢失 |
-| **EXPOSE** | 声明端口 | 仅文档作用，不自动映射 |
-| **WORKDIR** | 指定工作目录 | 替代 `RUN cd`，目录不存在会自动创建 |
-| **USER** | 指定运行用户 | 用户必须已存在，推荐 gosu |
-| **HEALTHCHECK** | 健康检查 | 支持 starting/healthy/unhealthy 状态 |
-| **ONBUILD** | 延迟执行指令 | 只继承一次，不可级联 |
-| **LABEL** | 添加元数据 | 推荐 OCI 标准标签，替代 MAINTAINER |
-| **SHELL** | 更改默认 shell | 推荐 `["/bin/bash", "-o", "pipefail", "-c"]` |
+| **FROM** | 指定基礎映象 | 必須是第一條指令 |
+| **RUN** | 在新層執行指令 | 合併指令、清理快取以減小體積 |
+| **COPY** | 複製檔案 | 優先使用，支援 `--from` |
+| **ADD** | 更高階的複製 | 自動解壓 tar，不推薦用於下載 |
+| **CMD** | 容器啟動預設指令 | 可被 `docker run` 引數覆蓋 |
+| **ENTRYPOINT** | 容器入口點 | 固定啟動指令，CMD 作為預設引數 |
+| **ENV** | 設定環境變數 | 建立時 + 執行時均生效 |
+| **ARG** | 建立引數 | 僅建立時生效，FROM 後需重新宣告 |
+| **VOLUME** | 定義匿名卷 | VOLUME 之後的修改會丟失 |
+| **EXPOSE** | 宣告連接埠 | 僅文件作用，不自動對映 |
+| **WORKDIR** | 指定工作目錄 | 替代 `RUN cd`，目錄不存在會自動建立 |
+| **USER** | 指定執行使用者 | 使用者必須已存在，推薦 gosu |
+| **HEALTHCHECK** | 健康檢查 | 支援 starting/healthy/unhealthy 狀態 |
+| **ONBUILD** | 延遲執行指令 | 只繼承一次，不可級聯 |
+| **LABEL** | 新增元資料 | 推薦 OCI 標準標籤，替代 MAINTAINER |
+| **SHELL** | 更改預設 shell | 推薦 `["/bin/bash", "-o", "pipefail", "-c"]` |
 
-### 延伸阅读
+### 延伸閱讀
 
-- [使用 Dockerfile 定制镜像](../04_image/4.5_build.md)：Dockerfile 入门
-- [多阶段构建](7.17_multistage_builds.md)：优化镜像大小
-- [Dockerfile 最佳实践](../appendix/best_practices.md)：编写指南
-- [安全](../18_security/README.md)：容器安全实践
-- [Compose 模板文件](../11_compose/11.5_compose_file.md)：Compose 中的配置
+- [使用 Dockerfile 定製映象](../04_image/4.5_build.md)：Dockerfile 入門
+- [多階段建立](7.17_multistage_builds.md)：最佳化映象大小
+- [Dockerfile 最佳實踐](../appendix/best_practices.md)：編寫指南
+- [安全](../18_security/README.md)：容器安全實踐
+- [Compose 樣板檔案](../11_compose/11.5_compose_file.md)：Compose 中的設定
 ---
 
-> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
+> 📝 **發現錯誤或有改進建議？** 歡迎送出 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
