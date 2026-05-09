@@ -1,15 +1,15 @@
-# 第八章 数据管理
+# 第八章 資料管理
 
-如图 8-1 所示，Docker 数据管理主要围绕三类挂载方式展开。
+如圖 8-1 所示，Docker 資料管理主要圍繞三類掛載方式展開。
 
 <p align="center">
-  <img src="./_images/types-of-mounts.png" alt="Docker 数据挂载类型">
+  <img src="./_images/types-of-mounts.png" alt="Docker 資料掛載型別">
 </p>
 
-图 8-1：Docker 数据挂载类型示意图
+圖 8-1：Docker 資料掛載型別示意圖
 
-这一章介绍如何在 Docker 内部以及容器之间管理数据，在容器中管理数据主要有以下几种方式：
+這一章介紹如何在 Docker 內部以及容器之間管理資料，在容器中管理資料主要有以下幾種方式：
 
-* [数据卷](8.1_volume.md)
-* [挂载主机目录](8.2_bind-mounts.md)
-* [tmpfs 挂载](8.3_tmpfs.md)
+* [資料卷](8.1_volume.md)
+* [掛載主機目錄](8.2_bind-mounts.md)
+* [tmpfs 掛載](8.3_tmpfs.md)

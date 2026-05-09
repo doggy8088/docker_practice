@@ -1,50 +1,50 @@
-# 第三章 安装 Docker
+# 第三章 安裝 Docker
 
-Docker Engine 主要提供 `stable` 和 `test` 两个更新频道；`test.docker.com` 对应测试频道，适合预发布验证，不建议直接用于生产环境。
+Docker Engine 主要提供 `stable` 和 `test` 兩個更新頻道；`test.docker.com` 對應測試頻道，適合預發布驗證，不建議直接用於生產環境。
 
-官方网站上有各种环境下的[安装指南](https://docs.docker.com/get-docker/)，这里主要介绍 Docker 在 `Linux`、`Windows 10/11` 和 `macOS` 上的安装。
+官方網站上有各種環境下的[安裝指南](https://docs.docker.com/get-docker/)，這裡主要介紹 Docker 在 `Linux`、`Windows 10/11` 和 `macOS` 上的安裝。
 
-## 安装方式选择指南
+## 安裝方式選擇指南
 
-在开始安装前，笔者建议你根据以下决策树选择最合适的安装方式：
+在開始安裝前，筆者建議你根據以下決策樹選擇最合適的安裝方式：
 
-### 生产环境 vs 开发环境
+### 生產環境 vs 開發環境
 
-**生产环境**（服务器部署）：
+**生產環境**（伺服器部署）：
 
-- 优先使用**官方 APT/YUM 源安装**（Ubuntu、Debian、Fedora、CentOS）
-- 优势：获得官方安全更新、长期技术支持、版本管理清晰
-- 安装步骤稍多一些，但这种“麻烦”是值得的——它为你的生产系统争取了稳定性和可维护性
+- 優先使用**官方 APT/YUM 源安裝**（Ubuntu、Debian、Fedora、CentOS）
+- 優勢：獲得官方安全更新、長期技術支援、版本管理清晰
+- 安裝步驟稍多一些，但這種『麻煩』是值得的——它為你的生產系統爭取了穩定性和可維護性
 
-**开发环境**（本地开发机、测试服务器）：
+**開發環境**（本地開發機、測試伺服器）：
 
-- 使用**脚本自动安装**或**包管理器直接安装**
-- 如果你想快速上手，官方脚本（`get.docker.com`）是最便捷的选择
-- 国内用户注意：这一步一定要选对镜像源，否则网络卡顿会严重影响体验
+- 使用**指令碼自動安裝**或**套件管理器直接安裝**
+- 如果你想快速上手，官方指令碼（`get.docker.com`）是最便捷的選擇
+- 國內使用者注意：這一步一定要選對映象源，否則網絡卡頓會嚴重影響體驗
 
-### 国内用户的网络优化建议
+### 國內使用者的網路最佳化建議
 
-值得注意的是，国内直接访问 Docker 官方源速度较慢，建议：
+值得注意的是，國內直接訪問 Docker 官方源速度較慢，建議：
 
-- **安装过程**：使用阿里云、腾讯云等国内镜像源
-- **镜像拉取**：安装完成后配置 Docker 镜像加速器（详见 [3.9 镜像加速器](3.9_mirror.md)），这一步对日常开发的体验提升最明显
+- **安裝過程**：使用阿里雲、騰訊雲等國內映象源
+- **映象拉取**：安裝完成後設定 Docker 映象加速器（詳見 [3.9 映象加速器](3.9_mirror.md)），這一步對日常開發的體驗提升最明顯
 
-### 特殊场景
+### 特殊場景
 
-- **Raspberry Pi/ARM 平台**：见 [3.5 Raspberry Pi](3.5_raspberry-pi.md)
-- **离线环境**：见 [3.6 Linux 离线安装](3.6_offline.md)
-- **macOS/Windows**：Docker Desktop 是官方推荐的一站式解决方案
-- **需要实验特性**：见 [3.10 开启实验特性](3.10_experimental.md)
+- **Raspberry Pi/ARM 平台**：見 [3.5 Raspberry Pi](3.5_raspberry-pi.md)
+- **離線環境**：見 [3.6 Linux 離線安裝](3.6_offline.md)
+- **macOS/Windows**：Docker Desktop 是官方推薦的一站式解決方案
+- **需要實驗屬性**：見 [3.10 開啟實驗屬性](3.10_experimental.md)
 
-## 详细安装指南
+## 詳細安裝指南
 
 * [Ubuntu](3.1_ubuntu.md)
 * [Debian](3.2_debian.md)
 * [Fedora](3.3_fedora.md)
 * [CentOS](3.4_centos.md)
 * [Raspberry Pi](3.5_raspberry-pi.md)
-* [Linux 离线安装](3.6_offline.md)
+* [Linux 離線安裝](3.6_offline.md)
 * [macOS](3.7_mac.md)
 * [Windows 10/11](3.8_windows.md)
-* [镜像加速器](3.9_mirror.md)
-* [开启实验特性](3.10_experimental.md)
+* [映象加速器](3.9_mirror.md)
+* [開啟實驗屬性](3.10_experimental.md)
