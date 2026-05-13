@@ -14,7 +14,7 @@
 ```bash
 $ sudo kill -SIGHUP $(pidof dockerd)
 ```
-此时 dockerd 会在日志中输入更多信息供分析。
+此时 dockerd 会在日志中输出更多信息供分析。
 
 ### 检查内核日志
 
