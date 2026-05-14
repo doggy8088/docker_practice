@@ -421,7 +421,7 @@ Kubernetes 进阶 (Week 24-36)
 - [Docker 官方博客](https://www.docker.com/blog/)
 - [Kubernetes 官方博客](https://kubernetes.io/blog/)
 - [CNCF 博客](https://www.cncf.io/blog/)
-- [DZone](https://dzone.com/containers-cloud)
+- [DZone Cloud Architecture](https://dzone.com/cloud-architecture)
 
 ### 认证指南
 
@@ -478,7 +478,7 @@ Kubernetes 进阶 (Week 24-36)
 # 1. 学习本书第 1-11 章（基础到中级）
 # 2. 完成 20+ 个实战项目
 # 3. 参考官方学习指南
-curl https://docker.training.kodekloud.com/dca-guide
+# 参考 KodeKloud DCA 认证指南：https://kodekloud.com/blog/docker-certified-associate-guide/
 
 # 4. 模拟考试
 - Linux Academy DCA 练习题
