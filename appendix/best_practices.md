@@ -14,7 +14,7 @@
 
 #### 使用多阶段构建
 
-在 Docker 17.05 以上版本中，你可以使用[多阶段构建](../07_dockerfile/7.17_multistage_builds.md)来减少所构建镜像的大小。
+在现代 Docker 版本中，你可以使用[多阶段构建](../07_dockerfile/7.17_multistage_builds.md)来减少所构建镜像的大小。该能力最早在 Docker 17.05 引入，如今已是编写生产镜像的默认实践之一；新项目还应结合 BuildKit 缓存挂载、secret 挂载和多平台构建能力一起评估。
 
 #### 避免安装不必要的包
 
