@@ -1,30 +1,30 @@
-## 本章小结
+## 本章小結
 
-Docker 支持在多种平台上安装和使用，选择合适的安装方式是顺利使用 Docker 的第一步。
+Docker 支援在多種平台上安裝和使用，選擇合適的安裝方式是順利使用 Docker 的第一步。
 
-| 平台 | 推荐方式 | 说明 |
+| 平台 | 推薦方式 | 說明 |
 |------|---------|------|
-| **Ubuntu/Debian** | 官方 APT 仓库 | 最完善的支持，推荐首选 |
-| **CentOS/Fedora** | 官方 DNF/YUM 仓库 | 注意验证防火墙与 `iptables` 兼容性 |
-| **macOS** | Docker Desktop | 图形化安装，默认集成 Compose |
-| **Windows 10/11** | Docker Desktop（WSL 2 或 Hyper-V） | 按机器能力与企业策略选择后端 |
-| **Raspberry Pi** | 官方 APT 仓库或 Debian `arm64` 方案 | 32 位系统已停止接收 v29+ 新主版本 |
-| **离线环境** | 二进制包安装 | 适用于无法联网的服务器 |
+| **Ubuntu/Debian** | 官方 APT 倉庫 | 最完善的支援，推薦首選 |
+| **CentOS/Fedora** | 官方 DNF/YUM 倉庫 | 注意驗證防火牆與 `iptables` 相容性 |
+| **macOS** | Docker Desktop | 圖形化安裝，預設整合 Compose |
+| **Windows 10/11** | Docker Desktop（WSL 2 或 Hyper-V） | 按機器能力與企業策略選擇後端 |
+| **Raspberry Pi** | 官方 APT 倉庫或 Debian `arm64` 方案 | 32 位系統已停止接收 v29+ 新主版本 |
+| **離線環境** | 二進位封裝安裝 | 適用於無法聯網的伺服器 |
 
-### 安装后验证
+### 安裝後驗證
 
-安装完成后，运行以下命令验证 Docker 是否正常工作：
+安裝完成後，執行以下指令驗證 Docker 是否正常工作：
 
 ```bash
 $ docker version
 $ docker run --rm hello-world
 ```
 
-### 延伸阅读
+### 延伸閱讀
 
-- [镜像加速器](3.9_mirror.md)：解决国内拉取镜像慢的问题
-- [开启实验特性](3.10_experimental.md)：使用最新功能
-- [Docker Hub](../06_repository/6.1_dockerhub.md)：官方镜像仓库
+- [映象加速器](3.9_mirror.md)：解決國內拉取映象慢的問題
+- [開啟實驗屬性](3.10_experimental.md)：使用最新功能
+- [Docker Hub](../06_repository/6.1_dockerhub.md)：官方映象倉庫
 ---
 
-> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
+> 📝 **發現錯誤或有改進建議？** 歡迎送出 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
