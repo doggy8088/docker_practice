@@ -1,25 +1,25 @@
-## 本章小结
+## 本章小結
 
-本章介绍了 Docker 的三个核心概念：镜像、容器和仓库。
+本章介紹了 Docker 的三個核心概念：映象、容器和倉庫。
 
-| 概念 | 要点 |
+| 概念 | 要點 |
 |------|------|
-| **镜像是什么** | 只读的应用模板，包含运行所需的一切 |
-| **分层存储** | 多层叠加，共享基础层，节省空间 |
-| **只读特性** | 构建后不可修改，保证一致性 |
-| **层的陷阱** | 删除操作只是标记，不减小体积 |
-| **容器是什么** | 镜像的运行实例，本质是隔离的进程 |
-| **容器 vs 虚拟机** | 共享内核，更轻量，但隔离性较弱 |
-| **存储层** | 可写层随容器删除而消失 |
-| **数据持久化** | 使用 Volume 或 Bind Mount |
-| **生命周期** | 与主进程 (PID 1) 绑定 |
-| **Registry** | 存储和分发镜像的服务 |
-| **仓库 (Repository)** | 同一软件的镜像集合 |
-| **标签 (Tag)** | 版本标识，默认为 latest |
-| **Docker Hub** | 默认的公共 Registry |
-| **私有 Registry** | 企业内部使用，推荐 Harbor |
+| **映象是什麼** | 只讀的應用樣板，包含執行所需的一切 |
+| **分層儲存** | 多層疊加，共享基礎層，節省空間 |
+| **只讀屬性** | 建立後不可修改，保證一致性 |
+| **層的陷阱** | 刪除操作只是標記，不減小體積 |
+| **容器是什麼** | 映象的執行實例，本質是隔離的程序 |
+| **容器 vs 虛擬機** | 共享核心，更輕量，但隔離性較弱 |
+| **儲存層** | 可寫層隨容器刪除而消失 |
+| **資料持久化** | 使用 Volume 或 Bind Mount |
+| **生命週期** | 與主程序 (PID 1) 繫結 |
+| **Registry** | 儲存和分發映象的服務 |
+| **倉庫 (Repository)** | 同一軟體的映象集合 |
+| **標籤 (Tag)** | 版本標識，預設為 latest |
+| **Docker Hub** | 預設的公共 Registry |
+| **私有 Registry** | 企業內部使用，推薦 Harbor |
 
-现在你已经了解了 Docker 的三个核心概念：[镜像](2.1_image.md)、[容器](2.2_container.md) 和仓库。接下来，让我们开始 [安装 Docker](../03_install/README.md)，动手实践！
+現在你已經瞭解了 Docker 的三個核心概念：[映象](2.1_image.md)、[容器](2.2_container.md) 和倉庫。接下來，讓我們開始 [安裝 Docker](../03_install/README.md)，動手實踐！
 ---
 
-> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
+> 📝 **發現錯誤或有改進建議？** 歡迎送出 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
