@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yeasy/docker_practice.git"
+    "url": "git+https://github.com/doggy8088/docker_practice.git"
   },
   "author": "",
   "license": "CC-BY-NC-SA-4.0",
   "bugs": {
-    "url": "https://github.com/yeasy/docker_practice/issues"
+    "url": "https://github.com/doggy8088/docker_practice/issues"
   },
-  "homepage": "https://github.com/yeasy/docker_practice#readme"
+  "homepage": "https://github.com/doggy8088/docker_practice#readme"
 }
