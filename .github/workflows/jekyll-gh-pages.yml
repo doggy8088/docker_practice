@@ -1,0 +1,185 @@
+name: Deploy mdPress site to GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["zh-tw"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Install Chromium and CJK fonts
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: stable
+      - name: Install CJK fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
+      - name: Install mdpress 0.7.10
+        env:
+          MDPRESS_VERSION: "0.7.10"
+          MDPRESS_SHA256: "17e53e455996940bbbce64c69c43b3fb543f1501e03b74cf0434074efebd2db4"
+        run: |
+          archive="/tmp/mdpress_${MDPRESS_VERSION}_linux_amd64.tar.gz"
+          curl -fsSL "https://github.com/yeasy/mdPress/releases/download/v${MDPRESS_VERSION}/mdpress_${MDPRESS_VERSION}_linux_amd64.tar.gz" -o "$archive"
+          echo "${MDPRESS_SHA256}  $archive" | sha256sum -c -
+          tar xzf "$archive" -C /tmp mdpress
+          sudo mv /tmp/mdpress /usr/local/bin/
+          mdpress --version
+      - name: Install dependencies
+        run: npm install
+      - name: Build PDF
+        run: mdpress build --format pdf --output docker_practice-zh-tw.pdf
+      - name: Build site
+        run: npm run build
+      - name: Localize site metadata
+        env:
+          SITE_URL: https://docker-practice.gh.miniasp.com
+          OG_IMAGE_PATH: assets/og-image.png
+        run: |
+          set -euo pipefail
+
+          mkdir -p _site/assets
+          cp "$OG_IMAGE_PATH" "_site/$OG_IMAGE_PATH"
+
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          index = Path("_site/index.html")
+          html = index.read_text(encoding="utf-8")
+          site_url = os.environ["SITE_URL"].rstrip("/")
+          og_image_path = os.environ["OG_IMAGE_PATH"]
+          og_image_url = f"{site_url}/{og_image_path}"
+
+          tags = [
+              '  <meta property="og:image" content="' + og_image_url + '">',
+              '  <meta property="og:image:width" content="1731">',
+              '  <meta property="og:image:height" content="909">',
+              '  <meta property="og:image:type" content="image/png">',
+              '  <meta name="twitter:card" content="summary_large_image">',
+              '  <meta name="twitter:image" content="' + og_image_url + '">',
+          ]
+
+          for marker in (
+              '<meta property="og:image"',
+              '<meta property="og:image:width"',
+              '<meta property="og:image:height"',
+              '<meta property="og:image:type"',
+              '<meta name="twitter:card"',
+              '<meta name="twitter:image"',
+          ):
+              html = "\n".join(line for line in html.splitlines() if marker not in line)
+
+          if "</head>" not in html:
+              raise SystemExit("_site/index.html does not contain </head>")
+
+          html = html.replace("</head>", "\n".join(tags) + "\n</head>", 1)
+
+          replacements = {
+              'aria-label="搜索"': 'aria-label="搜尋"',
+              'placeholder="输入关键词搜索…"': 'placeholder="輸入關鍵字搜尋…"',
+              '>输入关键词搜索…<': '>輸入關鍵字搜尋…<',
+              'searchPlaceholder: "输入关键词搜索…"': 'searchPlaceholder: "輸入關鍵字搜尋…"',
+              'noResults: "未找到相关结果："': 'noResults: "找不到相關結果："',
+              'searchUnavailable: "搜索不可用"': 'searchUnavailable: "搜尋無法使用"',
+              'searchResultsOne: "1 个结果"': 'searchResultsOne: "1 個結果"',
+              'searchResults: "%d 个结果"': 'searchResults: "%d 個結果"',
+              'recentPages: "最近访问"': 'recentPages: "最近瀏覽"',
+              'recentEmpty: "还没有最近访问的页面"': 'recentEmpty: "還沒有最近瀏覽的頁面"',
+              'searchMatchTitle: "标题"': 'searchMatchTitle: "標題"',
+              'searchMatchPath: "路径"': 'searchMatchPath: "路徑"',
+              'searchMatchText: "正文"': 'searchMatchText: "內文"',
+              'searchMatched: "已定位到：%s"': 'searchMatched: "已定位到：%s"',
+              'aria-label="本页目录"': 'aria-label="本頁目錄"',
+              '>本页目录<': '>本頁目錄<',
+              '使用 mdPress 构建': '使用 mdPress 建置',
+          }
+
+          for old, new in replacements.items():
+              html = html.replace(old, new)
+
+          index.write_text(html + ("" if html.endswith("\n") else "\n"), encoding="utf-8")
+          PY
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: docker-practice-pdf
+          path: docker_practice-zh-tw.pdf
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  release:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Download PDF artifact
+        uses: actions/download-artifact@v6
+        with:
+          name: docker-practice-pdf
+      - name: Publish PDF to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PDF_FILE: docker_practice-zh-tw.pdf
+          UPSTREAM_REPO: yeasy/docker_practice
+        run: |
+          if upstream_release="$(gh api "repos/${UPSTREAM_REPO}/releases/latest" 2>/dev/null)"; then
+            RELEASE_TAG="$(printf '%s' "$upstream_release" | jq -r .tag_name)"
+            RELEASE_TITLE="$(printf '%s' "$upstream_release" | jq -r '.name // .tag_name')"
+            RELEASE_NOTES="正體中文 PDF 自動建置版本，對應上游 ${UPSTREAM_REPO} ${RELEASE_TAG}。"
+          else
+            RELEASE_TAG="zh-tw-$(date -u +%Y%m%d)-${GITHUB_RUN_NUMBER}"
+            RELEASE_TITLE="正體中文 PDF ${RELEASE_TAG}"
+            RELEASE_NOTES="正體中文 PDF 自動建置版本。"
+          fi
+
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release edit "$RELEASE_TAG" --title "$RELEASE_TITLE"
+            gh release upload "$RELEASE_TAG" "$PDF_FILE" --clobber
+          else
+            gh release create "$RELEASE_TAG" "$PDF_FILE" \
+              --target "$GITHUB_SHA" \
+              --title "$RELEASE_TITLE" \
+              --notes "$RELEASE_NOTES"
+          fi
