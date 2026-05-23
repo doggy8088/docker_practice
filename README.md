@@ -20,6 +20,8 @@
 
 [Will 保哥的技術交流中心](https://www.facebook.com/will.fans/)
 
+本正體中文翻譯版基於原作者 [yeasy](https://github.com/yeasy) 的原始專案 [yeasy/docker_practice](https://github.com/yeasy/docker_practice) 製作，感謝原作者與所有貢獻者建立並維護這份優質內容。
+
 ---
 
 ## 關於本書
