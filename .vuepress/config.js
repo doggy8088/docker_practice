@@ -1,7 +1,7 @@
 const { config } = require('vuepress-theme-hope')
 
 module.exports = config({
-  title: 'Docker 从入门到实践',
+  title: 'Docker 從入門到實踐',
   base: '/',
   head: [['script', {}, `
   var _hmt = _hmt || [];
@@ -31,7 +31,7 @@ module.exports = config({
   ],
   plugins: {
     // sitemap: {
-    //   hostname: 'https://vuepress.mirror.docker-practice.com'
+    //   hostname: 'https://docker-practice.gh.miniasp.com'
     // },
     // 'git-log': {
     //   additionalArgs: '--no-merge',
@@ -62,10 +62,10 @@ module.exports = config({
       copyright: false,
     },
     searchPlaceholder: 'Search',
-    repo: 'yeasy/docker_practice',
+    repo: 'doggy8088/docker_practice',
     repoLabel: 'GitHub',
     repoDisplay: true,
-    hostname: 'https://vuepress.mirror.docker-practice.com',
+    hostname: 'https://docker-practice.gh.miniasp.com',
     // author: 'yeasy',
     mdEnhance: {
       lineNumbers: true,
@@ -91,29 +91,29 @@ module.exports = config({
 
     showAds: true,
 
-    docsRepo: 'yeasy/docker_practice',
+    docsRepo: 'doggy8088/docker_practice',
     docsDir: '/',
-    docsBranch: 'master',
+    docsBranch: 'zh-tw',
     editLinks: true,
     nav: [
       {
         text: '微信交流群',
-        link: 'https://docker_practice.gitee.io/pic/dpsig-wechat.jpg',
+        link: 'https://docker-practice.gh.miniasp.com/pic/dpsig-wechat.jpg',
       },
       {
-        text: '小程序',
-        link: 'https://docker_practice.gitee.io/pic/dp-wechat-miniprogram.jpg',
+        text: '小程式',
+        link: 'https://docker-practice.gh.miniasp.com/pic/dp-wechat-miniprogram.jpg',
       },
       {
-        text: '安装 Docker',
+        text: '安裝 Docker',
         link: '/03_install/',
       },
       {
-        text: 'Docker 入门',
+        text: 'Docker 入門',
         link: '/'
       },
       {
-        text: 'Docker 实战',
+        text: 'Docker 實戰',
         link: '/15_cases/os/'
       },
       {
@@ -129,23 +129,23 @@ module.exports = config({
         link: '/12_orchestration/kubernetes/',
       },
       {
-        text: "云计算",
+        text: "雲端運算",
         link: "/13_ecosystem/cloud/",
       },
       // {
       //   text: 'GitHub',
-      //   link: 'https://github.com/yeasy/docker_practice'
+      //   link: 'https://github.com/doggy8088/docker_practice'
       // },
       // {
-      //   text: '捐赠',
+      //   text: '捐贈',
       //   link: ''
       // },
       {
-        text: '云服务器99/元首年特惠',
+        text: '雲服務器99/元首年特惠',
         link: 'https://cloud.tencent.com/act/cps/redirect?redirect=1062&cps_key=3a5255852d5db99dcd5da4c72f05df61&from=console'
       },
       // {
-      //   text: '语言',
+      //   text: '語言',
       //   items: [{
       //     text: 'English',
       //     link: ''
@@ -177,7 +177,7 @@ module.exports = config({
           ]
         },
         {
-          title: "Kubernetes 命令行 kubectl",
+          title: "Kubernetes 指令行 kubectl",
           collapsable: true,
           children: [
             'kubectl/'
@@ -210,7 +210,7 @@ module.exports = config({
       ],
       '/cases/os/': [
         {
-          title: "操作系统",
+          title: "作業系統",
           collapsable: false,
           children: [
             'busybox',
@@ -245,7 +245,7 @@ module.exports = config({
         '/CHANGELOG',
         '/CONTRIBUTING',
         {
-          title: "Docker 简介",
+          title: "Docker 簡介",
           collapsable: false,
           children: [
             'introduction/',
@@ -263,7 +263,7 @@ module.exports = config({
           ]
         },
         {
-          title: "使用镜像",
+          title: "使用映象",
           collapsable: false,
           children: [
             'image/',
@@ -314,7 +314,7 @@ module.exports = config({
           ],
         },
         {
-          title: "Docker 仓库",
+          title: "Docker 倉庫",
           collapsable: false,
           children: [
             'repository/',
@@ -325,7 +325,7 @@ module.exports = config({
           ],
         },
         {
-          title: "数据管理",
+          title: "資料管理",
           collapsable: false,
           children: [
             'data_management/',
@@ -333,7 +333,7 @@ module.exports = config({
             'data_management/bind-mounts',
           ],
         }, {
-          title: "使用网络",
+          title: "使用網路",
           collapsable: false,
           children: [
             'network/',
@@ -343,7 +343,7 @@ module.exports = config({
           ],
         },
         {
-          title: "高级网络配置",
+          title: "高階網路設定",
           collapsable: true,
           children: [
             'advanced_network/',
@@ -384,7 +384,7 @@ module.exports = config({
           ],
         },
         {
-          title: "底层实现",
+          title: "底層實現",
           collapsable: true,
           children: [
             'underly/',
@@ -429,7 +429,7 @@ module.exports = config({
         'podman/',
         'appendix/faq/',
         {
-          title: "热门镜像介绍",
+          title: "熱門映象介紹",
           collapsable: true,
           children: [
             'appendix/repo/',
@@ -446,7 +446,7 @@ module.exports = config({
           ],
         },
         {
-          title: "Docker 命令",
+          title: "Docker 指令",
           collapsable: true,
           children: [
             'appendix/command/',
