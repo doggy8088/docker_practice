@@ -1,18 +1,18 @@
-## 本章小结
+## 本章小結
 
-Docker 的安全性依赖于多层隔离机制的协同工作，同时需要用户遵循最佳实践。本章涵盖的核心安全维度包括：
+Docker 的安全性依賴於多層隔離機制的協同工作，同時需要使用者遵循最佳實踐。本章涵蓋的核心安全維度包括：
 
-| 维度 | 关键措施 |
+| 維度 | 關鍵措施 |
 |------|---------|
-| **内核隔离** | Namespace 隔离进程/网络/文件系统，Cgroups 限制资源使用 |
-| **权限控制** | 非 root 运行、`--cap-drop ALL` 最小能力集、`--read-only` 只读根文件系统 |
-| **镜像安全** | 使用可信基础镜像、定期扫描漏洞（Trivy / Snyk）、启用 Docker Content Trust 签名验证 |
-| **运行时防护** | Seccomp 系统调用过滤、AppArmor / SELinux 强制访问控制 |
-| **网络隔离** | 自定义 bridge 网络隔离容器通信、限制容器对宿主机网络的访问 |
+| **核心隔離** | Namespace 隔離程序/網路/檔案系統，Cgroups 限制資源使用 |
+| **許可權控制** | 非 root 執行、`--cap-drop ALL` 最小能力集、`--read-only` 只讀根檔案系統 |
+| **映象安全** | 使用可信基礎映象、定期掃描漏洞（Trivy / Snyk）、啟用 Docker Content Trust 簽名驗證 |
+| **執行時防護** | Seccomp 系統呼叫過濾、AppArmor / SELinux 強制訪問控制 |
+| **網路隔離** | 自定義 bridge 網路隔離容器通訊、限制容器對宿主機網路的訪問 |
 
-总体来看，Docker 容器还是十分安全的，特别是在容器内不使用 root 权限来运行进程的话。
+總體來看，Docker 容器還是十分安全的，特別是在容器內不使用 root 許可權來執行程序的話。
 
-另外，用户可以使用现有工具，比如 [Apparmor](https://docs.docker.com/engine/security/apparmor/)，[Seccomp](https://docs.docker.com/engine/security/seccomp/)，SELinux，GRSEC 来增强安全性；甚至自己在内核中实现更复杂的安全机制。
+另外，使用者可以使用現有工具，比如 [Apparmor](https://docs.docker.com/engine/security/apparmor/)，[Seccomp](https://docs.docker.com/engine/security/seccomp/)，SELinux，GRSEC 來增強安全性；甚至自己在核心中實現更復雜的安全機制。
 ---
 
-> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
+> 📝 **發現錯誤或有改進建議？** 歡迎送出 [Issue](https://github.com/doggy8088/docker_practice/issues) 或 [PR](https://github.com/doggy8088/docker_practice/pulls)。
