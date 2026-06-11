@@ -1,6 +1,6 @@
-# WordPress Compose 示例
+# WordPress Compose 範例
 
-本示例使用 Docker Compose secrets 管理数据库密码，启动前需要先创建密钥文件（参见书中 11.8 节）：
+本範例使用 Docker Compose secrets 管理資料庫密碼，啟動前需要先建立金鑰檔案（參見書中 11.8 節）：
 
 ```bash
 mkdir -p secrets
@@ -9,10 +9,10 @@ printf '%s\n' 'somestronguserpassword' > secrets/db_password.txt
 chmod 600 secrets/*.txt
 ```
 
-然后启动：
+然後啟動：
 
 ```bash
 docker compose up -d
 ```
 
-注意：`secrets/` 目录不要提交到版本库；生产环境应改用平台的密钥管理能力。
+注意：`secrets/` 目錄不要送出到版本庫；生產環境應改用平台的金鑰管理能力。
