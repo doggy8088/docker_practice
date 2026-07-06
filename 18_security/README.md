@@ -1,62 +1,62 @@
 # 第十八章 安全
 
-容器安全是生产环境部署的核心考量。本章介绍 Docker 的安全机制和最佳实践。
+容器安全是生產環境部署的核心考量。本章介紹 Docker 的安全機制和最佳實踐。
 
-## 容器安全的本质
+## 容器安全的本質
 
-> **核心问题**：容器共享宿主机内核，隔离性弱于虚拟机。如何在便利性和安全性之间取得平衡？
+> **核心問題**：容器共享宿主機核心，隔離性弱於虛擬機。如何在便利性和安全性之間取得平衡？
 
 ```mermaid
 flowchart LR
-    subgraph VM ["虚拟机安全模型：<br/>完全隔离（性能损耗）"]
+    subgraph VM ["虛擬機安全模型：<br/>完全隔離（效能損耗）"]
         direction TB
         Guest["Guest OS"]
-        Hyper["Hypervisor<br/>&lt;-- 隔离边界"]
+        Hyper["Hypervisor<br/>&lt;-- 隔離邊界"]
         Host["Host OS"]
         Guest --> Hyper --> Host
     end
 
-    subgraph Container ["容器安全模型：<br/>进程隔离（轻量但需加固）"]
+    subgraph Container ["容器安全模型：<br/>程序隔離（輕量但需加固）"]
         direction TB
-        Proc["容器进程<br/>(共享内核)"]
-        Mech["Namespace &lt;-- 隔离边界<br/>Cgroups<br/>Capabilities"]
+        Proc["容器程序<br/>(共享核心)"]
+        Mech["Namespace &lt;-- 隔離邊界<br/>Cgroups<br/>Capabilities"]
         Proc --> Mech
     end
 ```
 
-## 本章内容
+## 本章內容
 
-本章涵盖 Docker 安全的多个层面，从内核隔离机制到运行时防护和供应链安全。
+本章涵蓋 Docker 安全的多個層面，從核心隔離機制到執行時防護和供應鏈安全。
 
-* [内核命名空间](18.1_kernel_ns.md)
-  * 命名空间的安全意义、User Namespace 与提权防护。
+* [核心命名空間](18.1_kernel_ns.md)
+  * 命名空間的安全意義、User Namespace 與提權防護。
 
-* [控制组](18.2_control_group.md)
-  * 通过 Cgroups 限制容器资源使用，防止资源耗尽攻击。
+* [控制組](18.2_control_group.md)
+  * 透過 Cgroups 限制容器資源使用，防止資源耗盡攻擊。
 
-* [服务端防护](18.3_daemon_sec.md)
-  * Docker 守护进程的安全配置与网络访问控制。
+* [伺服器端防護](18.3_daemon_sec.md)
+  * Docker 守護程序的安全設定與網路訪問控制。
 
-* [内核能力机制](18.4_kernel_capability.md)
-  * Linux Capabilities 的细粒度权限控制。
+* [核心能力機制](18.4_kernel_capability.md)
+  * Linux Capabilities 的細粒度許可權控制。
 
-* [其它安全特性](18.5_other_feature.md)
-  * 镜像安全（漏洞扫描、签名验证）、运行时安全（非 root 运行、只读文件系统、Seccomp、AppArmor）、Dockerfile 安全实践、软件供应链安全（SBOM、SLSA）。
+* [其它安全屬性](18.5_other_feature.md)
+  * 映象安全（漏洞掃描、簽名驗證）、執行時安全（非 root 執行、只讀檔案系統、Seccomp、AppArmor）、Dockerfile 安全實踐、軟體供應鏈安全（SBOM、SLSA）。
 
-* [镜像安全](18.6_image_security.md)
-  * 容器镜像的安全扫描、漏洞检测与签名验证。
+* [映象安全](18.6_image_security.md)
+  * 容器映象的安全掃描、漏洞檢測與簽名驗證。
 
-## 安全扫描清单
+## 安全掃描清單
 
-部署前检查：
+部署前檢查：
 
-| 检查项 | 命令/方法 |
+| 檢查項 | 指令/方法 |
 |--------|----------|
-| 漏洞扫描 | `docker scout cves` 或 `trivy` |
-| 非 root 运行 | 检查 Dockerfile 中的 `USER` |
-| 资源限制 | 检查 `-m`, `--cpus` 参数 |
-| 只读文件系统 | 检查 `--read-only` |
-| 无特权模式 | 确认没有 `--privileged` |
-| 最小能力 | 检查 `--cap-drop=all` |
-| 网络隔离 | 检查网络配置 |
-| 敏感信息 | 确认无硬编码密码 |
+| 漏洞掃描 | `docker scout cves` 或 `trivy` |
+| 非 root 執行 | 檢查 Dockerfile 中的 `USER` |
+| 資源限制 | 檢查 `-m`, `--cpus` 引數 |
+| 只讀檔案系統 | 檢查 `--read-only` |
+| 無特權模式 | 確認沒有 `--privileged` |
+| 最小能力 | 檢查 `--cap-drop=all` |
+| 網路隔離 | 檢查網路設定 |
+| 敏感訊息 | 確認無硬編碼密碼 |

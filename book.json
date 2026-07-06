@@ -1,10 +1,10 @@
 {
-  "title": "Docker 从入门到实践",
+  "title": "Docker 從入門到實踐",
   "author": "yeasy",
   "language": "zh-hans",
   "links": {
     "sidebar": {
-      "GitHub": "https://github.com/yeasy/docker_practice"
+      "GitHub": "https://github.com/doggy8088/docker_practice"
     }
   },
   "plugins": [
@@ -19,11 +19,11 @@
       "theme": "default"
     },
     "github": {
-      "url": "https://github.com/yeasy/docker_practice"
+      "url": "https://github.com/doggy8088/docker_practice"
     },
     "editlink": {
-      "base": "https://github.com/yeasy/docker_practice/blob/master/",
-      "label": "编辑本页"
+      "base": "https://github.com/doggy8088/docker_practice/blob/master/",
+      "label": "編輯本頁"
     },
     "page-treeview": {
       "copyright": "Copyright &#169; yeasy",
