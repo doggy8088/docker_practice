@@ -1,48 +1,48 @@
-## 本章小结
+## 本章小結
 
-本章详细介绍了 Dockerfile 的所有核心指令，以下是各指令要点的速查表。
+本章詳細介紹了 Dockerfile 的所有核心指令，以下是各指令要點的速查表。
 
-| 指令 | 作用 | 关键要点 |
+| 指令 | 作用 | 關鍵要點 |
 |------|------|---------|
-| **FROM** | 指定基础镜像 | 必须是第一条指令 |
-| **RUN** | 在新层执行命令 | 合并命令、清理缓存以减小体积 |
-| **COPY** | 复制文件 | 优先使用，支持 `--from` |
-| **ADD** | 更高级的复制 | 自动解压 tar；公开远程 artifact 应配合 `--checksum` |
-| **CMD** | 容器启动默认命令 | 可被 `docker run` 参数覆盖 |
-| **ENTRYPOINT** | 容器入口点 | 固定启动命令，CMD 作为默认参数 |
-| **ENV** | 设置环境变量 | 构建时 + 运行时均生效 |
-| **ARG** | 构建参数 | 仅构建时生效，FROM 后需重新声明 |
-| **VOLUME** | 定义匿名卷 | 运行时挂载会遮蔽镜像内目录；构建后续写入语义依赖 builder |
-| **EXPOSE** | 声明端口 | 仅文档作用，不自动映射 |
-| **WORKDIR** | 指定工作目录 | 替代 `RUN cd`，目录不存在会自动创建 |
-| **USER** | 指定运行用户 | 用户必须已存在，推荐 gosu |
-| **HEALTHCHECK** | 健康检查 | 支持 starting/healthy/unhealthy 状态 |
-| **ONBUILD** | 延迟执行指令 | 只继承一次，不可级联 |
-| **LABEL** | 添加元数据 | 推荐 OCI 标准标签，替代 MAINTAINER |
-| **SHELL** | 更改默认 shell | 推荐 `["/bin/bash", "-o", "pipefail", "-c"]` |
+| **FROM** | 指定基礎映象 | 必須是第一條指令 |
+| **RUN** | 在新層執行指令 | 合併指令、清理快取以減小體積 |
+| **COPY** | 複製檔案 | 優先使用，支援 `--from` |
+| **ADD** | 更高階的複製 | 自動解壓 tar；公開遠端 artifact 應配合 `--checksum` |
+| **CMD** | 容器啟動預設指令 | 可被 `docker run` 引數覆蓋 |
+| **ENTRYPOINT** | 容器入口點 | 固定啟動指令，CMD 作為預設引數 |
+| **ENV** | 設定環境變數 | 建立時 + 執行時均生效 |
+| **ARG** | 建立引數 | 僅建立時生效，FROM 後需重新宣告 |
+| **VOLUME** | 定義匿名卷 | 執行時掛載會遮蔽映象內目錄；建立後續寫入語義依賴 builder |
+| **EXPOSE** | 宣告連接埠 | 僅文件作用，不自動對映 |
+| **WORKDIR** | 指定工作目錄 | 替代 `RUN cd`，目錄不存在會自動建立 |
+| **USER** | 指定執行使用者 | 使用者必須已存在，推薦 gosu |
+| **HEALTHCHECK** | 健康檢查 | 支援 starting/healthy/unhealthy 狀態 |
+| **ONBUILD** | 延遲執行指令 | 只繼承一次，不可級聯 |
+| **LABEL** | 新增元資料 | 推薦 OCI 標準標籤，替代 MAINTAINER |
+| **SHELL** | 更改預設 shell | 推薦 `["/bin/bash", "-o", "pipefail", "-c"]` |
 
-### 生产镜像快速检查清单
+### 生產映象快速檢查清單
 
-在将镜像推向生产之前，建议逐条过一遍以下清单：
+在將映象推向生產之前，建議逐條過一遍以下清單：
 
-- [ ] 基础镜像选择了最小化版本（如 `alpine`、`distroless`）
-- [ ] 使用了[多阶段构建](7.17_multistage_builds.md)，最终镜像不含编译工具链
-- [ ] 以非 root 用户运行（`USER` 指令）
-- [ ] `COPY` 优先于 `ADD`，且仅复制必要文件
-- [ ] `RUN` 指令合并了 `apt-get update && install && rm -rf /var/lib/apt/lists/*`
-- [ ] 设置了 `HEALTHCHECK`
-- [ ] 使用了 `.dockerignore` 排除 `.git`、`node_modules` 等无关文件
-- [ ] 镜像标签使用了具体版本号或 commit hash，而非 `latest`
+- [ ] 基礎映象選擇了最小化版本（如 `alpine`、`distroless`）
+- [ ] 使用了[多階段建立](7.17_multistage_builds.md)，最終映象不含編譯工具鏈
+- [ ] 以非 root 使用者執行（`USER` 指令）
+- [ ] `COPY` 優先於 `ADD`，且僅複製必要檔案
+- [ ] `RUN` 指令合併了 `apt-get update && install && rm -rf /var/lib/apt/lists/*`
+- [ ] 設定了 `HEALTHCHECK`
+- [ ] 使用了 `.dockerignore` 排除 `.git`、`node_modules` 等無關檔案
+- [ ] 映象標籤使用了具體版本號或 commit hash，而非 `latest`
 
-> 更完整的编写指南见[附录：Dockerfile 最佳实践](../appendix/best_practices.md)。
+> 更完整的編寫指南見[附錄：Dockerfile 最佳實踐](../appendix/best_practices.md)。
 
-### 延伸阅读
+### 延伸閱讀
 
-- [使用 Dockerfile 定制镜像](../04_image/4.5_build.md)：Dockerfile 入门
-- [多阶段构建](7.17_multistage_builds.md)：优化镜像大小
-- [Dockerfile 最佳实践](../appendix/best_practices.md)：编写指南
-- [安全](../18_security/README.md)：容器安全实践
-- [Compose 模板文件](../11_compose/11.5_compose_file.md)：Compose 中的配置
+- [使用 Dockerfile 定製映象](../04_image/4.5_build.md)：Dockerfile 入門
+- [多階段建立](7.17_multistage_builds.md)：最佳化映象大小
+- [Dockerfile 最佳實踐](../appendix/best_practices.md)：編寫指南
+- [安全](../18_security/README.md)：容器安全實踐
+- [Compose 樣板檔案](../11_compose/11.5_compose_file.md)：Compose 中的設定
 ---
 
-> 📝 **发现错误或有改进建议？** 欢迎提交 [Issue](https://github.com/yeasy/docker_practice/issues) 或 [PR](https://github.com/yeasy/docker_practice/pulls)。
+> 📝 **發現錯誤或有改進建議？** 歡迎送出 [Issue](https://github.com/doggy8088/docker_practice/issues) 或 [PR](https://github.com/doggy8088/docker_practice/pulls)。
