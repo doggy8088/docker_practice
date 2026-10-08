@@ -1,17 +1,17 @@
-# 第十三章 容器编排基础
+# 第十三章 容器編排基礎
 
-`Kubernetes` 是 Google 发起的开源容器编排系统，它支持多种云平台与私有数据中心。
+`Kubernetes` 是 Google 發起的開源容器編排系統，它支援多種雲平台與私有資料中心。
 
-`Kubernetes` 负责对容器工作负载进行调度与编排，其目的是让用户通过集群声明式地管理应用，而无需手动干预每个容器的生命周期细节。
+`Kubernetes` 負責對容器工作負載進行排程與編排，其目的是讓使用者透過叢集宣告式地管理應用，而無需手動干預每個容器的生命週期細節。
 
-Kubernetes 的最小调度单位是 `Pod`。一个 `Pod` 由一组紧密协作的容器构成，它们共享网络命名空间、IP 以及部分存储资源，也可以根据需要对 Pod 进行端口映射。
+Kubernetes 的最小排程單位是 `Pod`。一個 `Pod` 由一組緊密協作的容器構成，它們共享網路命名空間、IP 以及部分儲存資源，也可以根據需要對 Pod 進行連接埠對映。
 
-如果你已经熟悉 Docker，可以用以下对照来理解 Kubernetes 的核心概念：Docker 中的“容器”对应 Kubernetes 的 `Pod`（一个或多个容器的组合）；`docker-compose.yml` 的角色类似于 Kubernetes 的 `Deployment` + `Service` 声明；`docker run` 的端口映射和网络配置，在 Kubernetes 中由 `Service` 和 `Ingress` 接管。掌握这些映射关系，有助于从单机 Docker 平滑过渡到集群编排。
+如果你已經熟悉 Docker，可以用以下對照來理解 Kubernetes 的核心概念：Docker 中的『容器』對應 Kubernetes 的 `Pod`（一個或多個容器的組合）；`docker-compose.yml` 的角色類似於 Kubernetes 的 `Deployment` + `Service` 宣告；`docker run` 的連接埠對映和網路設定，在 Kubernetes 中由 `Service` 和 `Ingress` 接管。掌握這些對映關係，有助於從單機 Docker 平滑轉場到叢集編排。
 
-本章将分为 5 节介绍 `Kubernetes`：
+本章將分為 5 節介紹 `Kubernetes`：
 
-* [简介](13.1_intro.md)
+* [簡介](13.1_intro.md)
 * [基本概念](13.2_concepts.md)
-* [架构设计](13.3_design.md)
-* [高级特性](13.4_advanced.md)
-* [实战练习](13.5_practice.md)
+* [架構設計](13.3_design.md)
+* [高階屬性](13.4_advanced.md)
+* [實戰練習](13.5_practice.md)
