@@ -1,53 +1,53 @@
-# 附录一：常见问题与错误速查
+# 附錄一：常見問題與錯誤速查
 
-更多错误排查条目见 [常见错误处理](errors.md)。
+更多錯誤排查條目見 [常見錯誤處理](errors.md)。
 
-## 镜像相关
+## 映象相關
 
-### 如何批量清理临时镜像文件？
+### 如何批次清理臨時映象檔案？
 
-答：可以使用 `docker image prune` 命令。
+答：可以使用 `docker image prune` 指令。
 
-### 如何查看镜像支持的环境变量？
+### 如何檢視映象支援的環境變數？
 
-答：可以使用 `docker run IMAGE env` 命令。
+答：可以使用 `docker run IMAGE env` 指令。
 
-### 本地的镜像文件都存放在哪里？
+### 本地的映象檔案都存放在哪裡？
 
-答：在 Linux 上，全新安装的 Docker Engine 29 及以后版本默认使用 containerd 镜像存储。独立运行的 containerd 默认将镜像内容和容器快照保存在 `/var/lib/containerd`，卷和 Docker 配置等数据仍保存在 `/var/lib/docker`。沿用经典 `overlay2` 驱动的安装将镜像层保存在 Docker 数据目录下的 `overlay2/`。具体路径取决于后端和配置，详见 [Docker 数据目录](https://docs.docker.com/engine/daemon/#daemon-data-directory)。
+答：在 Linux 上，全新安裝的 Docker Engine 29 及以後版本預設使用 containerd 映象儲存。獨立執行的 containerd 預設將映象內容和容器快照儲存在 `/var/lib/containerd`，卷和 Docker 設定等資料仍儲存在 `/var/lib/docker`。沿用經典 `overlay2` 驅動的安裝將映象層儲存在 Docker 資料目錄下的 `overlay2/`。具體路徑取決於後端和設定，詳見 [Docker 資料目錄](https://docs.docker.com/engine/daemon/#daemon-data-directory)。
 
-### 构建 Docker 镜像应该遵循哪些原则？
+### 建立 Docker 映象應該遵循哪些原則？
 
-答：整体原则上，尽量保持镜像功能的明确和内容的精简，要点包括
+答：整體原則上，儘量保持映象功能的明確和內容的精簡，要點包括
 
-* 尽量选取满足需求但较小的基础系统镜像，例如大部分时候可以选择 `alpine` 镜像，仅有不足六兆大小；
-* 清理编译生成文件、安装包的缓存等临时文件；
-* 安装各个软件时候要指定准确的版本号，并避免引入不需要的依赖；
-* 从安全角度考虑，应用要尽量使用系统的库和依赖；
-* 如果安装应用时候需要配置一些特殊的环境变量，在安装后要还原不需要保持的变量值；
-* 使用 Dockerfile 创建镜像时候要添加 .dockerignore 文件或使用干净的工作目录。
+* 儘量選取滿足需求但較小的基礎系統映象，例如大部分時候可以選擇 `alpine` 映象，僅有不足六兆大小；
+* 清理編譯生成檔案、安裝套件的快取等臨時檔案；
+* 安裝各個軟體時候要指定準確的版本號，並避免引入不需要的依賴；
+* 從安全角度考慮，應用要儘量使用系統的函式庫和依賴；
+* 如果安裝應用時候需要設定一些特殊的環境變數，在安裝後要還原不需要保持的變數值；
+* 使用 Dockerfile 建立映象時候要新增 .dockerignore 檔案或使用乾淨的工作目錄。
 
-更多内容请查看 [Dockerfile 最佳实践](../best_practices.md)
+更多內容請檢視 [Dockerfile 最佳實踐](../best_practices.md)
 
-### 碰到网络问题，无法 pull 镜像，命令行指定 http\_proxy 无效？
+### 碰到網路問題，無法 pull 映象，指令行指定 http\_proxy 無效？
 
-答：先区分代理要作用在哪一层。Docker daemon 拉取镜像时，推荐在 `daemon.json` 的 `proxies` 字段或 systemd drop-in 中配置 `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY`，然后重启 Docker 服务。Docker CLI、构建过程和容器内应用的代理应分别使用 `~/.docker/config.json`、`--build-arg` 或 `docker run --env` 配置；不要把 `export http_proxy=...` 当作 `daemon.json` 内容写入。
+答：先區分代理要作用在哪一層。Docker daemon 拉取映象時，推薦在 `daemon.json` 的 `proxies` 欄位或 systemd drop-in 中設定 `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY`，然後重啟 Docker 服務。Docker CLI、建立過程和容器內應用的代理應分別使用 `~/.docker/config.json`、`--build-arg` 或 `docker run --env` 設定；不要把 `export http_proxy=...` 當作 `daemon.json` 內容寫入。
 
-## 容器相关
+## 容器相關
 
-### 容器退出后，通过 docker container ls 命令查看不到，数据会丢失么？
+### 容器退出後，透過 docker container ls 指令檢視不到，資料會丟失麼？
 
-答：容器退出后会处于终止 (exited) 状态，此时可以通过 `docker container ls -a` 查看。其中的数据也不会丢失，还可以通过 `docker start` 命令来启动它。只有删除掉容器才会清除所有数据。
+答：容器退出後會處於終止 (exited) 狀態，此時可以透過 `docker container ls -a` 檢視。其中的資料也不會丟失，還可以透過 `docker start` 指令來啟動它。只有刪除掉容器才會清除所有資料。
 
-### 如何停止所有正在运行的容器？
+### 如何停止所有正在執行的容器？
 
-答：可以使用 `docker stop $(docker container ls -q)` 命令。
+答：可以使用 `docker stop $(docker container ls -q)` 指令。
 
-### 如何批量清理已经停止的容器？
+### 如何批次清理已經停止的容器？
 
-答：可以使用 `docker container prune` 命令。
+答：可以使用 `docker container prune` 指令。
 
-### 如何获取某个容器的 PID 信息？
+### 如何獲取某個容器的 PID 訊息？
 
 答：可以使用
 
@@ -55,7 +55,7 @@
 docker inspect --format '{{ .State.Pid }}' <CONTAINER ID or NAME>
 ```
 
-### 如何获取某个容器的 IP 地址？
+### 如何獲取某個容器的 IP 地址？
 
 答：可以使用
 
@@ -63,9 +63,9 @@ docker inspect --format '{{ .State.Pid }}' <CONTAINER ID or NAME>
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' <CONTAINER ID or NAME>
 ```
 
-### 如何给容器指定一个固定 IP 地址，而不是每次重启容器 IP 地址都会变？
+### 如何給容器指定一個固定 IP 地址，而不是每次重啟容器 IP 地址都會變？
 
-答：使用以下命令启动容器可以使容器 IP 固定不变
+答：使用以下指令啟動容器可以使容器 IP 固定不變
 
 ```bash
 $ docker network create -d bridge --subnet 172.25.0.0/16 my-net
@@ -73,87 +73,87 @@ $ docker network create -d bridge --subnet 172.25.0.0/16 my-net
 $ docker run --network=my-net --ip=172.25.3.3 -itd --name=my-container busybox
 ```
 
-这个固定 IP 主要用于同一 Docker daemon 内的容器间通信。Docker Desktop 上不要依赖宿主机直接访问 Linux 容器 IP；宿主机访问容器服务仍应使用端口映射或 `host.docker.internal` 等机制。
+這個固定 IP 主要用於同一 Docker daemon 內的容器間通訊。Docker Desktop 上不要依賴宿主機直接訪問 Linux 容器 IP；宿主機訪問容器服務仍應使用連接埠對映或 `host.docker.internal` 等機制。
 
-### 如何临时退出一个正在交互的容器的终端，而不终止它？
+### 如何臨時退出一個正在互動的容器的終端，而不終止它？
 
-答：按 `Ctrl-p Ctrl-q`。如果按 `Ctrl-c` 往往会让容器内应用进程终止，进而会终止容器。
+答：按 `Ctrl-p Ctrl-q`。如果按 `Ctrl-c` 往往會讓容器內應用程序終止，進而會終止容器。
 
-### 使用 `docker port` 命令映射容器的端口时，系统报错 “Error：No public port ‘80’ published for xxx”？
+### 使用 `docker port` 指令對映容器的連接埠時，系統報錯 『Error：No public port 「80」 published for xxx』？
 
 答：
 
-* 创建容器时用 `-p HOST_PORT:CONTAINER_PORT` 或 `--publish` 显式发布端口，例如 `docker run -p 8080:80 nginx`；
-* 只想把镜像声明的 `EXPOSE` 端口随机发布到宿主机端口时，用 `-P` / `--publish-all`，之后通过 `docker ps` 查看实际端口；
-* `Dockerfile` 中的 `EXPOSE` 只是镜像元数据，不会自动发布端口。
+* 建立容器時用 `-p HOST_PORT:CONTAINER_PORT` 或 `--publish` 顯式發布連接埠，例如 `docker run -p 8080:80 nginx`；
+* 只想把映象宣告的 `EXPOSE` 連接埠隨機發布到宿主機連接埠時，用 `-P` / `--publish-all`，之後透過 `docker ps` 檢視實際連接埠；
+* `Dockerfile` 中的 `EXPOSE` 只是映象元資料，不會自動發布連接埠。
 
-### 可以在一个容器中同时运行多个应用进程么？
+### 可以在一個容器中同時執行多個應用程序麼？
 
-答：一般并不推荐在同一个容器内运行多个应用进程。如果有类似需求，可以通过一些额外的进程管理机制，比如 `supervisord` 来管理所运行的进程。可以参考 [Docker 官方说明](https://docs.docker.com/engine/containers/multi-service_container/)。
+答：一般並不推薦在同一個容器內執行多個應用程序。如果有類似需求，可以透過一些額外的程序管理機制，比如 `supervisord` 來管理所執行的程序。可以參考 [Docker 官方說明](https://docs.docker.com/engine/containers/multi-service_container/)。
 
-### 如何控制容器占用 CPU、内存等系统资源的份额？
+### 如何控制容器佔用 CPU、記憶體等系統資源的份額？
 
-答：在使用 `docker create` 命令创建容器或使用 `docker run` 创建并启动容器的时候，可以使用 -c|--cpu-shares\[=0] 参数来调整容器使用 CPU 的权重；使用 -m|--memory\[=MEMORY] 参数来调整容器使用内存的大小。
+答：在使用 `docker create` 指令建立容器或使用 `docker run` 建立並啟動容器的時候，可以使用 -c|--cpu-shares\[=0] 引數來調整容器使用 CPU 的權重；使用 -m|--memory\[=MEMORY] 引數來調整容器使用記憶體的大小。
 
-## 仓库相关
+## 倉庫相關
 
-### 仓库、注册服务器、注册索引有何关系？
+### 倉庫、註冊伺服器、註冊索引有何關係？
 
-首先，仓库是存放一组关联镜像的集合，比如同一个应用的不同版本的镜像。
+首先，倉庫是存放一組關聯映象的集合，比如同一個應用的不同版本的映象。
 
-注册服务器是存放实际的镜像文件的地方。注册索引则负责维护用户的账号、权限、搜索、标签等的管理。因此，注册服务器利用注册索引来实现认证等管理。
+註冊伺服器是存放實際的映象檔案的地方。註冊索引則負責維護使用者的賬號、許可權、搜尋、標籤等的管理。因此，註冊伺服器利用註冊索引來實現認證等管理。
 
-## 配置相关
+## 設定相關
 
-### Docker 的配置文件放在哪里，如何修改配置？
+### Docker 的設定檔案放在哪裡，如何修改設定？
 
-答：使用 `systemd` 的系统（如 Ubuntu 22.04+、Debian 12+、Rocky/Alma/CentOS Stream 9+）的配置文件在 `/etc/docker/daemon.json`。
+答：使用 `systemd` 的系統（如 Ubuntu 22.04+、Debian 12+、Rocky/Alma/CentOS Stream 9+）的設定檔案在 `/etc/docker/daemon.json`。
 
-### 如何更改 Docker 的默认存储位置？
+### 如何更改 Docker 的預設儲存位置？
 
-答：在 Linux 上，运行 `docker info --format '{{.DockerRootDir}}'` 可查看 Docker 的数据目录。可通过 `/etc/docker/daemon.json` 的 `data-root` 指定新位置。使用独立的 containerd 镜像存储时，还需单独设置 containerd 的 `root`。配置新路径前先备份原数据；修改路径本身不会搬迁已有数据。详见 [Docker 数据目录配置](https://docs.docker.com/engine/daemon/#configure-the-data-directory-location)。
+答：在 Linux 上，執行 `docker info --format '{{.DockerRootDir}}'` 可檢視 Docker 的資料目錄。可透過 `/etc/docker/daemon.json` 的 `data-root` 指定新位置。使用獨立的 containerd 映象儲存時，還需單獨設定 containerd 的 `root`。設定新路徑前先備份原資料；修改路徑本身不會搬遷已有資料。詳見 [Docker 資料目錄設定](https://docs.docker.com/engine/daemon/#configure-the-data-directory-location)。
 
-### 使用内存和 swap 限制启动容器时候报内核不支持警告？
+### 使用記憶體和 swap 限制啟動容器時候報核心不支援警告？
 
-答：如果遇到 `WARNING: Your kernel does not support cgroup swap limit` 等警告，这是因为系统默认没有开启对内存和 swap 使用的统计功能，引入该功能会带来性能的下降。要开启该功能，可以采取如下操作：
+答：如果遇到 `WARNING: Your kernel does not support cgroup swap limit` 等警告，這是因為系統預設沒有開啟對記憶體和 swap 使用的統計功能，引入該功能會帶來效能的下降。要開啟該功能，可以採取如下操作：
 
-* 编辑 `/etc/default/grub` 文件（Ubuntu 系统为例），配置 `GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"`
+* 編輯 `/etc/default/grub` 檔案（Ubuntu 系統為例），設定 `GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"`
 * 更新 grub：`$ sudo update-grub`
-* 重启系统，即可。
+* 重啟系統，即可。
 
-## Docker 与虚拟化
+## Docker 與虛擬化
 
-### Docker 与 LXC 有何不同？
+### Docker 與 LXC 有何不同？
 
-答：LXC 利用 Linux 上相关技术实现了容器。Docker 则在如下的几个方面进行了改进：
+答：LXC 利用 Linux 上相關技術實現了容器。Docker 則在如下的幾個方面進行了改進：
 
-* 移植性：通过抽象容器配置，容器可以实现从一个平台移植到另一个平台；
-* 镜像系统：基于 OverlayFS 的镜像系统为容器的分发带来了很多的便利，同时共同的镜像层只需要存储一份，实现高效率的存储；
-* 版本管理：类似于 Git 的版本管理理念，用户可以更方便的创建、管理镜像文件；
-* 仓库系统：仓库系统大大降低了镜像的分发和管理的成本；
-* 周边工具：各种现有工具（配置管理、云平台）对 Docker 的支持，以及基于 Docker 的 PaaS、CI 等系统，让 Docker 的应用更加方便和多样化。
+* 移植性：透過抽象容器設定，容器可以實現從一個平台移植到另一個平台；
+* 映象系統：基於 OverlayFS 的映象系統為容器的分發帶來了很多的便利，同時共同的映象層只需要儲存一份，實現高效率的儲存；
+* 版本管理：類似於 Git 的版本管理理念，使用者可以更方便的建立、管理映象檔案；
+* 倉庫系統：倉庫系統大大降低了映象的分發和管理的成本；
+* 周邊工具：各種現有工具（設定管理、雲平台）對 Docker 的支援，以及基於 Docker 的 PaaS、CI 等系統，讓 Docker 的應用更加方便和多樣化。
 
-### Docker 与 Vagrant 有何不同？
+### Docker 與 Vagrant 有何不同？
 
-答：Docker 将应用及其依赖打包为镜像，并在容器中运行。Vagrant 用配置文件描述开发机器，可以通过虚拟机提供程序创建整套客户操作系统。
+答：Docker 將應用及其依賴打包為映象，並在容器中執行。Vagrant 用設定檔案描述開發機器，可以透過虛擬機提供程式建立整套客戶作業系統。
 
-### 开发环境中 Docker 和 Vagrant 该如何选择？
+### 開發環境中 Docker 和 Vagrant 該如何選擇？
 
-答：若要让团队复用同一套应用服务，可用 Docker Compose 描述服务，并在 macOS 或 Windows 上用 [Docker Desktop](https://docs.docker.com/desktop/) 运行 Linux 容器。若需要测试特定内核、系统启动过程或整台虚拟机的配置，可用 Vagrant 管理相应的虚拟机。
+答：若要讓團隊複用同一套應用服務，可用 Docker Compose 描述服務，並在 macOS 或 Windows 上用 [Docker Desktop](https://docs.docker.com/desktop/) 執行 Linux 容器。若需要測試特定核心、系統啟動過程或整台虛擬機的設定，可用 Vagrant 管理相應的虛擬機。
 
 ## 其他
 
-### Docker 能在非 Linux 平台上运行么？比如 Windows 或 macOS
+### Docker 能在非 Linux 平台上執行麼？比如 Windows 或 macOS
 
-答：完全可以。安装方法请查看[安装 Docker](../../03_install/README.md) 一节
+答：完全可以。安裝方法請檢視[安裝 Docker](../../03_install/README.md) 一節
 
-### 如何将一台宿主主机的 Docker 环境迁移到另外一台宿主主机？
+### 如何將一台宿主主機的 Docker 環境遷移到另外一台宿主主機？
 
-答：在新主机上用原部署配置重新创建服务，重新拉取镜像，并备份、恢复数据卷和绑定挂载中的应用数据。对运行中的数据库，先制作一致性备份。仅复制 `/var/lib/docker` 会遗漏绑定挂载和独立 containerd 数据目录中的内容。
+答：在新主機上用原部署設定重新建立服務，重新拉取映象，並備份、恢復資料卷和繫結掛載中的應用資料。對執行中的資料庫，先製作一致性備份。僅複製 `/var/lib/docker` 會遺漏繫結掛載和獨立 containerd 資料目錄中的內容。
 
-### 如何进入 Docker 容器的网络命名空间？
+### 如何進入 Docker 容器的網路命名空間？
 
-答：在运行 Docker Engine 的 Linux 主机上，可以通过容器主进程的 PID 找到其网络命名空间。下例为它注册一个临时名称，查看网络接口后移除名称。先将 `container_id` 设为运行中容器的名称或 ID。
+答：在執行 Docker Engine 的 Linux 主機上，可以透過容器主程序的 PID 找到其網路命名空間。下例為它註冊一個臨時名稱，檢視網路介面後移除名稱。先將 `container_id` 設為執行中容器的名稱或 ID。
 
 ```bash
 $ pid=$(docker inspect --format='{{.State.Pid}}' "$container_id")
@@ -162,8 +162,8 @@ $ sudo ip netns exec "docker-$pid" ip address show
 $ sudo ip netns delete "docker-$pid"
 ```
 
-### 如何获取容器绑定到本地哪个 veth 接口上？
+### 如何獲取容器繫結到本地哪個 veth 介面上？
 
-答：Docker 容器启动后，会通过 veth 接口对连接到本地网桥，veth 接口命名跟容器命名毫无关系，十分难以找到对应关系。
+答：Docker 容器啟動後，會通過 veth 介面對連線到本地網橋，veth 介面命名跟容器命名毫無關係，十分難以找到對應關係。
 
-最简单的一种方式是通过查看接口的索引号，在容器中执行 `ip a` 命令，查看到本地接口最前面的接口索引号，如 `205`，将此值加上 1，即 `206`，然后在本地主机执行 `ip a` 命令，查找接口索引号为 `206` 的接口，两者即为连接的 veth 接口对。
+最簡單的一種方式是透過檢視介面的索引號，在容器中執行 `ip a` 指令，檢視到本地介面最前面的介面索引號，如 `205`，將此值加上 1，即 `206`，然後在本地主機執行 `ip a` 指令，查詢介面索引號為 `206` 的介面，兩者即為連線的 veth 介面對。
